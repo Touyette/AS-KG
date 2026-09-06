@@ -6,7 +6,7 @@ configuration:
   enablePopovers: true
   analytics: null
   locale: en-US
-  baseUrl: touyette.github.io/AS-KG-HeidiPriebe
+  baseUrl: touyette.github.io/AS-KG
   ignorePatterns:
     - private
     - templates
