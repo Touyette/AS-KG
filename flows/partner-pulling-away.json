@@ -1,0 +1,76 @@
+{
+  "id": "partner-pulling-away",
+  "title": "I think they're pulling away",
+  "blurb": "For when someone has gone quieter and you can feel yourself starting to search for what it means.",
+  "lens": ["anxious-preoccupied", "fearful-avoidant"],
+  "mirror": "gone-cold",
+  "entry_signals": ["they've gone quiet", "they're being distant", "I keep checking if they've read it", "something feels off and they say it's fine", "I think they're losing interest"],
+  "steps": [
+    { "id": "land", "kind": "scale", "ask": "Before anything else — where are you right now, one to ten?",
+      "help": "One is barely a flicker. Ten is you cannot think about anything else.",
+      "cites": ["Window Of Tolerance", "The Distress Scale"],
+      "branches": [{ "when": ">=7", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "Not yet",
+      "say": "Nothing useful gets decided from here, and this isn't a discipline problem — above your window of tolerance you aren't choosing between options, you're looking for relief, and at this level you won't care much which one you get.\n\nThis flow will still be here at a five. The thing that actually helps is coming back before the spike, not being calmer during it.",
+      "cites": ["Window Of Tolerance", "Intervening At Low Distress", "Chronic Abandonment Fear"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "Set aside how it feels for a moment. If a friend described this exact situation to you — the same facts, not the same dread — would anything in it worry you?",
+      "help": "This question comes first on purpose. Everything below is about the gap between what happened and what you concluded. That only helps if nothing is actually wrong.",
+      "options": [
+        { "label": "Yes — something in it would worry me", "goto": "situation-first" },
+        { "label": "I honestly can't tell", "goto": "observed", "flag": "uncertain" },
+        { "label": "No — I think it's mostly happening in me", "goto": "observed" } ] },
+
+    { "id": "situation-first", "kind": "stop", "title": "Then this isn't the right tool",
+      "say": "If something would worry you about a friend in this position, that is the thing to look at — not whether you're reading it through an anxious lens.\n\nAttachment patterns can amplify a real signal. They do not manufacture one from nothing, and the fastest way to stay somewhere bad is to keep explaining your own alarm to yourself.\n\nWrite down what actually happened, in plain language, without interpreting it. Then say it to one person who knows you.",
+      "cites": ["I Cannot Be Okay Until They Change", "Checking What Your Friends Know"] },
+
+    { "id": "observed", "kind": "split", "reframe": true,
+      "ask_a": "What did they actually do, or not do?",
+      "help_a": "Only what a camera would have caught. Times, words, actions. Not tone you inferred, not what their silence meant.",
+      "ask_b": "And what did you take that to mean?",
+      "help_b": "The conclusion, in the words you've been using in your head.",
+      "goto": "gap" },
+
+    { "id": "gap", "kind": "reflect", "reframe": true,
+      "say": "Here they are side by side. Not to say the second one is wrong — it might be exactly right. Only to make it visible that they are two different things, and that you currently have evidence for one of them.",
+      "cites": ["Emotions Accumulate From Small Signals"],
+      "goto": "move" },
+
+    { "id": "move", "kind": "choice", "reframe": true,
+      "ask": "When you noticed, what did you find yourself doing?",
+      "help": "This is about the move, not about you. Everyone runs one.",
+      "options": [
+        { "label": "Re-reading things, checking, looking for signs", "names": "Scanning For Confirmation", "cites": ["Scanning For Confirmation", "Monitoring The Bond"], "goto": "difference" },
+        { "label": "Getting there first — going quiet, pulling back", "names": "Deactivating Strategies", "cites": ["Deactivating Strategies", "Preemptive Sabotage"], "goto": "difference" },
+        { "label": "Raising the volume so they'd have to respond", "names": "Amplifying The Signal", "cites": ["Amplifying The Signal", "Escalating Anger"], "goto": "difference" },
+        { "label": "Both, swinging between them", "names": "Approach-Avoidance Conflict", "cites": ["Approach-Avoidance Conflict"], "goto": "difference" },
+        { "label": "Nothing — I've just been sitting with it", "names": "Tolerating Emotional Discomfort", "cites": ["Tolerating Emotional Discomfort"], "goto": "difference" } ] },
+
+    { "id": "difference", "kind": "text", "reframe": true,
+      "ask": "What would you need to know to tell the difference between your observation and your conclusion?",
+      "help": "Something findable. Not \"whether they really love me\" — something that could actually turn out one way or the other.",
+      "goto": "askable" },
+
+    { "id": "askable", "kind": "text", "reframe": true,
+      "ask": "Is there a question you could ask that would get you that?",
+      "help": "Direct, and about them rather than about you. \"Has something been going on this week?\" gets an answer. \"Are you still into this?\" asks them to manage your fear.",
+      "cites": ["Honest Expression Of Need", "Taking Your Partner At Face Value"],
+      "goto": "control" },
+
+    { "id": "control", "kind": "choice", "reframe": true,
+      "ask": "Last one. The thing you want here — is it something you can do, or something they'd have to agree to?",
+      "help": "Both are fine. They just work differently, and calling one the other is where a lot of frustration comes from.",
+      "cites": ["Boundary", "Expectation"],
+      "options": [
+        { "label": "Something I can do on my own", "names": "Boundary", "cites": ["Setting A Boundary You Control"], "goto": "end" },
+        { "label": "Something they'd have to agree to", "names": "Expectation", "cites": ["Agreeing Expectations Explicitly"], "goto": "end" },
+        { "label": "I'm not sure yet", "goto": "end" } ] },
+
+    { "id": "end", "kind": "end",
+      "say": "That's the whole thing. Below is what you said, not what I concluded — it's yours to take into the conversation.",
+      "cites": ["How Not To Use This"] }
+  ]
+}

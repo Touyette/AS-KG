@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toolbox · Attachment Theory Knowledge Graph</title>
+<style>
+:root{color-scheme:light;
+  --surface-1:#fcfcfb;--surface-2:#f4f3f0;--line:#dedcd6;--text-primary:#0b0b0b;
+  --text-secondary:#52514e;--text-muted:#78766f;--accent:#2a78d6;--warn:#eb6834;--calm:#1baf7a;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --surface-1:#1a1a19;--surface-2:#232322;--line:#3a3a37;--text-primary:#fff;
+  --text-secondary:#c3c2b7;--text-muted:#8e8c83;--accent:#3987e5;--warn:#d95926;--calm:#199e70;}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --surface-1:#1a1a19;--surface-2:#232322;--line:#3a3a37;--text-primary:#fff;
+  --text-secondary:#c3c2b7;--text-muted:#8e8c83;--accent:#3987e5;--warn:#d95926;--calm:#199e70;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-1);color:var(--text-primary);
+  font:16px/1.6 ui-serif,Georgia,Cambria,serif}
+a{color:var(--accent)}
+.wrap{max-width:720px;margin:0 auto;padding:32px 22px 80px}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+.lede{color:var(--text-secondary);font-size:15px;margin:0 0 28px}
+.card{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;margin-bottom:12px;cursor:pointer}
+.card:hover{border-color:var(--accent)}
+.card h3{margin:0 0 5px;font-size:17px}
+.card p{margin:0;font-size:14px;color:var(--text-muted);line-height:1.5}
+.q{font-size:21px;line-height:1.45;margin:0 0 14px}
+.help{background:var(--surface-2);border-left:2px solid var(--line);padding:11px 15px;
+  border-radius:0 8px 8px 0;color:var(--text-secondary);font-size:14.5px;margin:0 0 20px;
+  white-space:pre-wrap}
+textarea,input[type=range]{width:100%;font:inherit}
+textarea{min-height:96px;padding:11px 13px;border:1px solid var(--line);border-radius:9px;
+  background:var(--surface-1);color:var(--text-primary);resize:vertical;font-size:15px}
+label.fld{display:block;font-size:13px;color:var(--text-muted);margin:0 0 6px;
+  text-transform:uppercase;letter-spacing:.06em}
+.opt{display:block;width:100%;text-align:left;background:var(--surface-2);color:var(--text-primary);
+  border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin-bottom:9px;
+  font:inherit;font-size:15.5px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.scale{display:flex;gap:6px;margin:6px 0 22px}
+.scale button{flex:1;padding:13px 0;border:1px solid var(--line);background:var(--surface-2);
+  color:var(--text-primary);border-radius:8px;font:inherit;font-size:15px;cursor:pointer}
+.scale button:hover{border-color:var(--accent);background:var(--accent);color:#fff}
+.nav{display:flex;gap:10px;margin-top:22px;align-items:center}
+button.go{background:var(--text-primary);color:var(--surface-1);border:0;border-radius:9px;
+  padding:11px 20px;font:inherit;font-size:15px;cursor:pointer}
+button.ghost{background:none;border:0;color:var(--text-muted);font:inherit;font-size:14px;cursor:pointer;
+  text-decoration:underline;padding:8px 0}
+.stop{border:1px solid var(--warn);border-radius:12px;padding:20px;background:var(--surface-2)}
+.stop h2{margin:0 0 10px;font-size:19px;color:var(--warn)}
+.stop p{white-space:pre-wrap;margin:0 0 12px;font-size:15.5px;line-height:1.6}
+.cites{font-size:13px;color:var(--text-muted);margin-top:14px;line-height:1.7}
+.cites a{color:var(--text-muted)}
+.pair{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 12px}
+.pair b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:5px}
+.pair div{white-space:pre-wrap;font-size:15px}
+.named{display:inline-block;border:1px solid var(--calm);color:var(--calm);border-radius:20px;
+  padding:3px 11px;font-size:13px;margin-top:8px}
+.prog{height:3px;background:var(--line);border-radius:2px;margin-bottom:26px}
+.prog i{display:block;height:3px;background:var(--accent);border-radius:2px;transition:width .2s}
+.priv{font-size:13px;color:var(--text-muted);border-top:1px solid var(--line);margin-top:40px;padding-top:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="app"></div>
+  <p class="priv">Nothing you type here leaves your browser. There is no account, no analytics on this page,
+  and nothing is sent anywhere — closing the tab discards it. This is a set of questions, not therapy,
+  and not a diagnosis.</p>
+</div>
+<script src="./toolbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{
+  "id": "they-asked-for-space",
+  "title": "They asked for space and I'm spiralling",
+  "blurb": "For the stretch between someone stepping back and you finding out what it meant.",
+  "lens": ["anxious-preoccupied", "fearful-avoidant"],
+  "entry_signals": ["they said they need space", "they need time to think", "I don't know if they're coming back", "how long is this going to last"],
+  "steps": [
+    { "id": "land", "kind": "scale",
+      "ask": "Where are you, one to ten?",
+      "cites": ["Window Of Tolerance", "Chronic Abandonment Fear"],
+      "branches": [{ "when": ">=7", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "First, the next hour",
+      "say": "This is the state the whole pattern is organised around: the thing you'd normally reach for to feel better is the one person currently unavailable.\n\nThat's a genuinely hard position and it isn't a character flaw. But nothing you send from here will read the way you intend it to.\n\nOne thing that helps more than it sounds like it should: put the need somewhere other than this relationship for the next hour. Not instead of them — alongside. The muscle that's underdeveloped is the one that doesn't route everything through a single person.",
+      "cites": ["Dispersing Your Needs", "I Can Only Feel Better Through Someone Else", "Learning To Self-Soothe"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "When they asked for space — was anything in how they did it something you'd flag if a friend described it?",
+      "help": "Space asked for kindly and space used as punishment are different things, and only one of them is yours to sit with.",
+      "options": [
+        { "label": "Yes — the way it happened wasn't okay", "goto": "situation-first" },
+        { "label": "I'm not sure", "goto": "heard", "flag": "uncertain" },
+        { "label": "No — they were decent about it", "goto": "heard" } ] },
+
+    { "id": "situation-first", "kind": "stop", "title": "That part is real",
+      "say": "Then the thing to look at is what they did, not how you're taking it.\n\nSpace used to punish, to control, or to avoid ever having a conversation is a pattern in its own right, and reading your reaction to it as oversensitivity is how it gets to keep working.\n\nWrite down what happened plainly, and tell someone who knows you both less than you do.",
+      "cites": ["Checking What Your Friends Know", "Accidental Bad Faith"] },
+
+    { "id": "heard", "kind": "split", "reframe": true,
+      "ask_a": "What did they actually say?",
+      "help_a": "As close to their words as you can get. Not your summary of it.",
+      "ask_b": "And what did you hear?",
+      "help_b": "The version that's been running since. \"I need a few days\" and \"this is over and they're being kind about it\" are different sentences.",
+      "goto": "meaning" },
+
+    { "id": "meaning", "kind": "choice", "reframe": true,
+      "ask": "What do you think space means to them?",
+      "help": "Worth asking because it usually means something quite different at each end. For one person it can be how they stay in a relationship; for the other it can look like the beginning of leaving.",
+      "cites": ["Deactivating Strategies", "Chronic Abandonment Fear"],
+      "options": [
+        { "label": "It's how they regulate — they come back", "names": "Deactivating Strategies", "cites": ["Deactivating Strategies", "Emotional Withdrawal"], "goto": "doing" },
+        { "label": "I think it's how it ends", "names": "Chronic Abandonment Fear", "cites": ["Chronic Abandonment Fear", "Scanning For Confirmation"], "goto": "doing" },
+        { "label": "I genuinely don't know — we've never talked about it", "goto": "doing" } ] },
+
+    { "id": "doing", "kind": "text", "reframe": true,
+      "ask": "What have you been doing with the time?",
+      "help": "Honestly. Drafting messages you don't send, checking whether they're online, re-reading things, telling the story to friends on a loop — all of it counts and none of it is shameful.",
+      "cites": ["Scanning For Confirmation", "Getting Lost In The Story"],
+      "goto": "terms" },
+
+    { "id": "terms", "kind": "text", "reframe": true,
+      "ask": "What would you need agreed, for space to be survivable rather than unbearable?",
+      "help": "Usually this turns out to be smaller than expected — how long, and who reaches out first. Notice that this is something they'd have to agree to, which means it has to be asked for rather than assumed.",
+      "cites": ["Expectation", "Agreeing Expectations Explicitly", "Honest Expression Of Need"],
+      "goto": "yours" },
+
+    { "id": "yours", "kind": "text", "reframe": true,
+      "ask": "And what's the version that doesn't require them at all?",
+      "help": "The thing you'd do regardless of what they decide. Not a threat, not a strategy to make them respond — just the part of this that stays in your hands.",
+      "cites": ["Boundary", "Setting A Boundary You Control", "Dispersing Your Needs"],
+      "goto": "end" },
+
+    { "id": "end", "kind": "end",
+      "say": "Two lists: what needs agreeing, and what doesn't. The second one is the one you can start on tonight.",
+      "cites": ["How Not To Use This"] }
+  ]
+}

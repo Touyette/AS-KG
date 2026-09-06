@@ -1,0 +1,133 @@
+{
+  "id": "too-small-to-mention",
+  "title": "There's something I want to say and it feels too small",
+  "blurb": "For the thing you keep deciding not to raise, that keeps not going away.",
+  "lens": ["anxious-preoccupied", "dismissive-avoidant", "fearful-avoidant"],
+  "entry_signals": [
+    "it's not a big deal but it keeps bothering me",
+    "I don't want to make a thing of it",
+    "I'll sound crazy if I bring this up",
+    "it's been annoying me for weeks",
+    "I don't know if I'm allowed to be annoyed about this"
+  ],
+  "steps": [
+    {
+      "id": "scale",
+      "kind": "scale",
+      "ask": "How big is this, one to ten?",
+      "help": "Your honest number, not the one that would justify raising it.",
+      "cites": ["The Anger Scale"],
+      "branches": [
+        { "when": ">=8", "goto": "not-small" },
+        { "when": "*", "goto": "safety" }
+      ]
+    },
+    {
+      "id": "not-small",
+      "kind": "stop",
+      "title": "This isn't the small thing",
+      "say": "At eight or above you are not sitting on something minor — you are sitting on something that has already accumulated, and this flow is built for catching things before that happens.\n\nTwo of the other sets of questions fit better: the one about anger that feels out of proportion, and the one about the fight that keeps returning. Either is a better door than this one.\n\nWorth knowing anyway: a number that high after weeks of saying nothing is usually accurate to the total rather than to the incident.",
+      "cites": ["The Twenty-Five Out Of Ten Reaction", "Anger Is Self-Correcting"]
+    },
+    {
+      "id": "safety",
+      "kind": "choice",
+      "safety_gate": true,
+      "ask": "First, and it matters more than the rest: when you imagine saying it — what stops you?",
+      "help": "Answer for this person, not in general. There is a real difference between finding it hard and having learned that it is not safe, and the questions below only help with the first.",
+      "options": [
+        { "label": "It feels embarrassing or too trivial to justify", "goto": "voice" },
+        { "label": "I don't want to start something", "goto": "voice" },
+        { "label": "Raising things with this person genuinely doesn't go well", "goto": "not-a-technique" },
+        { "label": "I'd be punished for it, or it'd be used against me", "goto": "not-a-technique" }
+      ]
+    },
+    {
+      "id": "not-a-technique",
+      "kind": "stop",
+      "title": "Then this isn't a delivery problem",
+      "say": "If raising small things with this person reliably costs you, that is information about the relationship rather than about your technique — and no amount of better phrasing fixes it.\n\nThis flow assumes someone who can hear a small complaint and stay in the room. Where that assumption does not hold, practising on them is not a good first move; the honest question is what it is like to be somewhere you cannot say small things, and that is worth taking to someone outside it.\n\nIf you want to practise the skill itself, practise it where it is safe first.",
+      "cites": ["Checking What Your Friends Know", "Where The Strategy Still Works"]
+    },
+    {
+      "id": "voice",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "The argument that it is too small to mention is worth inspecting, because it is the one thing that is always available and always says the same thing.\n\nIts logic is inverted. Smallness is not the reason to stay quiet — it is the reason this is worth raising now. At a two or a three you can say it calmly, the other person can hear it without defending themselves, and the problem is still the size of a problem that can be solved.",
+      "cites": ["Gaslighting Yourself About Anger", "Expressing Anger At Two Out Of Ten"],
+      "goto": "arithmetic"
+    },
+    {
+      "id": "arithmetic",
+      "kind": "choice",
+      "ask": "Has this particular thing happened before?",
+      "options": [
+        { "label": "This is the first time", "goto": "corrective" },
+        { "label": "A few times", "goto": "corrective", "flag": "accumulating" },
+        { "label": "Many times — I've never said anything", "goto": "accrued", "flag": "accrued" }
+      ]
+    },
+    {
+      "id": "accrued",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Then there are two separate things here, and they need separating before you speak.\n\nThe first is the thing itself, which is still small. The second is everything that has accumulated behind it — and that part is not theirs to answer for, because they were never told. Priebe is blunt about the cost: by the tenth time, your own footing is weaker, because you were the one who let it stand.\n\nRaise the current one at its actual size. The backlog is real and it is yours to unwind, not theirs to be charged with.",
+      "cites": ["The Twenty-Five Out Of Ten Reaction", "Anger Is Self-Correcting", "The Silent Contract"],
+      "goto": "expectation"
+    },
+    {
+      "id": "corrective",
+      "kind": "reflect",
+      "say": "Good — then it is genuinely still at the size where saying it usually stops it. A line named the first time it is crossed is much less likely to be crossed again, which is the whole reason for going early.",
+      "cites": ["Anger Is Self-Correcting"],
+      "goto": "expectation"
+    },
+    {
+      "id": "expectation",
+      "kind": "split",
+      "ask_a": "What is the expectation you have been holding here?",
+      "ask_b": "Have you ever actually said it out loud to them?",
+      "help_a": "Not the complaint — the thing you assumed would happen. These are not a problem in themselves; relationships run on them. They only work once they have been stated.",
+      "help_b": "Almost always the answer is no. That is the finding, not a failure.",
+      "cites": ["The Silent Contract", "Asking What You Are Expecting, And Whether You Said It", "Expectation"],
+      "goto": "shape"
+    },
+    {
+      "id": "shape",
+      "kind": "choice",
+      "ask": "Is what you want something they would have to agree to, or something you can do on your own?",
+      "help": "Both are legitimate. They work differently, and calling one the other is where most of the frustration comes from.",
+      "options": [
+        { "label": "Something they'd have to agree to", "goto": "say-it" },
+        { "label": "Something I can do regardless", "goto": "say-it" },
+        { "label": "I'm not sure", "goto": "say-it" }
+      ],
+      "cites": ["Boundary", "Expectation", "Setting A Boundary You Control"]
+    },
+    {
+      "id": "say-it",
+      "kind": "text",
+      "ask": "Draft it. One or two sentences, at the size it actually is.",
+      "help": "Say the number if it helps — that this is a two out of ten and you feel faintly ridiculous raising it, and you are raising it anyway because you would rather it stayed a two. Naming the smallness openly does the work that waiting for it to be big enough never does.",
+      "cites": ["Expressing Anger At Two Out Of Ten", "Naming The Feeling Accurately"],
+      "goto": "scaffold"
+    },
+    {
+      "id": "scaffold",
+      "kind": "choice",
+      "ask": "Would it help to tell them in advance that you are practising this?",
+      "help": "Priebe's own version: telling people that if something sounds trivial, it is because she is trying to catch things early rather than because it is secretly enormous. It gives the other person the right frame for a kind of message they may not have had from you before.",
+      "options": [
+        { "label": "Yes — I'll say that first", "goto": "end" },
+        { "label": "No, I'll just say the thing", "goto": "end" }
+      ],
+      "cites": ["Telling People You Are Practising"]
+    },
+    {
+      "id": "end",
+      "kind": "end",
+      "say": "You have the sentence and its actual size. That is the whole exercise.\n\nThe thing that makes this work is not the wording — it is doing it while the number is still low, repeatedly, until raising small things stops feeling like an event.",
+      "cites": ["Expressing Anger At Two Out Of Ten", "How Not To Use This"]
+    }
+  ]
+}

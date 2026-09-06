@@ -1,0 +1,58 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main, AS-KG]   # fires on either, so a branch rename can't silently stop deploys
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # Quartz reads git history for page dates
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Quartz 5.0.0 ships a peer conflict between @quartz-community/latex and
+      # the root's @myriaddreamin/rehype-typst pin. We don't use that plugin.
+      - run: npm install --legacy-peer-deps --no-audit --no-fund
+      - name: Validate the graph against the schema
+        run: npm run validate
+      - name: Validate the decision flows
+        run: node scripts/validate-flows.mjs
+      # Must run before quartz build: the style entry pages are templates whose
+      # sections are <!-- auto:… --> markers, and without this step they publish
+      # empty. It rewrites content/ in place, which is why it only ever runs on
+      # a throwaway checkout and never against the working tree.
+      - name: Expand the entry-page markers
+        run: node scripts/expand-moc.mjs content
+      - run: npx quartz build
+      - name: Build the typed graph and the toolbox
+        run: |
+          node scripts/build-typed-graph.mjs
+          node scripts/build-typed-graph-page.mjs
+          node scripts/build-toolbox.mjs
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

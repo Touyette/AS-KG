@@ -1,0 +1,122 @@
+{
+  "id": "they-say-i-hurt-them",
+  "title": "They say I hurt them and I don't see it",
+  "blurb": "For being told you did something you did not intend and cannot yet recognise — before the defence writes itself.",
+  "lens": ["dismissive-avoidant", "anxious-preoccupied", "fearful-avoidant"],
+  "entry_signals": [
+    "that's not what I meant",
+    "they're taking it the wrong way",
+    "I didn't do anything wrong",
+    "I don't see how that hurt them",
+    "they're overreacting"
+  ],
+  "steps": [
+    {
+      "id": "land",
+      "kind": "scale",
+      "ask": "How defensive are you feeling, one to ten?",
+      "help": "Not how wrong they are. How much of you is braced right now.",
+      "cites": ["Defensiveness", "Window Of Tolerance"],
+      "branches": [
+        { "when": ">=8", "goto": "braced" },
+        { "when": "*", "goto": "safety" }
+      ]
+    },
+    {
+      "id": "braced",
+      "kind": "stop",
+      "title": "Nothing lands from here",
+      "say": "At this level you are not evaluating what they said, you are looking for the flaw in it — and you will find one, because there is always one.\n\nThat is not a character problem. If the cost of a mistake was once high, being told you got something wrong reads as a threat rather than as information, and the system that handles threats is not the one that can hear nuance.\n\nCome back when it has dropped. You can say that out loud to them, and it is a better move than most of what you would produce right now: that you want to take it seriously and you are too wound up to do it well yet.",
+      "cites": ["Any Criticism Means I Am Being Written Off", "Naming Your Own Activation Out Loud"]
+    },
+    {
+      "id": "safety",
+      "kind": "choice",
+      "safety_gate": true,
+      "ask": "Before looking at your part — what is the wider pattern here? How often do you end up being the one at fault?",
+      "help": "Genuinely asked, and not rhetorical. What follows is about finding impact you cannot see, and that is the right work in some situations and the wrong work in others. Which one this is depends on your answer.",
+      "options": [
+        { "label": "Rarely — this is unusual between us", "goto": "intent" },
+        { "label": "Sometimes, and it goes both ways", "goto": "intent" },
+        { "label": "Almost always. Everything ends up being my fault", "goto": "not-this-flow" },
+        { "label": "I've started to think I might be the problem in general", "goto": "not-this-flow" }
+      ]
+    },
+    {
+      "id": "not-this-flow",
+      "kind": "stop",
+      "title": "Then this is the wrong direction to push",
+      "say": "If responsibility only ever travels one way, adding more self-examination to your side does not correct the balance — it deepens it. And that pattern has more than one cause: it happens where someone genuinely is being held responsible for everything, and it also happens where a system flips between being owed everything and owing everything, so that whichever state you are in feels like the whole truth.\n\nEither way, the useful question is not what you did this time. It is what the distribution has been over months, and that is a question for someone outside it — a friend who knows you both, or a therapist. People inside a dynamic are the worst-placed to see its shape.\n\nOne thing to hold on to meanwhile: most conflicts are produced by two people acting in good faith whose histories collide. A version where all of it is yours is as unlikely as a version where none of it is.",
+      "cites": ["Over- And Under-Taking Responsibility", "Complex Causality", "Checking What Your Friends Know"]
+    },
+    {
+      "id": "intent",
+      "kind": "choice",
+      "ask": "Did you mean to hurt them?",
+      "help": "Almost always no. Worth stating anyway, because of what it does not settle.",
+      "options": [
+        { "label": "No — that's the whole point, I didn't", "goto": "intent-gap" },
+        { "label": "I was annoyed, so maybe a bit", "goto": "intent-gap" },
+        { "label": "Yes, in the moment", "goto": "intent-gap" }
+      ]
+    },
+    {
+      "id": "intent-gap",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Here is the step that tends to be missing, and it is a small one: you can act on entirely good intentions and still land badly on someone. Both of those are true at once, and neither cancels the other.\n\nThe reason it matters is that \"I didn't mean to\" feels like it answers \"you hurt me\", and it does not — they are answers to different questions. Offering the first in response to the second is what turns one incident into an argument about whether you are a good person, which is a conversation nobody wins.",
+      "cites": ["Impact Regardless Of Intent", "Good Intentions Mean I Cannot Have Caused Harm"],
+      "goto": "signal"
+    },
+    {
+      "id": "signal",
+      "kind": "split",
+      "ask_a": "What did they say, as close to their words as you can get?",
+      "ask_b": "Now: what part of it is true, even if the rest isn't?",
+      "help_a": "Their words, not your summary of what they were getting at. Summaries do the editing for you.",
+      "help_b": "This is the whole move. What someone says when they are hurt usually contains something accurate wrapped in a lot that is not — and the natural response is to argue with the wrapping, because the wrapping is genuinely wrong. Meanwhile they are talking about the part in the middle.",
+      "cites": ["Signal And Muddle", "Asking For Their Side"],
+      "goto": "both-right"
+    },
+    {
+      "id": "both-right",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "It is worth noticing that you can both be right. \"You don't care about me\" is untrue to the person hearing it and completely true to the person saying it — they are describing an experience, not filing a finding about your character.\n\nNothing moves while each of you defends your own half. It moves when both halves are allowed to be real at the same time, and you go looking together for the specific thing underneath.",
+      "cites": ["Signal And Muddle", "Complex Causality"],
+      "goto": "cost"
+    },
+    {
+      "id": "cost",
+      "kind": "text",
+      "ask": "Say back what it cost them — in your own words, without adding your reasons.",
+      "help": "Not agreement that you are guilty. Just an accurate account of what landed on them. The reasons are not wrong and there is a place for them; putting them in this sentence converts an acknowledgement into a defence, and they will hear the defence.",
+      "cites": ["Admitting You Got It Wrong", "Impact Regardless Of Intent"],
+      "goto": "hard-part"
+    },
+    {
+      "id": "hard-part",
+      "kind": "choice",
+      "ask": "How does it feel to have written that?",
+      "options": [
+        { "label": "Fine, actually", "goto": "end" },
+        { "label": "Uncomfortable but manageable", "goto": "end" },
+        { "label": "Awful — like I'm admitting I'm a bad person", "goto": "shame-split", "flag": "shame" }
+      ]
+    },
+    {
+      "id": "shame-split",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Then the thing making this hard is not the acknowledgement, it is what has attached itself to it — the reading that conceding one action concedes something about who you are.\n\nThere is a usable test. Guilt moves you toward the person: you want to put it right. Shame moves you away from everyone, including them. If what you feel is the pull to disappear, that is shame, and it is worth knowing that no amount of it reaches the person you affected. They are not made better by your self-punishment; only by the acknowledgement, which you have now already written.",
+      "cites": ["Checking Whether It Pulls You In Or Out", "Self-Punishment Instead Of Amends", "Guilt", "Shame"],
+      "goto": "end"
+    },
+    {
+      "id": "end",
+      "kind": "end",
+      "say": "You have their words, the true part inside them, and what it cost — in your language rather than mine.\n\nOne thing for afterwards: if you take this to them and it is met by a list of everything else, that is worth expecting rather than being derailed by. You can say that you want to deal with the rest too and that you would like this one finished first. Where humility gets punished, it stops being offered — and that is worth saying out loud rather than quietly concluding.",
+      "cites": ["Punishing Humility", "How Not To Use This"]
+    }
+  ]
+}

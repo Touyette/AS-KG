@@ -1,0 +1,171 @@
+{
+ "nodeTypes": [
+  "style",
+  "strategy",
+  "state",
+  "trigger",
+  "belief",
+  "behavior",
+  "origin",
+  "practice",
+  "concept",
+  "source",
+  "video"
+ ],
+ "lensValues": [
+  "core",
+  "secondary",
+  "alternating",
+  "feared",
+  "absent",
+  "secure-form"
+ ],
+ "attribution": [
+  "literature",
+  "priebe",
+  "synthesis"
+ ],
+ "actors": [
+  "self",
+  "partner",
+  "dyad"
+ ],
+ "predicates": {
+  "triggers": {
+   "domain": [
+    "trigger",
+    "state",
+    "behavior"
+   ],
+   "range": [
+    "state",
+    "strategy"
+   ]
+  },
+  "deactivates": {
+   "domain": [
+    "strategy",
+    "practice"
+   ],
+   "range": [
+    "state",
+    "strategy"
+   ]
+  },
+  "regulates": {
+   "domain": [
+    "practice",
+    "strategy"
+   ],
+   "range": [
+    "state"
+   ]
+  },
+  "defends_against": {
+   "domain": [
+    "strategy",
+    "belief"
+   ],
+   "range": [
+    "state",
+    "belief"
+   ]
+  },
+  "manifests_as": {
+   "domain": [
+    "strategy",
+    "state",
+    "practice"
+   ],
+   "range": [
+    "behavior"
+   ]
+  },
+  "sustains": {
+   "domain": [
+    "belief"
+   ],
+   "range": [
+    "strategy"
+   ]
+  },
+  "originates_in": {
+   "domain": [
+    "strategy",
+    "belief",
+    "style",
+    "state",
+    "behavior",
+    "concept"
+   ],
+   "range": [
+    "origin"
+   ]
+  },
+  "characterizes": {
+   "domain": [
+    "strategy",
+    "belief",
+    "behavior",
+    "trigger",
+    "state",
+    "concept"
+   ],
+   "range": [
+    "style"
+   ]
+  },
+  "mirrors": {
+   "domain": "*",
+   "range": "*"
+  },
+  "contrasts_with": {
+   "domain": "*",
+   "range": "*"
+  },
+  "mistaken_for": {
+   "domain": "*",
+   "range": "*"
+  },
+  "part_of": {
+   "domain": "*",
+   "range": [
+    "concept"
+   ]
+  },
+  "healed_by": {
+   "domain": [
+    "state",
+    "strategy",
+    "belief"
+   ],
+   "range": [
+    "practice"
+   ]
+  },
+  "requires": {
+   "domain": [
+    "practice"
+   ],
+   "range": [
+    "practice"
+   ]
+  },
+  "described_in": {
+   "domain": "*",
+   "range": [
+    "video"
+   ]
+  },
+  "derived_from": {
+   "domain": [
+    "concept",
+    "strategy",
+    "practice"
+   ],
+   "range": [
+    "source"
+   ]
+  }
+ }
+}

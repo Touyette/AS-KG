@@ -1,0 +1,572 @@
+# Index
+
+Every node in the graph, one line each, with the slice it lives in. Use this to
+find what is relevant, then load only that slice. Titles here are exactly the
+names the flows cite and the graph links by.
+
+
+## behavior (51) — in `02-graph-mechanism.md`
+
+- **Analysing Instead Of Attuning** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's own example, and an unusually candid one: an entire earlier career built on personality models, so that everyone she met could be placed on the right axes.
+- **Asking Whether They Like You Instead Of Whether You Like Them** — anxious-preoccupied/fearful-avoidant — Through the dating phase the running questions are whether you are acceptable to them yet, and how to get them to commit.
+- **Auditing The Timeline** — dismissive-avoidant/fearful-avoidant — Stopping on the gaps and contradictions in a partner's account.
+- **Best Behaviour To Get Back In** — anxious-preoccupied/fearful-avoidant — Agreeing, at the door, to the amount of space that broke you last time — and knowing in your gut that in six months it will not hold.
+- **Breaking It Off** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Leaving, which does work: at distance the threat cue is gone and the nervous system finally settles.
+- **Burying The Episode** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Filing an incident somewhere you have agreed with yourself never to look.
+- **Confiding In Friends Not The Partner** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The most legible symptom she offers: the people around you knowing more about your frustrations, doubts and private verdicts on your partner than your partner does.
+- **Decoding An Indirect Partner** — anxious-preoccupied/fearful-avoidant — Working out what someone means rather than asking them — a skill built early in a home where people were not direct, and then kept in use by choosing partners who are not either.
+- **Defensiveness** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — What fight-or-flight looks like inside a conversation.
+- **Dictating The Solution** — anxious-preoccupied/fearful-avoidant — Coming to the conversation with the answer already decided.
+- **Emotional Withdrawal** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The visible end of deactivation: less contact, less disclosure, less of oneself brought into the room.
+- **Escalating Anger** — anxious-preoccupied/fearful-avoidant — The fight side of the same strategy: making the failure impossible to ignore.
+- **Escalating Vulnerability** — anxious-preoccupied/fearful-avoidant — One of the two channels she describes, the fawn side: showing the other person how much you need them so that caring for you becomes the obvious thing to do.
+- **Exonerating The Caregiver** — dismissive-avoidant/fearful-avoidant — Naming something as harm means saying your feelings were caused by someone else, which is precisely the move this system cannot make.
+- **Fixating On The Partner's Flaws** — dismissive-avoidant/fearful-avoidant — Once the threat program is running, flaws are what get logged.
+- **Fixating On Whether They Like You** — anxious-preoccupied/fearful-avoidant — The anxious tell for the same moderate range, and a genuinely useful diagnostic: a sudden preoccupation with whether someone is annoyed with you usually means distress…
+- **Forcing Your Inner State To Conform** — dismissive-avoidant/fearful-avoidant — The avoidant tell for moderate distress: growing frustrated that you cannot perform at the level you have decided is required, and treating your own depletion as a…
+- **Gaslighting Yourself About Anger** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Meeting each small irritation with an internal ruling that it does not warrant a response.
+- **Getting Lost In The Story** — anxious-preoccupied/fearful-avoidant — Spending the afternoon narrating the sadness rather than having it, which keeps re-summoning the feeling into the body.
+- **Honest Expression Of Need** — secure — Saying what you need plainly, which requires first being in contact with it and able to name it.
+- **Ignoring People As A Boundary** — dismissive-avoidant/fearful-avoidant — She closes on this: avoidant people often believe boundaries are their strength, when what they are doing is disengaging without ever stating a limit.
+- **Insisting You Were Right** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Giving bad directions and then maintaining they were good, with the other person's navigation offered as the explanation.
+- **Introducing Old Grievances** — anxious-preoccupied/fearful-avoidant — Older incidents arriving mid-conflict as further evidence.
+- **Letting A Relationship Go** [sign of change] — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A sign of change rather than a loss: recognising a relationship where what you need is not on offer, and stopping — without the frantic push to get the person to see it differently.
+- **Letting The Pain Land** [sign of change] — dismissive-avoidant/fearful-avoidant — A sign of change: registering the cost of an interaction while it is happening rather than reconstructing it later without the charge.
+- **Looking Down On The Partner** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Contempt made operational. Writing the other person off as incapable removes the need to be vulnerable with them — and removes their chance to do better, because they…
+- **Loving Too Hard** — anxious-preoccupied/fearful-avoidant — Her sharpest reframe in this video, and an uncomfortable one.
+- **Making It A Relationship Issue** — anxious-preoccupied/fearful-avoidant — Rather than saying this matters to me, saying that it is important for a relationship — which is harder to refuse and cannot be rejected personally.
+- **Manufacturing A Reason For The Feeling** — anxious-preoccupied/fearful-avoidant — If raw feeling will not be taken seriously, the anxious partner supplies a rationale that will.
+- **Minimizing What You Are Going Through** — dismissive-avoidant/fearful-avoidant — Reflexively shrinking the account of what is happening to you, often past the point of plausibility.
+- **Mistaking Attraction For A Decision** — anxious-preoccupied/fearful-avoidant — For most people attraction is a yellow light — reason to find out more.
+- **Naming The Fantasy** [sign of change] — anxious-preoccupied/fearful-avoidant — A sign of change: spotting the invented version while it is running, and letting the real person be disappointing rather than treating the gap as something they owe you.
+- **Partner Stops Rising To The Occasion** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The other half of the loop. Handed no real responsibility and no honest account of what hurt, the partner has nothing to respond to competently — which is then read as…
+- **Pursuing Inconsistent Partners** — anxious-preoccupied/fearful-avoidant — Saying, sincerely, that what you want is someone emotionally available, and then not pursuing them when they appear.
+- **Putting People On Pedestals** — anxious-preoccupied/fearful-avoidant — Her example is imagining a rich inner life in a reserved partner and growing frustrated when it does not surface.
+- **Putting Your Own Needs Aside** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Setting down what you need in order to attend to someone else's difficulty.
+- **Recognizing Your Own Vulnerability** [sign of change] — dismissive-avoidant/fearful-avoidant — A sign of change: locating the places, past or present, where you needed care and did not get it — without first requiring a justification for why it counts.
+- **Refining The Ideal Partner** — anxious-preoccupied/fearful-avoidant — The failure loop she describes: leave a bad relationship, get more specific about the traits to avoid, and find each successive partnership contains less of the bad…
+- **Returning To The Relationship** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The return, which restores the closeness — and with it the conditions that started the sequence.
+- **Rushing To Depth** — anxious-preoccupied/fearful-avoidant — Needing every conversation to reach the core immediately, and finding anything lighter unbearable.
+- **Scanning For Confirmation** — anxious-preoccupied/fearful-avoidant — Searching the partner for any small indication that the feared thing is true — and finding one, because a search that specific always does.
+- **Self-Punishment Instead Of Amends** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Going through enough private misery about something that it starts to feel settled.
+- **Stating A Surface Grievance** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The complaint offered in conflict, which is sincerely meant and is not the operative one.
+- **Suppressing The Other Side** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Entering the next relationship determined to keep the unwanted half out of sight.
+- **Suppressing Your Needs Early** — anxious-preoccupied/fearful-avoidant — Declining to state a want at the point where stating it feels most dangerous.
+- **Telling The Story Instead Of Naming The Feeling** — anxious-preoccupied/fearful-avoidant — Producing a vivid account designed to induce an emotional reaction rather than saying the emotion outright.
+- **The Outer Critic Quieting** [sign of change] — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Other people's visible need stops registering as an offence.
+- **Using The Framework As An Excuse** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The other misuse, and the mirror of the first: taking the diagnosis as a licence rather than a starting point.
+- **Using The Framework To Manipulate** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The misuse she calls the largest online: learning someone's style in order to route around what they have said they want.
+- **Venting Instead Of Being Vulnerable** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe separates seeking support from building a case.
+- **Waiting Out The Activated State** [sign of change] — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A sign of change rather than a symptom: noticing that the system is pulling in several directions at once, and treating that as a reason not to act rather than a reason…
+
+## belief (58) — in `02-graph-structure.md`
+
+- **A Boundary Will Drive Them Away** — anxious-preoccupied/fearful-avoidant — Her precise diagnosis of why boundaries fail on this side: the problem is rarely not knowing where the line is, it is not being able to stand behind it.
+- **A Partner Will Make Me Feel Worthy** — anxious-preoccupied/fearful-avoidant — The anxious premise underneath the stated wish for a long-term relationship: that another person will supply feeling protected, stable and worth loving.
+- **A Relationship Is A Checklist Item** — dismissive-avoidant/fearful-avoidant — The avoidant premise: a life is designed first and a person is then sought who slots into it without requiring much change.
+- **An Apology Must Promise It Will Never Happen Again** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The assumption that a serious apology has to come with a guarantee, and that anything less will not save the relationship.
+- **Any Criticism Means I Am Being Written Off** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Feedback can only be taken in by someone who trusts they are being seen whole — and if nobody has been shown the whole of you, nobody can.
+- **Anything That Feels Bad Is Bad** — anxious-preoccupied/fearful-avoidant — A system that received comfort but not protection concludes that bad feeling is itself the problem.
+- **Boundaries Are Barriers** — anxious-preoccupied/fearful-avoidant — Reading a limit as a wall between two people rather than the thing that makes them visible to each other.
+- **Communicating Pain Is Useless** — dismissive-avoidant/fearful-avoidant — She names this as the largest single obstacle in her own healing: the conviction that there is no point telling anyone what hurts.
+- **Depending On Others Costs Me Myself** — dismissive-avoidant/fearful-avoidant — The premise underneath the cost audit: that what a relationship asks for comes out of the same finite supply that keeps you regulated.
+- **Everything That Happens Is My Doing** — dismissive-avoidant/fearful-avoidant — Every child starts life assuming they are the cause of what happens around them.
+- **Feeling Things Means Losing Control** — dismissive-avoidant/fearful-avoidant — The fear that keeps avoidant people out of the work, and she says it is close to universal among them: that attending to feeling means being permanently at its mercy.
+- **Good Intentions Mean I Cannot Have Caused Harm** — anxious-preoccupied/fearful-avoidant — Priebe names this as a characteristic error of the anxious style: I meant well, therefore I did not do anything wrong, therefore if there is a problem it belongs to them…
+- **Having Boundaries Makes Me A Bad Person** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Learned in a family where needs were fused and personal limits were not permitted: in a relationship you may not have boundaries, and everything asked of you is owed, in…
+- **Healing Will Make Others Change** — anxious-preoccupied/fearful-avoidant — The expectation she names first, and gently corrects: that showing up differently will make the people around you show up differently too.
+- **I Am At The Mercy Of My Emotions** — anxious-preoccupied/fearful-avoidant — The anxious bias: once a feeling is underway it is treated as weather to be waited out.
+- **I Am Innocent** — anxious-preoccupied/fearful-avoidant — Her deepest layer, and the most uncomfortable.
+- **I Am Lovable In So Far As I Am Self-Sufficient** — dismissive-avoidant/fearful-avoidant — The avoidant model of how love arrives: keep everything running well, and someone will turn up, admire the finished life, and that will be love.
+- **I Am Not Okay And Neither Are You** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The fearful-avoidant position, and the exact inverse of the secure one.
+- **I Am Okay, You Are Not Okay** — dismissive-avoidant/fearful-avoidant — The avoidant position. Having learned to self-regulate early and without much help, there can be some pride in the competence and considerable judgement toward people who lack it.
+- **I Can Bear Anything** — dismissive-avoidant/fearful-avoidant — What follows from not registering the cost.
+- **I Can Heal Without Changing Anything Else** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The assumption Priebe says attachment work rarely challenges: that you get healthier and your existing life improves around you.
+- **I Can Only Feel Better Through Someone Else** — anxious-preoccupied/fearful-avoidant — The blind spot left by learning co-regulation without self-regulation.
+- **I Can Protect Myself But Not Comfort Myself** — dismissive-avoidant/fearful-avoidant — The avoidant inverse. Behaving correctly heads off rejection, so protection is learnable — but if pain lands anyway you are alone with it.
+- **I Cannot Be Okay Until They Change** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her single test for whether you are in the triangle.
+- **I Cannot Protect Myself, Only Be Comforted** — anxious-preoccupied/fearful-avoidant — What follows from receiving comfort without protection.
+- **I Intend To Die With These Parts Unseen** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Not a decision to be private but a standing plan that the shameful parts stay hidden permanently.
+- **I Lost Myself In That Relationship** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The central error she names, and the one that guarantees repetition.
+- **I Was Not Clear Enough** — anxious-preoccupied/fearful-avoidant — The reading a child makes of intermittent success.
+- **I Will Be Loved If I Am Needed** — anxious-preoccupied/fearful-avoidant — The premise underneath rescuing. If care is something you earn by being indispensable, then making yourself indispensable is the strategy — which means quietly needing…
+- **I Will Only Be Happy Once You Meet My Needs** — anxious-preoccupied/fearful-avoidant — The unconscious sentence running underneath anxious conflict, and the definition of the victim corner.
+- **I Would Contaminate A Healthy Person** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The anxious style doubts its desirability while holding that it is fundamentally well-meaning with a lot of love to give.
+- **I Would Not Be Compatible With Someone Healthier** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A belief Priebe declines to simply refute.
+- **If I Feel Angry, I Must Be Being Irrational** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The conclusion a scapegoated child reaches, carried into adulthood as a standing veto on low-grade anger.
+- **If It Does Not Make Sense I Am Not Feeling It** — dismissive-avoidant/fearful-avoidant — The avoidant bias: when a feeling has no defensible cause, the feeling is judged mistaken and reassigned to something else — too much coffee, not enough exercise.
+- **If It Doesn't Hurt Me, It Doesn't Hurt Them** — dismissive-avoidant/fearful-avoidant — The avoidant does not know their pain response is quieter than other people's, so their own reading becomes the reference.
+- **If My Feeling Is Strong, Something Caused It** — anxious-preoccupied/fearful-avoidant — Learned early and often accurate: a child in an unpredictable home whose feelings tracked what was going on around them.
+- **If You Felt What I Feel, You Would Help Me** — anxious-preoccupied/fearful-avoidant — Under activation the anxious system treats transmitting the feeling as the only route to relief: if the other person could be made to feel what I feel, they would give…
+- **Inconsistency Is What Love Feels Like** — anxious-preoccupied/fearful-avoidant — Having formed its model of relationships around unpredictability, the system recognises unpredictability as the thing it is looking for.
+- **Inside A Relationship I Cannot Have Boundaries** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Never having seen a boundary held inside an intimate relationship as a child, the adult concludes that partnership means total absorption — no asking for space, no…
+- **Integrating It Means Becoming It** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fear that keeps the box shut: that admitting the repressed half will mean being ruled by it.
+- **Intimacy Will Cost Me My Stability** — dismissive-avoidant/fearful-avoidant — The surface-level fear, and the reason avoidant people can look uncompromising from outside.
+- **Intimacy Without Touching My Shame** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant premise: deep connection with someone who sees only the vulnerabilities you have selected for them.
+- **Love Is Earned By What I Provide** — anxious-preoccupied/fearful-avoidant — Learned where affection came in exchange for effort: that what you do, how you present, or what you can do for someone is the thing that makes you deserving.
+- **My Partner Should Never Be Dysregulated** — dismissive-avoidant/fearful-avoidant — The avoidant version of an impossible expectation, and the mirror of the anxious one.
+- **My Partner Should Set My Boundaries** — anxious-preoccupied/fearful-avoidant — Her sharpest reading in this video: much of the anger anxious people direct at partners is, underneath, a complaint that the partner is not doing the boundary-setting on…
+- **Not Needing Anyone Is What Strong Looks Like** — dismissive-avoidant/fearful-avoidant — Strength read as self-sufficiency: needing nothing from anyone, never asking, handling it.
+- **Once I Am Healed I Will Not Be Emotional** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Every style carries a slightly wrong picture of what recovery looks like, and this is the fearful-avoidant one: the emotions and needs that break through are read as the…
+- **Only Someone With A History Like Mine Could Understand Me** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe grants this one a great deal of ground.
+- **Pursue But Never Relax** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The instruction a child derives when the same person is both the source of care and the source of threat: you must pursue closeness because you need it to be alright,…
+- **Relationships Only Take** — dismissive-avoidant/fearful-avoidant — The conclusion that follows from never bringing your own wants to a relationship: if you do not ask it for anything, it cannot give you anything, and the ledger will…
+- **Security Will Be Boring** — anxious-preoccupied/fearful-avoidant — A common fear on the anxious side, and she treats it as reasonable rather than silly.
+- **Showing Emotion Does Not Get Needs Met** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The conclusion drawn from repeated refusal.
+- **Something Is Wrong With Me** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The deepest layer, and she says every insecure style holds some version of it.
+- **The Redemption Fantasy** — anxious-preoccupied/fearful-avoidant — The wager underneath limerence: that things become permanently alright if this particular person can be got to care in this particular way.
+- **The Relationship Will Fix How I Feel** — anxious-preoccupied/fearful-avoidant — The romantic form of the same premise: once a committed relationship is in place there will finally be someone permanently available to regulate you.
+- **Vulnerability In A Partner Is Unattractive** — anxious-preoccupied/fearful-avoidant — The fifth blindspot, and the most zoomed-out: which people you keep choosing.
+- **Vulnerability Leads To Rejection** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Learned where reaching out was reliably met with withdrawal or hostility.
+- **What Happens To Me Is Someone Else's Doing** — anxious-preoccupied/fearful-avoidant — The opposite distortion from the avoidant one, and she puts them side by side: where one person cannot see that anything was done to them, the other cannot see that…
+
+## concept (245) — in `02-graph-ideas.md`
+
+- **A Non-Zero Chance Beats Zero** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The arithmetic that keeps the pattern running.
+- **A Pervasive Sense Of Self** — secure — Holding an account of who you are that does not require confirmation from the conversation you are currently in.
+- **A Reasonable Need Is Not An Obligation** — anxious-preoccupied/fearful-avoidant — The anxious version of fairness runs: if what I want is reasonable, they ought to provide it.
+- **Accidental Bad Faith** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her central coinage here. In law or debate, arguing in bad faith means knowingly pushing an agenda other than the stated one.
+- **Accidental Intimacy** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant keeps the shame-bound material — which is to say, ordinary human emotion — out of every social and professional setting, and it surfaces only where…
+- **Adaptive Versus Healthy** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Something can be exactly right for the situation that produced it and ruinous over a lifetime.
+- **All My Exes Were Narcissists** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe refuses this as an answer to what has gone wrong before — not because it is never true of any individual, but because as an account of a pattern it names the…
+- **Allergic To The Medicine** — dismissive-avoidant/fearful-avoidant — The avoidant needs love as much as anyone and reacts badly to it in quantity, so it has to be taken in small amounts and spaced out.
+- **An Unspoken Boundary Guarantees A Repeat** — dismissive-avoidant/fearful-avoidant — Slipping away, going quiet and hoping the other person works it out leaves them with no information, so the next attempt comes with more force — and the situation recurs…
+- **Anger Is Self-Correcting** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Stated the first time a line is crossed, anger usually stops the crossing.
+- **Asking For Help Feels Natural** [sign of change] — secure — Needs were met early without having to be exaggerated or fought for, so the adult expects the same ordinary reciprocation: I say what I need, you supply it if you can,…
+- **Attunement** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Reading another person's state, letting your own respond to it, and reflecting it back accurately before helping settle it.
+- **Attunement Is Not Only The Loud Signal** — dismissive-avoidant/fearful-avoidant — Priebe's answer to the standard objection — that attending to your feelings would make you irrational and idle.
+- **Avoidance Is A Misnomer** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — To avoid a thing you have to know it is there.
+- **Avoidants Are Not Villains** — dismissive-avoidant/fearful-avoidant — Popular attachment writing tends to sympathise with the anxious style and warn people away from the avoidant one.
+- **Awareness Is Not The Solution** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A correction Priebe returns to across her work and states plainly here: people reaching stage two assume that because they can see the problem they should be able to…
+- **Babies Cannot Be Manipulative** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe stops to rule this out explicitly.
+- **Balancing Pain With An Extreme High** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant feels pain at anxious volume and co-regulates like an avoidant — which is to say, barely.
+- **Base Strategy With Trauma Intrusions** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — One account of fearful-avoidant development that Priebe finds useful: a single base strategy — say, avoidant — with trauma triggers that periodically flip the system…
+- **Becoming Worthy Of Someone Self-Sufficient** — anxious-preoccupied/fearful-avoidant — The anxious appraisal of a new person is an audit of what they have that you lack — charm, confidence, ease — and a private conclusion that you will never have it, but…
+- **Being Accurately Decoded** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her metaphor for what an infant is actually up against: waking on an unfamiliar planet with a single guide who controls everything you need, and only emotion to communicate with.
+- **Being Idealised Is Comfortable And Costly** — dismissive-avoidant/fearful-avoidant — A partner who finds you flawless confirms the I-am-okay-you-are-not model, and is therefore easy to be around — and cannot tolerate it when you eventually bring something real.
+- **Being The Same Person Everywhere** — secure — Her stated end point for fearful-avoidant healing.
+- **Better Is A Relational Skill** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Insecure attachment tends to read self-improvement as raising your score on visible variables — fitness, money, being interesting.
+- **Blaming The Relationship For What You Stopped Doing** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's own repeated pattern: disciplined about health and work when single, and then, on entering any relationship, unconsciously avoiding all conflict and putting her…
+- **Both Feel They Give More** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The anxious partner gives constantly and feels unvalued, because what is given is the thing the other is allergic to.
+- **Boundary** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A decision about what you will do, enforceable no matter what anyone else chooses.
+- **Changing The Environment, Not Just The Response** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Half of the work is behaving securely in the situations you are already in.
+- **Chosen Excitement** — secure — Her answer to the worry that security is flat.
+- **Closeness Is Not Sameness** — anxious-preoccupied/fearful-avoidant — Priebe's improv story makes the point better than the theory does.
+- **Co-Regulation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Two nervous systems settling each other. Mostly mundane — getting used to someone replying, to their presence in a week — rather than the dramatic comforting the word…
+- **Co-Regulation Toward Independence** — secure — Her sharpest distinction in this video: much of what passes for co-regulation in insecure relationships is the drama triangle with one partner rescuing.
+- **Comfort From Someone Other Than The One Who Hurt You** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The wound underneath fearful-avoidance is having needed comfort from the person causing the distress, with no alternative available.
+- **Commitment As A Life Sentence Of Self-Erasure** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's reframe of avoidant commitment fear.
+- **Compartmentalising Yourself To Stay** — anxious-preoccupied/fearful-avoidant — Entering a relationship having decided in advance which parts of you will not appear, on the grounds that the whole version would not be accepted.
+- **Complex Causality** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The security position, and the exit from the blame see-saw: most conflicts are produced by two people acting in good faith whose triggers and unexamined programmes collide.
+- **Compliance Without Agreement** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A relationship where the instructions get carried out and the resentment quietly builds.
+- **Conflict Is Uncomfortable, Not Catastrophic** [sign of change] — secure — Secure people generally do not enjoy conflict and are willing to have it, because they either saw it resolved peacefully or learned later that it can be.
+- **Conscious Competence** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Being able to notice the trigger and do something other than the old thing — with full effort, every time, against what feels like your own grain.
+- **Conscious Incompetence** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Seeing the problem clearly and having none of the equipment to solve it — which Priebe rates the most frustrating stage of the four, because the awareness arrives long…
+- **Consciously Adapting To Each Relationship** [sign of change] — secure — Feeling avoidant around some people and anxious around others is not evidence of fearful-avoidance — most people pull back a little from a surplus of anxious energy and…
+- **Containment** — secure — Holding another person's experience in your own mind in a way they cannot yet, running it through an adult's processing, and handing back something they can use.
+- **Controlling How Your Partner Feels About You** — anxious-preoccupied/fearful-avoidant — Priebe notes the gap between the popular picture of anxious attachment — sympathetic, deprived of love — and what the literature actually describes, which is controlling.
+- **Deactivation As A Response To Your Own Rules** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's worked example. A long-distance partner was going to visit; within days she was cataloguing everything wrong with them and losing attraction.
+- **Decision Paralysis And The Empty Milestone** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Emotions are what tell you what matters, so losing access to them breaks decision-making at both scales.
+- **Detaching Is Not A Boundary** — dismissive-avoidant/fearful-avoidant — Avoidant people often believe their boundaries are excellent because they are very good at detaching.
+- **Differentiation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Knowing where you end and another person begins — which feeling in the room is yours.
+- **Direction Of Travel** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Each insecure style is moving toward something it never arrives at.
+- **Disorganized Attachment** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The infant classification the fearful-avoidant adult style is correlated with.
+- **Distorted Emotion And Distorted Logic** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The clean statement of the mirror. Under pressure anxious patterning trusts the feeling and arranges reasoning to fit it; avoidant patterning trusts the reasoning and…
+- **Double The Work, Double The Reward** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant runs both patterns and so has both jobs: find where the pain receptors are muted and sensitize to what is being felt but not registered, and learn…
+- **Doubling Down Under Stress** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Ambiguity and external threat are precisely when co-regulation is worth most, and precisely when both parties revert hardest — the avoidant to control or detachment, the…
+- **Dulled Pain Receptors** — dismissive-avoidant/fearful-avoidant — Priebe's analogy for the avoidant end: being unable to feel physical pain looks like an advantage and is disabling, because pain is the alerting system — stop, this is damage, rest.
+- **Dynamic Maturation Model** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — An alternative account in which many infants classed disorganized are better read as running a sophisticated strategy fitted to a bad environment.
+- **Earned Secure** — secure — Security arrived at through deliberate work rather than received in childhood.
+- **Emotional First Aid, Modelled** — secure — What Priebe identifies as the real difference between the secure and the anxious childhood: not whether the child was soothed, but whether anyone was seen handling their…
+- **Emotionally Organised Versus Temporally Organised** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's account of why the same argument reads so differently from each side.
+- **Emotions Accumulate From Small Signals** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Feelings are usually the compound of many minor pieces of information rather than the product of one undeniable event.
+- **Emotions As Currency** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her framing for what an infant's emotional display actually is: the only means it has of purchasing care.
+- **Empathy Without Being Overwhelmed** [sign of change] — secure — Neither drowning in another person's pain nor keeping away from it in case you would.
+- **Enlightened Witness** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A person who can be present with a feeling that was never met well the first time.
+- **Enmeshment** — anxious-preoccupied/fearful-avoidant — Merging to the point where there is no clear line between two people.
+- **Equally Comfortable In And Out Of A Relationship** [sign of change] — secure — A preference either way is fine; what marks security is that the sense of self does not change much between the two, and that being partnered does not require hiding any part of it.
+- **Expectation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Something you want another person to do. She is emphatic that these are not the problem — relationships run on them — but that they only function once both people have…
+- **External Locus Of Control** — anxious-preoccupied/fearful-avoidant — The state of having no reliable way back to equilibrium that does not run through another person.
+- **False Attribution** — anxious-preoccupied/fearful-avoidant — A feeling that arrived earlier and unnoticed finds a plausible cause later in the day and fastens onto it.
+- **Fearful-Avoidance Is Not Anxious Plus Avoidant** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe calls this the single biggest misunderstanding in attachment theory.
+- **Feelings Are Data, Not Noise** — dismissive-avoidant/fearful-avoidant — The stance that emotion should be subtracted from a decision because it is irrational.
+- **Fighting Fair** — secure — Not an absence of conflict — she is clear that conflict is a healthy part of living alongside someone.
+- **First-Time Vulnerability Raises The Stakes** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Doing something for the first time — admitting you hurt someone, expressing anger, asking for something — costs far more than it looks like from outside, because the…
+- **Flexible Responsiveness** — secure — The payoff of having been responded to flexibly: more than one setting.
+- **Flight Is Also Enmeshment** — dismissive-avoidant/fearful-avoidant — Avoidant people often claim other people's moods do not affect them, and Priebe's correction is precise: the moods affect them heavily and trigger flight rather than fight.
+- **Getting Needs Met Without Stating Them** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's compact definition of an insecure strategy: whatever you learned to do to get a need met without saying what the need is.
+- **Grief Postponed, Not Avoided** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — After a breakup the avoidant machinery reports that nothing is wrong: it meant little, I am fine, I am strong.
+- **Guilt Versus Shame** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Guilt says I made a mistake; shame says I am one.
+- **Handing Over The Finished Solution** — dismissive-avoidant/fearful-avoidant — Believing the partner is not competent to help means never bringing them an unfinished problem — so the work is done alone and delivered as a conclusion.
+- **Healing Is Not Swinging To The Other Pole** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A guardrail she states explicitly at the close.
+- **Healthy Dependency** [sign of change] — secure — Total dependency is a problem; so is refusing to rely on anyone for anything.
+- **History Not Ideals** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Your stated criteria come from the conscious mind; who you actually choose comes from underneath it.
+- **Holding Both Programs** — secure — What distinguishes the secure version. The threat response is not absent — the same costs get logged — but it runs alongside the appreciation instead of replacing it,…
+- **How Common Each Style Is** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Roughly half to sixty per cent of people are securely attached; anxious and avoidant each account for something near twenty per cent; fearful-avoidant is the rarest by a…
+- **How Is This Adaptive In Our Dynamic** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Insecure couples argue about who is right; secure ones have a working sense of context.
+- **Hyper-Awareness Of Power Dynamics** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A running background calculation in every relationship — friendship, work, romance — of what each person wants and what each has to withhold.
+- **I Am Okay, You Are Okay** — secure — The secure position, and she gives it a precise content rather than leaving it as a slogan: the assumption that everyone is behaving reasonably given what they have been through.
+- **Identity Separate From The Reaction Pattern** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The shift from experiencing a reaction as evidence about who you are to experiencing it as something running in you.
+- **Impact Regardless Of Intent** — dismissive-avoidant/fearful-avoidant — The capacity to hold that someone may have wanted things to be otherwise and that you were left unprotected anyway.
+- **Insatiable Anger As A Trauma Signal** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A test Priebe uses on her own anger: if the problem in front of you were solved right now, would the anger stop?
+- **Integrated Logic And Emotion** — secure — The secure form, and in the DMM the reason its secure category is called balanced: emotion informs what to do and reasoning informs what the feeling means, both online…
+- **Integration, Not Addition** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Why this style's blind spot is structurally unlike the other two.
+- **Interdependence Versus Codependence** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The line she draws at the end: two people who can each hold themselves and choose to lean on one another are interdependent.
+- **Internal Working Model** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The template for what relationships are and what you must do to get needs met, laid down before roughly age three when the brain is wiring fastest.
+- **Intimacy Requires Boundaries** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her central reframe here: noticing where you end and someone else begins is not an obstacle to intimacy, it is the precondition for it.
+- **Intimacy Without Compromise** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant is most themselves alone and can stay single a long time, then wants the emotional closeness of a committed relationship without surrendering any…
+- **It Does Not Occur To Them** — dismissive-avoidant/fearful-avoidant — A correction she is insistent about. Avoidant regulation is not someone feeling the pull to call a friend and refusing it — that description fits anxious or…
+- **Knowing The Mechanism** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her answer to why understanding the origin matters at all, given that understanding changes nothing by itself.
+- **Limerence** — anxious-preoccupied/fearful-avoidant — Believing the version of someone you assembled, in the face of evidence about the actual person.
+- **Look At The Motivation, Not The Behaviour** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The rule Priebe says she has re-recorded this video repeatedly to get right.
+- **Looking For A Parent, Not A Partner** — anxious-preoccupied/fearful-avoidant — Priebe's account of why the pairing is so reliable.
+- **Love Addiction And Detox** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's account of the fearful-avoidant cycle in the language of addiction: hooked despite knowing it is bad, then out and genuinely sober for a long stretch, then the…
+- **Love Is The Medicine** — anxious-preoccupied/fearful-avoidant — With a compromised system, love does what the missing immunity cannot — it lets you function in a way you cannot manage alone.
+- **Making A Wrong Relationship One You Fit** — anxious-preoccupied/fearful-avoidant — The cost of the whole tactical repertoire, stated plainly: if you will use every available means to keep someone present who does not authentically want to be, you…
+- **Meaningful Goals And Collaboration** [sign of change] — secure — Setting a goal that means something needs both faculties: the emotional one that knows what speaks to you, and the practical one that knows what makes sense.
+- **Mentalizing** — secure — Holding that another person's mind runs on different contents than your own — that something can be fine by you and not fine by them.
+- **Meta-Feelings About The Oscillation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Fearful-avoidance is not only anxious triggers plus avoidant triggers.
+- **Missing The Off Switch** — anxious-preoccupied/fearful-avoidant — The anxious counterpart. The pain registers fully; what is missing is the mechanism that ends it.
+- **Mistyping Into The Middle** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Fearful-avoidant is the category people place themselves in when they can see both anxious and avoidant behaviour in themselves but cannot yet tell the two apart.
+- **Mutual Trust** — secure — Standing on two legs rather than one. Both people know where they stand — barring something extreme, nobody is leaving — and both know they would survive it if they did.
+- **Navigating By Rules Instead Of Attunement** — dismissive-avoidant/fearful-avoidant — Where the glue between people was never shared feeling, a child builds a rulebook instead: if she looks happy this morning, approach; if not, keep clear.
+- **Needing The Medicine And Allergic To It** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A severely compromised system and an allergy to the only treatment.
+- **Needing The Person You Are Angry At** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — At the top of the scale the fearful-avoidant system runs two incompatible programmes at once: get the anger out, and get this person on side so they will help bring me down again.
+- **Negative View Of Self, Positive View Of Others** — anxious-preoccupied/fearful-avoidant — The classic anxious position, and the engine behind idealisation.
+- **No Stable Centre Of Gravity** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe puts numbers on it. The anxious person sits at roughly eighty per cent outside themselves and twenty per cent grounded; the avoidant runs the inverse; the…
+- **Nobody Is Required To Give You Their Attention** — anxious-preoccupied/fearful-avoidant — A child has a survival claim on a parent's attention, and the tactics that enforce that claim are legitimate at four.
+- **Nobody Made That Experience Matter** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A phrase Priebe took from a speaker at a workshop, describing a close family member dying in childhood: nobody made that experience matter.
+- **Not A Personality Type** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Why the usual personality-system habits do not transfer.
+- **Not Taking Moods Personally** [sign of change] — secure — There are two ways to take a mood personally: reading it as rejection, or being irritated that someone is displaying what you have learned to suppress.
+- **Not Your Fault, But Your Responsibility** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The principle she puts at the centre of the whole endeavour, and the one most often split in half.
+- **One Root, Many Symptoms** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Procrastinating at work, picking fights, eating when you are not hungry — apparently unrelated until you notice they all run when you feel insecure.
+- **Openness Without Self-Protection** — anxious-preoccupied/fearful-avoidant — The anxious imbalance. She is careful to name the strength first and rate it highly: a real openness to being taught and changed by loving someone, which she says is…
+- **Others Meet You As Deeply As You Have Met Yourself** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe names this as the most profound shift of her own attachment work: going from a bodily certainty of existential aloneness to a bodily belief that she could be known.
+- **Over- And Under-Taking Responsibility** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Activated, the fearful-avoidant is owed things and the partner is failing them.
+- **Overwhelm And Judgment Are The Boundary Signal** — dismissive-avoidant/fearful-avoidant — An avoidant system does not present a clear sense of what is needed — it presents overload, distress, and a judgement about the other person.
+- **Pain Hidden From Yourself** — dismissive-avoidant/fearful-avoidant — Her correction of the usual stereotype, and an important one: this is not someone concealing pain from other people.
+- **Pain Is The Central Axis** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's reframe of the whole system. Attachment is usually described as how you relate to other people; she argues the load-bearing variable underneath is how you…
+- **Painkillers Instead Of Medicine** — dismissive-avoidant/fearful-avoidant — Unable to take the medicine, the avoidant takes analgesics: overwork, drink, substances, food, compulsive escape into fiction.
+- **Parallel Support** — secure — Her picture of what adult intimacy looks like: two people moving alongside each other, each responsible for their own healing, offering support across that separation.
+- **People-Pleasing Is A Barrier To Intimacy** — anxious-preoccupied/fearful-avoidant — The anxious system reports that accommodating will bring you closer.
+- **Phobia Of Inner Experiences** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Certain emotional states have no regulation attached to them, so the system redirects before they arrive.
+- **Powerless Over Others** — anxious-preoccupied/fearful-avoidant — The premise Priebe rates as the single most useful thing an anxious-spectrum person can accept.
+- **Predictability Restores Calm** — anxious-preoccupied/fearful-avoidant — Why a named time settles a nervous system that an open-ended promise cannot.
+- **Presence And Curiosity Versus Strategy And Analysis** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A child who was met with presence and curiosity copies it: they meet people as blank slates and let what is unique to each connection emerge.
+- **Projecting Your Own Remedy** — anxious-preoccupied/fearful-avoidant — Seeing a partner withdraw, the anxious system reads it through its own machinery: if I withdrew, it would be to draw someone closer — so they must need love.
+- **Promises Made By A Self You Cannot Guarantee** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Commitments get made sincerely by one configuration and come due to another — the career built on emotional openness that becomes unbearable the week vulnerability is…
+- **Protection And Comfort** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The two things attuned care supplies, and the distinction that organises the whole model.
+- **Psychic Equivalence** — anxious-preoccupied/fearful-avoidant — The assumption that the intensity of your feeling measures the badness of your situation.
+- **Punishing Humility** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A partner arrives with an apology and gets the other ten unaddressed items, or a speech about how unacceptable it all was.
+- **Rational And Emotional, But Never At Once** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant has access to distorted emotion like the anxious and distorted logic like the avoidant, and no integration between them.
+- **Reading People Easily** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Having learned early that what people say is unreliable, the fearful-avoidant reads everything else — and gets genuinely good at it.
+- **Realistic Cause And Effect** — secure — The secure position between the two distortions: neither authoring everything that happens to you nor being at the mercy of everyone else.
+- **Realistic Expectations Of A Relationship** — secure — The one she calls most important. Insecurity brings expectations a relationship cannot meet, and the relationship then buckles under them.
+- **Regressing To Child And Parent In Conflict** — anxious-preoccupied/fearful-avoidant — When the connection feels threatened, the anxious system stops seeing another adult with needs of their own and starts seeing a parent — someone to be placated by…
+- **Regulating With The Idea Of Each Other** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's account of why insecure couples produce enormous fights: both are relating to the picture of the other person, and to a picture of how a relationship should go,…
+- **Relationships As Resource** — secure — Seeing a relationship as something that supplies you rather than only draws on you.
+- **Relief Mistaken For Joy** — anxious-preoccupied/fearful-avoidant — Her central move in this video, built on a pair of images.
+- **Repressed Emotion Breaks Through Harder** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — An anxiously attached person is in continuous contact with their subtler feelings; a fearful-avoidant is not, and may go through a day unaware of how much is running underneath.
+- **Repression Versus Suppression** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Suppression is knowing a need is there, choosing to set it down for now, and intending to come back to it — renting while you save for the house you know you want.
+- **Resolution Versus Regulation** — anxious-preoccupied/fearful-avoidant — Mid-argument, the question worth asking is which goal is running.
+- **Responding To The Past In The Present** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Meeting a current situation with emotions belonging to an old one — furious that a partner cannot read a need that went unmet in childhood, or that they failed to give…
+- **Rigidity Is Adaptive At Seventy Per Cent** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Without reliable feedback about what keeps you in connection, anything that works seven times in ten deserves to be run every single time — it is the best available bet.
+- **Safety Is What Allows You To Criticise Your Parents** — secure — Securely attached people frequently type themselves as insecure, because a settled nervous system can afford to look squarely at what a parent got wrong.
+- **Same Behaviour, Opposite Motivation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Storming out, picking a fight and threatening to end it appear in both the anxious and the avoidant repertoire, and they mean opposite things.
+- **Secure Base** — secure — What a partner is for in the secure version: somewhere to bring a difficulty and be supported through it, not somewhere to hand it over.
+- **Secure First, Sort It Out Later** — anxious-preoccupied/fearful-avoidant — Get the commitment, then work out the rest.
+- **Secure People Feel Most Accurately** — secure — A claim that cuts against the stereotype: the secure style feels emotion in its purest form.
+- **Security Changes The Power Dynamic** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A secure relationship has a roughly even power balance, so moving toward one means the existing balance goes.
+- **Seeing Yourself As The Common Denominator** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant does eventually notice they are the constant across their relationships — which is more than most insecure styles manage — and then draws the wrong…
+- **Self-Abandoning Moves Feel Vulnerable** — anxious-preoccupied/fearful-avoidant — Fawning, dressing a want as a principle, and turning the volume up on the pain all feel like vulnerability in the moment and are the opposite: each one manages the other…
+- **Self-Esteem Versus Shame** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Self-esteem is holding that you are well-meaning and that you get things wrong, both at once — not the conviction that you never do, which she distinguishes sharply as…
+- **Self-Protection Lets Your Partner Be Human** — anxious-preoccupied/fearful-avoidant — Permanent openness means being permanently receptive to whatever the other person is carrying, so a short reply or a distracted evening lands as a verdict.
+- **Self-Regulation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Bringing yourself back to equilibrium without another person doing it for you.
+- **Sensitivity In The True Sense** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe stops to disambiguate the word. She does not mean becoming easily wounded or more defended.
+- **Separating The Feeling From The Action** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — After a rupture the instinct is to disown the whole episode, feeling included.
+- **Separation Between Parent And Child** — secure — The condition that makes containment possible: the child's emotional range is not experienced as a statement about the parent.
+- **Shame-Bound Emotion** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — An emotion that was met with disgust or rejection often enough that having it, and especially showing it, comes to feel shameful in itself.
+- **Signal And Muddle** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Terms Priebe takes from a friend, for the two halves of a projection.
+- **Single Calm, Partnered Turbulent** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The avoidant spectrum is often steadier single than partnered, because closeness is what brings the wounds to the surface.
+- **Social Referencing** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — How a child learns to categorise its own inner states: something happens, and it checks the faces around it.
+- **Somatic Strategy** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The attachment strategy is laid down in the body before language exists.
+- **Some Needs Are Shared Work** — dismissive-avoidant/fearful-avoidant — The avoidant default is that any need brought to you is excessive and belongs to the person carrying it.
+- **Steady Baseline** — secure — Being alright as a constant rather than an event.
+- **Suppressing Anger Suppresses Boundaries** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The part of you that registers a line being crossed and the part that gets angry are the same part.
+- **Talking It Out Directly** [sign of change] — secure — The drama triangle is what you do when a need cannot be stated outright.
+- **The Anger Scale** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Rating anger one to ten and noticing where you actually speak.
+- **The Averages Come Out The Same** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Looking back at a three-year on-and-off relationship, Priebe worked out that the total time she spent alone versus with her partner came out at roughly what a secure…
+- **The Avoidant Audition** — dismissive-avoidant/fearful-avoidant — Avoidant courtship runs long and reads as evaluation rather than falling: how does this person behave here, what do they like, what do they earn, do I respect it — and a…
+- **The Avoidant Differentiation Blindspot** — dismissive-avoidant/fearful-avoidant — Differentiation is two things: knowing where you end and someone else begins, and understanding how the two of you act on each other.
+- **The Balanced View Of People** [sign of change] — secure — Ask a secure person about a parent or a partner and you get neither idealisation nor prosecution — the quirks that irritate them, and the circumstances that made someone…
+- **The Best I Have Found So Far** — anxious-preoccupied/fearful-avoidant — A few unsatisfying relationships later, the old one starts to look like the high-water mark.
+- **The Blame Flips With The State** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Activated, the worldview is I am not okay and you are, so the responsibility for fixing this is yours.
+- **The Bowl And The Soup** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's image for the correction. The soup is plentiful and freely given; what differs is whether you arrived with a bowl.
+- **The Breakup That Is A Boundary Request** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — If you want to end it but also want to stay friends, keep seeing them, keep them in reach — Priebe reads that as a signal you are not ready to leave.
+- **The Conscious Competence Model** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The four-stage frame she maps healing onto: running the pattern without seeing it, running it while seeing it, being able to do otherwise with deliberate effort, and…
+- **The Deflated Wheel** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her frame for why reflection after a bad relationship so often fails.
+- **The Distress Scale** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her central device here: put distress on a scale of one to ten and ask where a caregiver reliably stepped in.
+- **The Drama Triangle** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A conflict model of three roles — victim, persecutor and saviour — that people rotate through during a dispute.
+- **The Emotional Immune System** — secure — Priebe's organising metaphor for the whole series.
+- **The Empowerment Dynamic** — secure — The counterpart system, with a healthy role mirroring each of the triangle's three.
+- **The Exit Fantasy** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Both anxious and fearful-avoidant drive the same road — my needs get met by someone else — but the fearful-avoidant reads every exit sign, believing the turn-off leads…
+- **The Free-Alone-Or-Trapped-Together Dichotomy** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The belief the fearful-avoidant most needs dismantled: that autonomy and connection are alternatives you pick between.
+- **The Hostility Blindspot** — dismissive-avoidant/fearful-avoidant — Adapting to a mildly hostile emotional environment means tuning out low-level hostility aimed at you — which reads, from inside, as resilience.
+- **The Hustle For Worthiness** — anxious-preoccupied/fearful-avoidant — Measuring yourself against a standard of what someone lovable would be, and working toward it — with the standard moving as you approach.
+- **The Inner Secure Base** — secure — What actually changes with security, as distinct from what people hope changes.
+- **The Inner-Outer Feedback Loop** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Security runs a continuous cycle: share the inner world, get feedback, update.
+- **The Intimacy Desert** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's name for the fearful-avoidant's supply problem.
+- **The Loaded Argument** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Why insecure conflict resists resolution.
+- **The Magical Future Fantasy** — anxious-preoccupied/fearful-avoidant — A named feature of anxious attachment: a vivid picture of a future in which everything has come right — the family, the travelling, the ease — with no account of how…
+- **The Mutual Hostage Situation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Holding a negative view of self and of others at once produces a relationship the fearful-avoidant does not admire and cannot leave: they need someone to soothe the view…
+- **The Ninety-Ten Ratio** — secure — Secure people are better at leaving relationships that do not meet their needs, and Priebe's explanation is unsentimental: having other options, they can see clearly.
+- **The Observing And Experiencing Selves** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The part that notices what is happening and the part that reacts before noticing is possible.
+- **The Premature Breakup** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — In an anxious-avoidant pairing neither person states needs or boundaries plainly, so unmet needs and unspoken expectations accumulate until someone — usually the…
+- **The Proximity-Seeking Blindspot** — dismissive-avoidant/fearful-avoidant — Attachment is built partly by both people pursuing — making plans, making the other feel wanted, rearranging around them.
+- **The Relationship As Organising Principle** — anxious-preoccupied/fearful-avoidant — It is reasonable for a serious relationship to be one of the things your life orbits.
+- **The Relationship With An Exit Strategy** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant can be fully enmeshed — needs given up, life merged — while privately holding a date or a condition on which they leave.
+- **The Rules You Think The Relationship Requires** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A set of rigid conditions learned early and now applied without inspection: I can never be angry with a partner.
+- **The Scarce Love Hypothesis** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The standard attachment-community claim that insecure people wrongly believe love is scarce and must cling to whoever currently offers it.
+- **The Second Level Of The Feeling** — dismissive-avoidant/fearful-avoidant — First level: irritated, overloaded. Second level: I cannot handle this much emotion, and that makes me uncomfortable, inadequate, possibly frightened.
+- **The Secure Person Is Less Vulnerable** — dismissive-avoidant/fearful-avoidant — The counterintuitive comparison Priebe puts to the avoidant reader.
+- **The Shared Middle Ground** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The place a mixed-attachment conflict can end: accurate emotional information and an accurate account of events on the table at the same time.
+- **The Shock Experiment** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Participants awaiting intermittent electric shocks were measured with and without another person present holding their hand.
+- **The Silent Contract** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Expectations neither person has said out loud, and the resentment that accrues when they are not met.
+- **The Soulmate Fantasy In Three Versions** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Anxious: someone who loves the flaws away and completes a life.
+- **The Still-Face Experiment** — anxious-preoccupied/fearful-avoidant — A caregiver is asked to hold a blank, unresponsive face at an infant.
+- **The Threat Was Also The Refuge** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The other account: at the age the strategy formed, the source of danger and the only available protection were the same person.
+- **The Twenty-Five Out Of Ten Reaction** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A response that is wildly out of scale with the incident and exactly in scale with the arrears.
+- **The Unconscious Payoff** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The step Priebe rates most important and least expected: work out what need the behaviour you want gone is currently meeting.
+- **There Is Always A Rationality Underneath** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe is unusually firm here: if someone's behaviour looks irrational to you, that is a statement about the depth of your understanding, not about them.
+- **Time Alone That Is Not Healing** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Out of a relationship the fearful-avoidant runs the avoidant programme and it works — comfortable, self-sufficient, apparently doing the work.
+- **Toughness Requires Isolation** — dismissive-avoidant/fearful-avoidant — If vulnerability has to stay unreachable, relationships have to stay shallow, because give-and-take needs you to know and be able to say what you need.
+- **Toughness Versus Strength** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Attachment communities frequently read the avoidant style as the emotionally strongest, because it does not visibly suffer or ask.
+- **Trauma Disrupts Meaning, Neglect Prevents It** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's cleanest distinction, taken from a joke she saw about someone with complex trauma listening to someone with single-incident trauma describe life before it —…
+- **Trauma Fluency As A Bridge** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's argument for trauma work beyond symptom relief: it gives you words for your own history that you can hand to someone without feeling skinned in the process.
+- **Trust As Mutually Assured Vulnerability** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Believing people betray each other whenever it makes sense to, the unhealed fearful-avoidant does not look for warmth or kindness as evidence of safety.
+- **Twenty Per Cent Compatible By Default** — dismissive-avoidant/fearful-avoidant — Priebe's diagnosis of the avoidant dating pattern: fear of rejection means rarely pursuing anyone actually wanted, so the field narrows to whoever approaches — which is…
+- **Two Ends Of The Avoidant Spectrum** — dismissive-avoidant/fearful-avoidant — At the mild end, negative emotion was merely unrewarding, and the adult reroutes to problem-solving without noticing.
+- **Types Of Intimacy Are Not Interchangeable** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Friendship intimacy, where you can be plainly imperfect.
+- **Unconscious Competence** — secure — The new response has become the default and no longer competes with the old one.
+- **Unconscious Incompetence** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Knowing that relationships keep going wrong and not knowing why.
+- **Unconscious Relationship Premise** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — What a relationship is for, as held below the stated version.
+- **Unintegrated Logic And Emotion** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The Dynamic Maturation Model's account of this pattern: both a reasoning strategy and an emotional strategy are available, but only one runs at a time.
+- **Urgency Because It Will Go Back Underground** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Why a fearful-avoidant need arrives with a deadline attached.
+- **Urgency Is The Nervous System** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her closing principle, and a portable one: if something feels as though it must be settled immediately, that reading is usually coming from a threat response rather than…
+- **Wanting The Other Person To Go First** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Fearful-avoidants arrive warm, present and genuinely interested, and are good at making people feel safe to open up — so a conversation can feel deeply connecting and,…
+- **We Seek What Is Familiar, Not What Is Healthiest** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Attraction tracks recognition rather than benefit.
+- **Where The Strategy Still Works** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The areas producing visible chaos are the easy ones — the pain supplies the motivation.
+- **Where Your Centre Of Gravity Sits** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's somatic map of the three states, learned from having run all of them.
+- **White-Knuckling Instead Of Asking Why It Is Hard** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe's objection to the standard advice, which she says attachment content actively reinforces.
+- **Window Of Tolerance** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The physiological range within which a person can stay present with what they are feeling and still choose how to respond.
+- **You Are Already Vulnerable** — dismissive-avoidant/fearful-avoidant — The challenger position starts from the fact that you are affected by every person and situation you engage with, whether or not you concede it.
+- **You Are Making Me Sick** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The fearful-avoidant takes the dose, has the reaction, and locates its cause in the person who supplied it — the love must have been wrong, because the need for it is real.
+- **You Cannot Dance If You Cannot Hear The Music** — dismissive-avoidant/fearful-avoidant — Priebe's image for what analysis alone cannot do.
+- **You Cannot Hold A Boundary You Cannot Live Inside** — anxious-preoccupied/fearful-avoidant — Priebe's explanation for why anxiously attached people are the most aware they need boundaries and the least able to keep them.
+- **You Cannot Open Someone Else** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her closing note, addressed to the partners rather than the person.
+- **You Do Not Negotiate For Respect** — secure — Priebe quotes Sherry Argov to the effect that people with real power do not explain why they deserve respect — they simply decline to engage with those who withhold it.
+- **You Were Drawn To The Insecurity** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The stoicism and self-containment that first appealed is avoidant patterning.
+- **Your Inconsistency Is Part Of The Dynamic** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Weeks deactivated, then activated in an argument, then unsure whether you want the relationship at all — and no sense of what that does to the person on the other side.
+
+## origin (13) — in `02-graph-structure.md`
+
+- **Attachment-Seeking Met With Hostility** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The developmental condition behind avoidant patterning: reaching toward a caregiver in vulnerability or need predictably produced withdrawal or hostility rather than attunement.
+- **Frightening Caregiver** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The condition in which the person who supplies everything you need to survive is also the source of danger.
+- **Inconsistent Responsiveness** — anxious-preoccupied/fearful-avoidant — Care that arrived sometimes and not others.
+- **Intervention Only At Crisis Level** — anxious-preoccupied/fearful-avoidant — Care that arrived reliably but late — around seven to nine out of ten, by which point the child was already outside the window of tolerance.
+- **Misattuned Mirroring** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A caregiver who cannot tolerate a feeling in themselves reflects back something other than what the child is having — meeting sadness with insistent cheerfulness, well…
+- **Over-Identification With The Child** — anxious-preoccupied/fearful-avoidant — One of two failure modes she contrasts with sensitive parenting: the child's state read as a verdict on the parent.
+- **Sensitive Parenting** — secure — The caregiving that produces security, and she is emphatic it is not perfect caregiving.
+- **Subtle Discomfort At Negative Emotion** — dismissive-avoidant/fearful-avoidant — No cruelty and no hitting — a parent who was themselves taught to suppress, and who becomes slightly stressed or faintly contemptuous when the child shows something negative.
+- **The Family Scapegoat Role** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The child who breaks the unspoken rule that the family's dysfunction is not discussed, and is called crazy, irrational or over-reacting for it.
+- **The Trauma Of What Didn't Happen** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The absence Priebe says gets missed most often — people recognise themselves in the symptoms and can point to nothing in their childhood that was overtly traumatic.
+- **Under-Identification With The Child** — dismissive-avoidant/fearful-avoidant — The other failure mode: practical provision treated as the whole of the job, with warmth and responsiveness not counted as needs at all.
+- **Unprocessable Emotion In The Caregiver** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Why insecure attachment runs in families without anyone intending it.
+- **Withheld Information** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Growing up without access to the information needed to make sense of what is happening.
+
+## practice (93) — in `02-graph-healing.md`
+
+- **A Boundary With Your Own Triggered Self** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Boundaries you set from a regulated state about a state you will not be in.
+- **Accountability Through Community** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Putting yourself where people who care about you will expect you to make things right.
+- **Acknowledging The Feeling, Not The Logic** — anxious-preoccupied/fearful-avoidant — The central move, and she rates it the most useful thing in the video.
+- **Admitting You Got It Wrong** — secure — Her clearest picture of why security does not require competence.
+- **Agreeing Expectations Explicitly** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Say the expectation aloud and get an actual yes.
+- **Agreeing When To Return To It** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — End an unfinished conversation by naming when it resumes, then let the ordinary tone come back if that is honest.
+- **Apologising With An Action Plan** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Express the remorse, say plainly what you can see it cost them — and then name the wound that is still unhealed, so the other person has enough of the picture to draw…
+- **Asking For Their Side** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Her addition beyond the usual advice about I-statements: having said what it is like for you, ask what it is like for them.
+- **Asking How Old You Feel** — anxious-preoccupied/fearful-avoidant — Put the question to the distressed part directly: how old do you think I am?
+- **Asking What You Are Actually Arguing For** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — In the middle of a conflict, ask what you are so intent on securing that you would sacrifice either your partner or yourself to get it.
+- **Asking What You Are Expecting, And Whether You Said It** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Treat resentment as a prompt rather than a verdict: what am I expecting here, and have I ever made it explicit?
+- **Asking What You Would Do If You Were Single** — anxious-preoccupied/fearful-avoidant — Priebe's own worked case: triggered, on a train home early, texted that her partner could not meet her — and rage.
+- **Bringing The Feeling Without An Explanation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Making it safe to say: I feel this, I do not know what it is about, can we look at it together.
+- **Building The Capacity To Receive** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The work the soup metaphor points at, and it differs by style.
+- **Caring About Something Else More** — anxious-preoccupied/fearful-avoidant — A line Priebe has never been able to attribute and has always liked: the only way to stop caring about something is to care about something else far more.
+- **Checking What Started The Fight** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — At the end of a conflict, ask what began it and whether it was ever dealt with.
+- **Checking What Your Friends Know** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Compare what your inner circle knows about your doubts, frustrations and private judgements of your partner against what your partner knows.
+- **Checking Whether It Pulls You In Or Out** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The practical test Priebe offers for telling the two apart in the moment.
+- **Checking Yourself For Congruence** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Catch the small dishonesties: fine when you are not fine, of course I'm not mad when your body is broadcasting otherwise.
+- **Congratulating Yourself For Catching It** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The first thing after recognising a bad reaction is usually self-attack, and Priebe argues the opposite is warranted.
+- **Counting The Asymmetry** — dismissive-avoidant/fearful-avoidant — Because the imbalance is invisible from inside, count it.
+- **Dating Yourself** — anxious-preoccupied/fearful-avoidant — Take the effort you would put into courting someone and put it into yourself: turn up on time, keep the commitments, know your own wants well enough to meet them, buy…
+- **Deciding Not To Decide** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Recognise the activated state and rule yourself out of decisions while you are in it, on the reasoning that a genuinely important decision can survive a delay.
+- **Designing A Life Without The Partner** — anxious-preoccupied/fearful-avoidant — Her exercise, and a demanding one: plan your life on the certainty that the relationship is never coming.
+- **Dispersing Your Needs** — anxious-preoccupied/fearful-avoidant — She is pointed that anxiously attached people do not have more needs than anyone else — they route too many of them through a single relationship.
+- **Doing Something A Child Could Not Do** — anxious-preoccupied/fearful-avoidant — Write the list while calm: things a seven-year-old could not possibly do.
+- **Dropping Attachment To Outcome** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A conversation entered with a hope — that they like you, that they say a particular thing, that it lands somewhere specific — is a conversation being steered rather than had.
+- **Dropping The Defences** — dismissive-avoidant/fearful-avoidant — Her own account, and the most concrete instruction in the video.
+- **Earning Your Own Trust By Following Through** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Telling the activated part that it has real information, that now is the wrong moment, and that this will be handled tomorrow — then handling it.
+- **Expressing Anger At Two Out Of Ten** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Deliberately raising things while they are still minor, on the reasoning that smallness is the reason to speak rather than the reason to stay quiet.
+- **Finding A Container For Each Emotion** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Priebe lists her own, and the specificity is the point: a somatic therapist and the radical honesty community for anger, authentic relating for intimacy, Tantra for…
+- **Finding An Earned-Secure Model** — dismissive-avoidant/fearful-avoidant — Her practical suggestion for starting the avoidant version of this work: find someone who arrived at security by working for it, rather than someone who never had to.
+- **Finding The Paramedics Elsewhere** — anxious-preoccupied/fearful-avoidant — Relational wounds do need laying out — but not to someone who is having a hard time of their own in the same conversation.
+- **Flagging That This One Is Tender** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Say in advance that what you are about to do is difficult for you and that you may be unsteady around it.
+- **Framing It As A Shared Problem** — dismissive-avoidant/fearful-avoidant — Bring the issue as something costing you both — time, energy, repeated arguments — and ask to work out an approach together, rather than leading with how it made you feel.
+- **Going Where Vulnerability Is The Norm** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A trick that works with fearful-avoidant patterning rather than against it: the guard drops most easily where someone else was vulnerable first.
+- **Holding The Hurt Child's Hand** — anxious-preoccupied/fearful-avoidant — When a partner's mood registers as rejection, Priebe pictures the hurt part of herself as a child, takes its hand, and tells it plainly that this is the other person…
+- **Holding Two Things At Once** — dismissive-avoidant/fearful-avoidant — Keeping the explanation and the impact in view together rather than letting one dissolve the other.
+- **Intervening At Low Distress** — secure — Treat your own distress as worth acting on around three to six out of ten, while options are still available.
+- **Inviting The Direct Statement** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Saying, in advance and without heat, that the story is not what you need — that you would rather be told the feeling and the need directly, and that you will take them…
+- **Keeping Both Faculties Online** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Holding the emotional self available while reasoning and the reasoning self available while feeling.
+- **Keeping Your Life Outside The Relationship** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Her prescription for the lean-anxious version, and a preventative one.
+- **Learning To Self-Soothe** — anxious-preoccupied/fearful-avoidant — Building the missing half of regulation: staying with a strong feeling and bringing yourself down from it without requiring someone else to do the work.
+- **Letting The Nervous System Lead** — dismissive-avoidant/fearful-avoidant — Give your body's signals authority roughly half the time, even when they make no case for themselves.
+- **Logging State Against Activity** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Check in repeatedly over time, recording what you feel alongside what you were doing, until the pairings become visible.
+- **Making An Appointment With The Feeling** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Acknowledge the feeling, park it deliberately, do what you committed to, and set a real time to return to it.
+- **Mapping The Steps To The Future** — anxious-preoccupied/fearful-avoidant — Instead of the picture, the route: name the problems in the way, name what would have to change starting now, and raise both with the partner.
+- **Mapping Where The Strategy Works** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Going through the areas of your life — relationship, work, family — and naming where the insecure strategy is currently succeeding, with no obligation to change any of it yet.
+- **Mirroring Back** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Repeat back what you are hearing without endorsing it, and keep asking what else.
+- **Mourning On Purpose** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Six months with no return to the ex and no replacement — a new relationship over an open wound is a dressing that stops it closing.
+- **Naming Hurt And Repairing** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Getting to the pain, saying it, and giving the other person a chance to respond.
+- **Naming It Before Apologising** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Ask for the hour or the day you actually need, then write down everything that happened with nothing filtered, softened or left out, and read it as data rather than as a…
+- **Naming The Conflict And Your Intent** — anxious-preoccupied/fearful-avoidant — Open by saying plainly that this is a conversation about a problem, that you want to resolve it, and that you are not leaving.
+- **Naming The Feeling Accurately** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Say what is actually there rather than a verdict about it.
+- **Naming The Premise Out Loud** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Bringing the actual premise into the open where it can be negotiated or refused.
+- **Naming Your Own Activation Out Loud** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The use of the framework she endorses in conflict: describing your own activation and what it looks like from outside, noting how it may be landing on the other person,…
+- **No Failure, Just Feedback** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The stance Priebe recommends for the long middle of the process: when a new strategy does not hold and the old response wins, the outcome is information about the…
+- **Offering A Side Door** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — When you set a limit, ask what need drove the behaviour and offer a workable route to it.
+- **Owning The Feeling As Yours** — anxious-preoccupied/fearful-avoidant — Recognising that a feeling arose in you rather than being placed there by someone else — nobody can transmit an emotion into another person's mind.
+- **Owning Who You Pursue** — anxious-preoccupied/fearful-avoidant — Recognising that the pattern of people you go after is a choice you keep making rather than a run of luck.
+- **Practising Humility** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Entering a disagreement genuinely open to being the one who is missing something.
+- **Pre-Agreeing What You Need** — anxious-preoccupied/fearful-avoidant — Say beforehand what tends to happen to you in conflict and what you will need if it does — a pause, a restatement of what you are both aiming at.
+- **Re-Contextualizing Your History** — dismissive-avoidant/fearful-avoidant — Working back through your own history to find where what you felt genuinely was caused by something outside you, recovering the response a child with full emotional…
+- **Re-Parenting Yourself** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Treating yourself the way a well-attuned adult would treat a child in your state: neither dismissing the feeling nor letting it run the day.
+- **Re-Sensitizing To Your Own Emotions** — dismissive-avoidant/fearful-avoidant — The core of avoidant healing as she frames it: rebuilding access to the feelings that were sorted out of awareness early, rather than acquiring new coping skills on top…
+- **Reading Contempt As A Signal** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Rather than acting on the judgement or arguing yourself out of it, treat its arrival as evidence that something underneath went unfelt.
+- **Reading Disgust As A Map** — dismissive-avoidant/fearful-avoidant — Treat the emotions you find most repellent in other people as an index of which emotions were rejected in you.
+- **Reading Your Fantasies For The Need** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Ask not what happens in the fantasy but what you feel in it.
+- **Reading Your Four-F Responses Backwards** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Not in the moment — afterwards. Look back at the times you froze and withdrew, or went furious, or went scattered and absent, or went into caretaking, and ask what…
+- **Reading Your Relationship History** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Look for what your past partners had in common and compare it with what you say you want.
+- **Repair Without Needing Forgiveness** — secure — Going to someone you hurt, naming what you did, and staying steady whether or not they accept it.
+- **Reviewing The Relationship Objectively** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The counterpart practice: deliberately looking at the relationship from outside the fantasy — journalling, inviting feedback from friends less invested than you, keeping…
+- **Searching For A Nourishing Environment** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A mentor's line Priebe says changed her life: you are used to thinking of your environment as emotionally impoverished, so you stopped looking for evidence otherwise —…
+- **Sensitizing, Then Sharing** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Her prescription for the lean-avoidant version: a daily practice of dropping attention out of the head and into the body to find what is actually there, then saying it…
+- **Setting A Boundary You Control** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Phrase the limit as your own action and nothing else: what you will do if a thing happens.
+- **Setting Boundaries With Yourself First** — anxious-preoccupied/fearful-avoidant — Priebe is blunt that the fix is not better boundaries with other people.
+- **Starting With A Paid Witness** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Priebe's own sequence, over years: for the first year, one intimate relationship and nothing else; then a therapist, where being honest could be practised with someone…
+- **Taking The Challenger Position** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Instead of specifying what the other person must change, ask what you could learn or build if nothing around you changes at all.
+- **Taking The Coach Position** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Treat other people as capable of acting on their own behalf, and remind them of it when they have forgotten — rather than becoming the reason they manage.
+- **Taking The Creator Position** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Ask what is still available to you, granting the whole grievance.
+- **Taking Turns As The Secure Base** — secure — Nobody is regulated all the time, so both people need to be able to absorb the other's bad day — and to do it according to what that person actually needs rather than…
+- **Taking Your Partner At Face Value** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Presenting your own position without editing and receiving theirs without decoding it.
+- **Telling People You Are Practising** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Telling safe people in advance that you are learning to raise small things, and that if something sounds trivial it is because you are trying to catch it early rather…
+- **Telling The Protective Part You Have Another Way** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Being present feels threatening because a part of you is insisting that the strategy is what keeps you from being abandoned, and that this present-moment business has…
+- **Testing The Rule Before Leaving** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Before ending a relationship that has gone empty, name the rule you have been obeying and find out whether it is real.
+- **The Four-Year-Old Test** — anxious-preoccupied/fearful-avoidant — Priebe's question before re-entering a relationship: if you were responsible for a four-year-old, would you let her live with this person — and if so, what would have to…
+- **The No-Contact Test** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Do not end a relationship unless you are prepared to cut contact completely — Priebe suggests six months as the benchmark.
+- **Tolerating Emotional Discomfort** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — She names this as the single capacity that most determines whether someone can sustain close relationships.
+- **Tracking What You Receive** — dismissive-avoidant/fearful-avoidant — Deliberately keeping in view what the relationship gives you, not only what it asks of you.
+- **Treating Emotion As Data** — dismissive-avoidant/fearful-avoidant — Take what you feel as a data point worth entering into the decision rather than a verdict to obey or a fault to correct.
+- **Un-gaslighting Yourself** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Before treating a feeling as distortion, asking what it is accurately observing.
+- **Validating The Feeling Without Justifying It** — dismissive-avoidant/fearful-avoidant — Letting a feeling be real without first proving the external circumstances warrant it, and separating what you feel from what you must therefore do.
+- **Watching Yourself With The Sound Off** — dismissive-avoidant/fearful-avoidant — With the other person's consent, record a conflict and watch it back muted — or sit in front of a mirror during one, which is clumsier but works.
+
+## source (21) — in `02-graph-sources.md`
+
+- **Adult Children of Alcoholics** — anxious-preoccupied/fearful-avoidant — A free twelve-step programme Priebe recommends for inner-child and re-parenting work, noting it serves anyone raised in a dysfunctional family system rather than only…
+- **Brené Brown** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Shame researcher, cited here for the observation that shame cannot survive being witnessed — the premise underneath treating disclosure as the mechanism of repair rather…
+- **Codependents Anonymous** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — A twelve-step programme Priebe recommends for both anxious-spectrum styles, noting she came to it sceptical of twelve-step work and changed her mind after reading the handbook.
+- **Coping With Trauma-Related Dissociation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The book Priebe credits for the phrase phobia of inner experiences, which she says clicked several things into place — the idea that a nervous system can develop an…
+- **Dan Siegel** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Interpersonal neurobiologist who coined the window of tolerance, the term this whole account of nervous-system wiring rests on.
+- **Gabor Maté** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Named by Priebe, alongside Dan Siegel, Bowlby and Ainsworth, as the people to go to for real expertise.
+- **John Bowlby** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Originator of attachment theory, and the source of the underlying claim this whole corpus rests on: that the need for a reliable other is a biological system rather than…
+- **John Bradshaw** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Shame researcher whose work long predates the recent popular interest in the subject.
+- **Lundy Bancroft** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Runs anger-management programmes and wrote Why Does He Do That?
+- **Martin M. Broadwell** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Credited with the first description of the four-stage learning model in 1969, later restated by Curtis and Warren and popularised by Noel Burch at Gordon Training…
+- **Mary Ainsworth** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Developed the Strange Situation, the procedure by which infant attachment was first categorised — and the source of the original lettered clusters that later acquired…
+- **Nonviolent Communication** — dismissive-avoidant/fearful-avoidant — The system Priebe recommends specifically to avoidant-spectrum people learning to state a boundary: it works by going underneath irritation or overwhelm to the unmet…
+- **Patricia Crittenden** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Worked under Ainsworth and developed the Dynamic Maturation Model, which treats the avoidant and anxious categories as gradients with sub-scales rather than boxes.
+- **Patricia DeYoung** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Author of Understanding and Treating Chronic Shame, which Priebe cites for its definition of shame as the sense of one's self disintegrating in the presence of a…
+- **Radical Honesty** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The practice Priebe credits with changing how she handles anger: expressing it clearly and cleanly at the moment it is felt, rather than carrying it in the body as…
+- **Richard Schwartz** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Developed Internal Family Systems; Priebe calls No Bad Parts a brilliant introduction to it.
+- **Ross Ellenhorn** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Author of How We Change (and Ten Reasons Why We Don't), which Priebe names as one of her favourite books.
+- **Scattered Minds** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Gabor Maté's book on inattentive thinking and its links to a disorganised attachment system, which Priebe cites when discussing why fearful-avoidants so often reach for…
+- **Stephen Karpman** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Devised the drama triangle in the late 1960s, out of transactional analysis — the study of how unresolved childhood material gets projected onto present relationships.
+- **Thais Gibson** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Runs the Personal Development School, where Priebe took courses.
+- **The Betrayal Bond** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A book Priebe cites not for its attachment content — she does not recall it addressing attachment directly — but as an illustration of how thoroughly a person can be…
+
+## state (26) — in `02-graph-mechanism.md`
+
+- **Accurate Reappraisal** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Genuinely concluding, on evidence, that someone is not a good fit.
+- **Approach-Avoidance Conflict** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Both attachment responses live at once, so the system moves toward closeness and away from it in the same moment.
+- **Burnout Collapse** — dismissive-avoidant/fearful-avoidant — What the top of the scale looks like on the avoidant side, and the exact counterpart of self-abandonment on the anxious side.
+- **Chronic Abandonment Fear** — anxious-preoccupied/fearful-avoidant — A background dread of being left that stays conscious rather than surfacing only in crises.
+- **Contempt** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — What arrives in place of the vulnerable feeling.
+- **Curiosity And Appreciation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The state the system runs before anything is at stake: noticing what is attractive, interesting and compatible about someone.
+- **Desensitization To One's Own Emotions** — dismissive-avoidant/fearful-avoidant — The long-run result of a brain that stopped attending to feelings it found useless.
+- **Disgust At Displayed Vulnerability** — dismissive-avoidant/fearful-avoidant — The strong repulsion many avoidant adults feel watching someone else exaggerate need, sadness or vulnerability — often with an edge of rage when that display is rewarded.
+- **Emotional Dysregulation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Either a response far larger than the present occasion warrants — the past arriving in the body and being mistaken for now — or a diffuse offness with no locatable cause.
+- **Emotional Flashback** — anxious-preoccupied/fearful-avoidant — The activated anxious state read as a flashback rather than a mood.
+- **Existential Loneliness** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Not the ordinary version — nobody in my life currently sees me — but a felt certainty that being seen and known is not a thing that can happen.
+- **Fear Of Engulfment** — dismissive-avoidant/fearful-avoidant — The avoidant counterpart to abandonment fear, and just as chronic and low-level: that someone will arrive, require everything, and leave nothing of you.
+- **Guilt** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The recognition that something you did landed badly on someone else — which requires already knowing that their experience is not yours.
+- **Guilt At Wanting Space** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The other arm. Enmeshment patterning says that being in a relationship means giving your partner everything and caretaking without interruption, so any move toward your…
+- **Identity Threat** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The state where a disagreement stops being about its subject and becomes about whether you are a certain kind of person.
+- **Longing At A Safe Distance** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The other half of the oscillation. Alone, with nothing to be threatened by, the wish for closeness returns in full and often as fantasy — which is why she says this…
+- **Loss Of Attraction** — dismissive-avoidant/fearful-avoidant — The experience the deactivating system produces: a partner who was compelling stops being compelling, with no event that explains it.
+- **Never Good Enough** — anxious-preoccupied/fearful-avoidant — The chronic sense of being just short of the standard, present enough to be felt on a bodily level rather than believed as an opinion.
+- **Resentment** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — What accumulates when care was given under an unspoken contract and the repayment never arrives.
+- **Self-Disgust At Your Own Need** — dismissive-avoidant/fearful-avoidant — The mechanism underneath the layer everyone gets wrong.
+- **Shame** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Available from roughly fifteen months, well before a child understands that it and its caregiver are separate people — which is why an unreturned bid does not register…
+- **Shame At Having Expressed A Need** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Looking back from a deactivated state at what was expressed while activated, and finding both the expression and the underlying feeling shameful — particularly if the…
+- **The High Of Relief** — anxious-preoccupied/fearful-avoidant — The peak that arrives when the background feeling of not being enough briefly lifts.
+- **The Partner's Dysregulation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — What being treated as incompetent does to the person on the receiving end.
+- **Unmetabolised Grief** — dismissive-avoidant/fearful-avoidant — A loss that was never felt because the system would not release it into awareness.
+- **Unregistered Hurt** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Hurt that occurred and was processed defensively rather than felt.
+
+## strategy (21) — in `02-graph-mechanism.md`
+
+- **Affect Suppression** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The system does not merely hide hurt from other people — it withholds the experience from the person having it.
+- **Amplifying The Signal** — anxious-preoccupied/fearful-avoidant — The mechanism behind hyperactivation. Because emotional display worked intermittently rather than never, the child learned that display is worth doing — and that when it…
+- **Automatic Redirect To Solution** — dismissive-avoidant/fearful-avoidant — The moment a difficult feeling appears, attention reroutes to what would resolve the situation.
+- **Becoming What They Want** — anxious-preoccupied/fearful-avoidant — The unspoken arrangement she describes: be the person they seem to want until they are secured, and raise your own needs afterwards.
+- **Deactivating Strategies** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The avoidant threat response. Once the body registers that it has grown dependent on someone, the system stops running the program that noticed what it liked about them…
+- **Environmental Control** — dismissive-avoidant/fearful-avoidant — A whole life quietly arranged so that mood stays predictable without anyone else's involvement.
+- **Exaggerating The Story** — anxious-preoccupied/fearful-avoidant — Turning up the events so the listener will arrive at the right feeling.
+- **Hyperactivating Strategies** — anxious-preoccupied/fearful-avoidant — The anxious counterpart. The same growing dependency that sends the avoidant system scanning for cost sends this one scanning for signs the bond is at risk, because what…
+- **Keeping The Upper Hand** — dismissive-avoidant/fearful-avoidant — Selecting someone you quietly believe could never fully understand you, which keeps control where it feels safe.
+- **Monitoring The Bond** — anxious-preoccupied/fearful-avoidant — Continuous surveillance of the relationship for small shifts in the partner's warmth or responsiveness, on the reasoning that the reassurance you depend on could be…
+- **Persecutor Position** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The same conviction of having been wronged, delivered forcefully rather than plaintively: here is what you did, here is what you must change.
+- **Preemptive Sabotage** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — If something is certain to go wrong, going first is the only move that returns any control.
+- **Projecting The Intolerable Feeling** — anxious-preoccupied/fearful-avoidant — When a feeling cannot be processed — shame above all — it is relocated to someone else, because a feeling that belongs to another person is one they can be recruited to fix.
+- **Rationalizing The Feeling Away** — dismissive-avoidant/fearful-avoidant — The adult mechanism: scan the environment for a justification, and if none is blatant enough, conclude the feeling itself is mistaken.
+- **Resource Threat Scanning** — dismissive-avoidant/fearful-avoidant — What the avoidant system starts doing once attachment comes online: auditing the relationship for what it will cost.
+- **Saviour Position** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Seeking out people who seem to need fixing and setting your own needs aside for them.
+- **Sequence Analysis** — dismissive-avoidant/fearful-avoidant — The avoidant over-inflated wheel: learning early that understanding why something happened mattered more than processing how it felt, and getting very good at it.
+- **The Fawn Response After A Rupture** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — The urge to go straight to the apology is not repair — Priebe reads it as the fourth branch of fight, flight and freeze, running the same short-term threat response.
+- **The Outer Critic** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A rule internalised about yourself, then enforced outwards.
+- **The Social Mask** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Most fearful-avoidant people spend more time in one response than the other, and build an identity on it — the analytical one, or the selfless and giving one — while…
+- **Victim Position** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant/secure — Entering conflict as the one things happen to: I did not cause this, so I cannot and should not be the one to fix it.
+
+## style (4) — in `02-graph-structure.md`
+
+- **Anxious-Preoccupied** — ## Does this sound like
+- **Dismissive-Avoidant** — ## Does this sound like
+- **Fearful-Avoidant** — ## Does this sound like
+- **Secure** — ## What this looks
+
+## trigger (4) — in `02-graph-mechanism.md`
+
+- **Broken Promise** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — A concrete instance of hurt that does not get registered: someone says they will do something and does not.
+- **Growing Dependency** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The threshold that brings the attachment system online.
+- **Relationship Escalation** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — Deactivation is not confined to the start of a relationship.
+- **Things Going Well** — dismissive-avoidant/anxious-preoccupied/fearful-avoidant — The signature fearful-avoidant trigger, and the one that makes the style hardest to read from outside: activation peaks not during conflict but when the relationship…

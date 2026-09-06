@@ -1,0 +1,70 @@
+{
+  "id": "want-to-reach-out-again",
+  "title": "I want to message them again",
+  "blurb": "For the gap between sending something and hearing back, when the waiting has its own gravity.",
+  "lens": ["anxious-preoccupied"],
+  "entry_signals": ["should I text again", "they haven't replied", "I already double texted", "I keep drafting messages", "I want to know where I stand"],
+  "steps": [
+    { "id": "land", "kind": "scale",
+      "ask": "How strong is the pull right now, one to ten?",
+      "cites": ["Chronic Abandonment Fear", "Window Of Tolerance"],
+      "branches": [{ "when": ">=7", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "Wait out the peak",
+      "say": "At this level the message isn't really asking a question — it's trying to end a feeling, and it will read that way at the other end no matter how carefully it's worded.\n\nThe pull does drop. Not because you talked yourself out of it, but because the state passes. Give it an hour and put the need somewhere else in the meantime — a person, a walk, anything that isn't this thread.",
+      "cites": ["Dispersing Your Needs", "Learning To Self-Soothe", "Amplifying The Signal"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "Is there a practical reason you need an answer — a plan, a decision, something with a deadline?",
+      "help": "Sometimes the message is just admin, and the flow shouldn't talk you out of a normal thing.",
+      "options": [
+        { "label": "Yes, there's an actual reason", "goto": "just-send" },
+        { "label": "Partly, but that's not really why", "goto": "already", "flag": "mixed" },
+        { "label": "No — I want to know we're okay", "goto": "already" } ] },
+
+    { "id": "just-send", "kind": "stop", "title": "Then send it",
+      "say": "Send the practical message, keep it to the practical thing, and don't attach the other question to it.\n\nA logistics message carrying a hidden bid for reassurance tends to get a logistics reply, which then hurts more than no reply would have.",
+      "cites": ["Honest Expression Of Need", "Accidental Bad Faith"] },
+
+    { "id": "already", "kind": "text", "reframe": true,
+      "ask": "What have you already sent, and when?",
+      "help": "Just the record. How many, and how long since the last one.",
+      "goto": "hoping" },
+
+    { "id": "hoping", "kind": "choice", "reframe": true,
+      "ask": "What are you hoping the reply does?",
+      "cites": ["I Can Only Feel Better Through Someone Else", "Monitoring The Bond"],
+      "options": [
+        { "label": "Tells me we're fine so I can stop feeling like this", "names": "I Can Only Feel Better Through Someone Else", "cites": ["I Can Only Feel Better Through Someone Else", "Learning To Self-Soothe"], "goto": "evidence" },
+        { "label": "Gives me information I don't have", "names": "Honest Expression Of Need", "cites": ["Honest Expression Of Need"], "goto": "evidence" },
+        { "label": "Makes them realise how this is landing on me", "names": "Amplifying The Signal", "cites": ["Amplifying The Signal", "Escalating Vulnerability"], "goto": "evidence" } ] },
+
+    { "id": "evidence", "kind": "split", "reframe": true,
+      "ask_a": "What do you actually know about the silence?",
+      "help_a": "Facts only. When they last replied, what you know about their week.",
+      "ask_b": "And what have you concluded from it?",
+      "help_b": "The story that's been running. Write it as baldly as it actually sounds.",
+      "goto": "loop" },
+
+    { "id": "loop", "kind": "reflect", "reframe": true,
+      "say": "Worth knowing about the searching: looking hard for evidence that something is wrong tends to find some, because a search that specific always does. And what started as a fear comes back feeling like knowledge — which raises the pull to check again.",
+      "cites": ["Scanning For Confirmation", "Chronic Abandonment Fear", "Monitoring The Bond"],
+      "goto": "honest" },
+
+    { "id": "honest", "kind": "text", "reframe": true,
+      "ask": "If you were going to say the real thing, what would it be?",
+      "help": "Not the casual message. The actual one — something like: I've noticed I get worried when it goes quiet, and I'd rather tell you than keep guessing. It's more exposing, and it's the only version that can get a real answer.",
+      "cites": ["Honest Expression Of Need", "Naming The Premise Out Loud"],
+      "goto": "yours" },
+
+    { "id": "yours", "kind": "text", "reframe": true,
+      "ask": "And what's the part of this that doesn't depend on them replying at all?",
+      "help": "How long you're willing to wait before you ask directly. What you'll do with the evening. The bit that stays yours.",
+      "cites": ["Setting A Boundary You Control", "Dispersing Your Needs"],
+      "goto": "end" },
+
+    { "id": "end", "kind": "end",
+      "say": "Two things to leave with: the honest sentence, and the part that doesn't need them. Sending the first is optional. The second one is available tonight either way.",
+      "cites": ["How Not To Use This"] }
+  ]
+}

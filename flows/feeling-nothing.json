@@ -1,0 +1,69 @@
+{
+  "id": "feeling-nothing",
+  "title": "I feel nothing and I think I should",
+  "blurb": "For the gap between what a situation warrants and what you can actually locate in yourself.",
+  "lens": ["dismissive-avoidant", "fearful-avoidant"],
+  "entry_signals": ["I know I should be upset", "I feel numb", "everyone else is grieving and I'm fine", "I don't think I love them any more", "why don't I feel anything"],
+  "steps": [
+    { "id": "land", "kind": "scale",
+      "ask": "How much pressure are you under at the moment, one to ten?",
+      "help": "Deliberately not asking how you feel — that's the reading that's unavailable. Load is usually easier to answer honestly.",
+      "cites": ["The Distress Scale", "Forcing Your Inner State To Conform"],
+      "branches": [{ "when": ">=8", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "That may be most of the answer",
+      "say": "Under sustained load, feeling less is what the system does. It isn't evidence about the relationship, or about whether you care.\n\nThe measure that gets used here is usually external — eight hours of sleep, therefore rested — while the actual signal says otherwise. It's worth taking the body's version seriously before drawing conclusions from the flatness.",
+      "cites": ["Burnout Collapse", "Letting The Nervous System Lead", "Forcing Your Inner State To Conform"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "Is the numbness getting in the way of ordinary life — work, sleep, eating, being with people?",
+      "help": "Asked first because persistent numbness has causes this flow isn't equipped for, and pattern-matching it to an attachment style would be the wrong call.",
+      "options": [
+        { "label": "Yes, it's affecting most things", "goto": "situation-first" },
+        { "label": "Some, but I'm functioning", "goto": "when", "flag": "watch" },
+        { "label": "No — it's specific to this one situation", "goto": "when" } ] },
+
+    { "id": "situation-first", "kind": "stop", "title": "Worth taking to a person",
+      "say": "Numbness that reaches into everything is worth talking to someone qualified about. Not because something is wrong with you, but because this flow is built for a narrow thing — an emotional response that's specifically muted around attachment — and what you're describing is wider than that.\n\nA GP or a therapist is the right next step. That isn't a deflection; it's the honest limit of what a set of questions on a website can do.",
+      "cites": ["How Not To Use This"] },
+
+    { "id": "when", "kind": "text", "reframe": true,
+      "ask": "What is it you think you should be feeling, and about what?",
+      "help": "Name the expected feeling and the event. The gap between what you think is warranted and what's there is the thing we're looking at.",
+      "goto": "conform" },
+
+    { "id": "conform", "kind": "choice", "reframe": true,
+      "ask": "When the feeling didn't arrive, what did you do with that?",
+      "cites": ["Rationalizing The Feeling Away", "If It Does Not Make Sense I Am Not Feeling It"],
+      "options": [
+        { "label": "Decided it means I don't care as much as I thought", "names": "Rationalizing The Feeling Away", "cites": ["Rationalizing The Feeling Away", "If It Does Not Make Sense I Am Not Feeling It"], "goto": "elsewhere" },
+        { "label": "Tried to produce the right feeling and got frustrated when I couldn't", "names": "Forcing Your Inner State To Conform", "cites": ["Forcing Your Inner State To Conform"], "goto": "elsewhere" },
+        { "label": "Assumed something is wrong with me", "names": "Shame-Bound Emotion", "cites": ["Shame-Bound Emotion", "Self-Esteem Versus Shame"], "goto": "elsewhere" } ] },
+
+    { "id": "elsewhere", "kind": "choice", "reframe": true,
+      "ask": "Where does it show up instead? Anything ring true?",
+      "help": "A suppressed feeling doesn't vanish, it changes address. These are the usual ones.",
+      "cites": ["Contempt", "Disgust At Displayed Vulnerability", "Unregistered Hurt"],
+      "options": [
+        { "label": "Irritation. Small things landing harder than they should", "names": "Unregistered Hurt", "cites": ["Unregistered Hurt", "Reading Contempt As A Signal"], "goto": "body" },
+        { "label": "Judgement — I think less of people lately", "names": "Contempt", "cites": ["Contempt", "Looking Down On The Partner"], "goto": "body" },
+        { "label": "Something close to disgust when people are visibly upset", "names": "Disgust At Displayed Vulnerability", "cites": ["Disgust At Displayed Vulnerability", "Reading Disgust As A Map"], "goto": "body" },
+        { "label": "Nowhere I can see. Just flat", "names": "Desensitization To One's Own Emotions", "cites": ["Desensitization To One's Own Emotions"], "goto": "body" } ] },
+
+    { "id": "body", "kind": "text", "reframe": true,
+      "ask": "Forget the label. What's physically there right now?",
+      "help": "Tight, heavy, restless, tired, nothing. The body registers before there's a word for it, and the word is the part that's missing here — not the feeling.",
+      "cites": ["The Observing And Experiencing Selves", "Naming The Feeling Accurately"],
+      "goto": "smallest" },
+
+    { "id": "smallest", "kind": "text", "reframe": true,
+      "ask": "What's the smallest true thing you can say about this?",
+      "help": "Not the feeling you think is required. Something you can actually stand behind — even if it's only that you noticed you didn't want to talk about it.",
+      "cites": ["Naming The Feeling Accurately", "Validating The Feeling Without Justifying It"],
+      "goto": "end" },
+
+    { "id": "end", "kind": "end",
+      "say": "Nothing here needed you to produce a feeling on demand. The useful move is the reverse — let the smallest accurate thing stand without arguing it into something that makes more sense.",
+      "cites": ["Re-Sensitizing To Your Own Emotions", "How Not To Use This"] }
+  ]
+}

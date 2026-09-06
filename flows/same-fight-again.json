@@ -1,0 +1,75 @@
+{
+  "id": "same-fight-again",
+  "title": "We keep having the same fight",
+  "blurb": "For the argument that resolves and then returns, in a slightly different costume.",
+  "lens": ["dismissive-avoidant", "anxious-preoccupied", "fearful-avoidant"],
+  "entry_signals": ["we always end up here", "this is the same argument", "we never actually resolve anything", "it starts about the dishes and ends somewhere else"],
+  "steps": [
+    { "id": "land", "kind": "scale",
+      "ask": "How raw is it right now, one to ten?",
+      "cites": ["Window Of Tolerance"],
+      "branches": [{ "when": ">=7", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "Later is better for this one",
+      "say": "This flow asks you to be unflattering about your own motives, and that's close to impossible mid-conflict — under threat everyone argues for survival rather than accuracy.\n\nCome back when it's cooled. The recurring fight will still be recurring.",
+      "cites": ["Identity Threat", "Tolerating Emotional Discomfort"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "In these fights, does anything happen that you'd be worried about if a friend described it?",
+      "help": "Contempt, threats, anything that leaves you managing their reaction rather than discussing the matter. Recurring conflict and an unsafe dynamic can look similar from inside and are not the same thing.",
+      "options": [
+        { "label": "Yes", "goto": "situation-first" },
+        { "label": "I'm not sure — it gets bad but I don't know if that's normal", "goto": "surface", "flag": "uncertain" },
+        { "label": "No — it's frustrating, not frightening", "goto": "surface" } ] },
+
+    { "id": "situation-first", "kind": "stop", "title": "Start there instead",
+      "say": "That's a different question from why an argument repeats, and it comes first.\n\nA useful check: is your partner the person who knows the most about how you feel in this relationship, or do your friends know more? A large gap there says something about how much of it is survivable to say out loud.",
+      "cites": ["Confiding In Friends Not The Partner", "Checking What Your Friends Know", "Taking Your Partner At Face Value"] },
+
+    { "id": "surface", "kind": "split", "reframe": true,
+      "ask_a": "What is the fight nominally about?",
+      "help_a": "The stated subject. Chores, messages, their friend, the plan for Saturday.",
+      "ask_b": "What does it always turn into?",
+      "help_b": "The place it reliably ends up, however it starts.",
+      "goto": "premise" },
+
+    { "id": "premise", "kind": "choice", "reframe": true,
+      "ask": "When it's going badly, what are you fighting to protect?",
+      "help": "Not what you're saying — what you'd be unwilling to lose. This is the uncomfortable question in the whole flow and the one that moves things.",
+      "cites": ["Accidental Bad Faith", "Asking What You Are Actually Arguing For"],
+      "options": [
+        { "label": "That they still want me. That we're okay", "names": "A Partner Will Make Me Feel Worthy", "cites": ["A Partner Will Make Me Feel Worthy", "Chronic Abandonment Fear"], "goto": "theirs" },
+        { "label": "My time, my autonomy, not being taken from", "names": "Depending On Others Costs Me Myself", "cites": ["Depending On Others Costs Me Myself", "Resource Threat Scanning"], "goto": "theirs" },
+        { "label": "Their picture of me as a good person", "names": "Identity Threat", "cites": ["Identity Threat", "A Relationship Is A Checklist Item"], "goto": "theirs" },
+        { "label": "Being the one who decides how things go", "names": "Keeping The Upper Hand", "cites": ["Keeping The Upper Hand"], "goto": "theirs" } ] },
+
+    { "id": "theirs", "kind": "text", "reframe": true,
+      "ask": "And what do you think they're fighting to protect?",
+      "help": "Their want, not their attachment style — what they're trying to keep, in ordinary words. Guessing at their diagnosis is the fastest way to make this worse.",
+      "cites": ["How Not To Use This", "Taking Your Partner At Face Value"],
+      "goto": "stated" },
+
+    { "id": "stated", "kind": "reflect", "reframe": true,
+      "say": "So the argument has two layers: the one being had out loud, and the one underneath it. When neither underneath-layer gets stated, the surface argument can be won repeatedly and resolve nothing — which is exactly what a fight that keeps coming back looks like.",
+      "cites": ["Accidental Bad Faith", "Unconscious Relationship Premise"],
+      "goto": "sayable" },
+
+    { "id": "sayable", "kind": "text", "reframe": true,
+      "ask": "How would you say your real one out loud?",
+      "help": "Say it plainly enough that it could be refused. \"I want to know we're okay before I can talk about the dishes\" is a sentence someone can respond to. It also risks them saying no, which is the part that makes it worth something.",
+      "cites": ["Naming The Premise Out Loud", "Honest Expression Of Need"],
+      "goto": "repair" },
+
+    { "id": "repair", "kind": "choice", "reframe": true,
+      "ask": "When one of you gets it wrong, what usually happens next?",
+      "cites": ["Naming Hurt And Repairing", "Practising Humility"],
+      "options": [
+        { "label": "We repair — someone owns it and we come back", "names": "Naming Hurt And Repairing", "cites": ["Naming Hurt And Repairing"], "goto": "end" },
+        { "label": "It goes quiet and we move on without addressing it", "names": "Affect Suppression", "cites": ["Affect Suppression", "Emotional Withdrawal"], "goto": "end" },
+        { "label": "One of us apologises to end the discomfort, not because it's resolved", "names": "Putting Your Own Needs Aside", "cites": ["Putting Your Own Needs Aside", "Resentment"], "goto": "end" } ] },
+
+    { "id": "end", "kind": "end",
+      "say": "The sentence you wrote at the end is the whole point of this one. A recurring fight usually recurs because the real premise has never been on the table where it could be agreed to or turned down.",
+      "cites": ["How Not To Use This"] }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "id": "anger-out-of-proportion",
+  "title": "I'm angry and I can't tell if it's proportionate",
+  "blurb": "For anger that feels either far too big for what happened, or suspiciously absent.",
+  "lens": ["dismissive-avoidant", "anxious-preoccupied", "fearful-avoidant"],
+  "entry_signals": ["I overreacted", "why am I this angry", "I snapped at them", "I should be angry and I'm not", "I can't stop thinking about what they said"],
+  "steps": [
+    { "id": "land", "kind": "scale",
+      "ask": "How activated are you right now, one to ten?",
+      "cites": ["Window Of Tolerance", "Emotional Dysregulation"],
+      "branches": [{ "when": ">=8", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "Come back to this",
+      "say": "Anger this live doesn't get sorted by thinking about it — that just runs the story again, and telling yourself the story keeps pulling the feeling back into your body.\n\nNothing here is going anywhere. The questions work much better once the spike has passed, and the goal isn't to be calm while furious, it's to catch things earlier next time.",
+      "cites": ["Getting Lost In The Story", "Intervening At Low Distress"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "Straight question first: did something happen that would anger a reasonable person?",
+      "help": "Asked before anything else, because \"am I overreacting\" is a question people ask most in situations where they aren't.",
+      "options": [
+        { "label": "Yes, clearly", "goto": "situation-first" },
+        { "label": "Something happened, but I think my reaction was bigger than it", "goto": "what", "flag": "amplified" },
+        { "label": "Honestly, almost nothing happened", "goto": "what" } ] },
+
+    { "id": "situation-first", "kind": "stop", "title": "Then the anger is doing its job",
+      "say": "Anger is information about an injustice. If something happened that would anger a reasonable person, the useful question isn't whether you're allowed to feel it — it's what you want to do with it.\n\nOne thing worth checking: are the people who know what happened the same people who'd be able to tell you if you were wrong? If your friends know things about this your partner doesn't, that gap is its own problem.",
+      "cites": ["Checking What Your Friends Know", "Naming Hurt And Repairing"] },
+
+    { "id": "what", "kind": "split", "reframe": true,
+      "ask_a": "What actually happened?",
+      "help_a": "The event, in camera terms.",
+      "ask_b": "What did it mean about you?",
+      "help_b": "This is the real question. Most disproportionate anger is carrying a claim about you — that you don't matter, that you're too much, that you'll be left.",
+      "goto": "which" },
+
+    { "id": "which", "kind": "choice", "reframe": true,
+      "ask": "Which of these is closest to how the anger feels?",
+      "cites": ["Escalating Anger", "Contempt", "Identity Threat"],
+      "options": [
+        { "label": "Hot — I want them to understand how much this hurt", "names": "Escalating Anger", "cites": ["Escalating Anger", "Amplifying The Signal"], "goto": "underneath" },
+        { "label": "Cold — I want distance, and I think less of them now", "names": "Contempt", "cites": ["Contempt", "Looking Down On The Partner"], "goto": "underneath" },
+        { "label": "Defensive — I need them to see I'm not the bad one here", "names": "Identity Threat", "cites": ["Identity Threat", "Defensiveness"], "goto": "underneath" },
+        { "label": "There isn't much feeling. That's what worries me", "names": "Desensitization To One's Own Emotions", "cites": ["Desensitization To One's Own Emotions", "Affect Suppression"], "goto": "underneath" } ] },
+
+    { "id": "underneath", "kind": "text", "reframe": true,
+      "ask": "If the anger weren't available, what would be underneath it?",
+      "help": "Anger is often the only feeling that made it through. Cold anger in particular tends to be sitting on hurt that never got registered — and the giveaway is the judgement, not the heat.",
+      "cites": ["Unregistered Hurt", "Reading Contempt As A Signal", "Affect Suppression"],
+      "goto": "accumulation" },
+
+    { "id": "accumulation", "kind": "choice", "reframe": true,
+      "ask": "Is this the first time, or the tenth?",
+      "help": "Feelings are usually a compound of many small things rather than the product of one clear cause — which is why a reaction can be entirely proportionate to the pattern and look absurd next to the single incident that triggered it.",
+      "cites": ["Emotions Accumulate From Small Signals"],
+      "options": [
+        { "label": "It's happened plenty of times. This one just tipped it", "names": "Emotions Accumulate From Small Signals", "cites": ["Emotions Accumulate From Small Signals", "Intervening At Low Distress"], "goto": "arguing-for" },
+        { "label": "It's genuinely the first time", "goto": "arguing-for" } ] },
+
+    { "id": "arguing-for", "kind": "text", "reframe": true,
+      "ask": "If you raise this, what are you actually arguing for?",
+      "help": "Be unflattering if that's what's true. Sometimes it's a fix. Sometimes it's for them to see you as the good one, or to keep the upper hand. Those are all real wants, but only the stated one can be agreed to.",
+      "cites": ["Asking What You Are Actually Arguing For", "Accidental Bad Faith"],
+      "goto": "end" },
+
+    { "id": "end", "kind": "end",
+      "say": "The pair worth carrying out of this: what happened, and what you concluded it meant about you. The second one is usually the thing the conversation is really about.",
+      "cites": ["How Not To Use This"] }
+  ]
+}

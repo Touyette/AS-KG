@@ -1,0 +1,86 @@
+{
+  "id": "gone-cold",
+  "title": "I've gone cold on someone and I don't know why",
+  "blurb": "For when someone you were genuinely into stopped landing, with no event that explains it.",
+  "lens": ["dismissive-avoidant", "fearful-avoidant"],
+  "mirror": "partner-pulling-away",
+  "entry_signals": ["I've lost attraction", "I suddenly don't want to be around them", "I think I made a mistake about this person", "the ick", "I feel nothing for them now"],
+  "steps": [
+    { "id": "land", "kind": "scale",
+      "ask": "How much of your energy right now is going into being annoyed that you can't just get on with things?",
+      "help": "Not how sad you are — that reading is often unavailable. This one is usually more honest: impatience with yourself, frustration that you can't perform at the level you've decided is required.",
+      "cites": ["Forcing Your Inner State To Conform", "The Distress Scale"],
+      "branches": [{ "when": ">=7", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "That reading matters more than it looks",
+      "say": "That level of self-impatience is usually the signal that distress is already high — it just isn't arriving labelled as distress.\n\nThe version of the top of this scale on your side isn't a spiral, it's burning yourself down until you stop registering the discomfort. Nothing decided from there is a decision about the relationship.\n\nCome back when there's some slack. The question below will keep.",
+      "cites": ["Burnout Collapse", "Letting The Nervous System Lead", "I Can Protect Myself But Not Comfort Myself"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "Before we look at the pattern: is there something real here — something you'd tell a friend to leave over?",
+      "help": "This is the mirror of the question the other flow asks, and it exists for the same reason. Deactivation can switch off attraction for no reason. It can also switch on for a very good one, and a tool that always says \"that's just your avoidance\" would talk you out of accurate judgement.",
+      "options": [
+        { "label": "Yes — there's a real reason", "goto": "situation-first" },
+        { "label": "I can't tell, and that's the problem", "goto": "observed", "flag": "uncertain" },
+        { "label": "No — nothing happened, that's what's strange", "goto": "observed" } ] },
+
+    { "id": "situation-first", "kind": "stop", "title": "Then it's information, not a symptom",
+      "say": "If there's an actual reason, this flow would only teach you to distrust a working instrument.\n\nPeople genuinely do conclude, on evidence, that someone isn't right for them — and that conclusion arriving is not proof of avoidance. The tell isn't that you want to leave, it's that the wanting arrived without a reason attached.\n\nYou have a reason. Take it at face value.",
+      "cites": ["Accurate Reappraisal", "How Not To Use This"] },
+
+    { "id": "observed", "kind": "split", "reframe": true,
+      "ask_a": "What changed, concretely?",
+      "help_a": "Dates and events. When did it turn, and what was going on around then — in the relationship, and in the rest of your life.",
+      "ask_b": "And what do you now think about them that you didn't before?",
+      "help_b": "The judgements, in the words you've actually been using. Including the unflattering ones.",
+      "goto": "dependency" },
+
+    { "id": "dependency", "kind": "choice", "reframe": true,
+      "ask": "Around the time it turned — had anything shifted in how much you two depend on each other?",
+      "help": "Deactivation is rarely random. It usually follows the point where your system registered that it had got used to someone.",
+      "cites": ["Growing Dependency", "Relationship Escalation", "Resource Threat Scanning"],
+      "options": [
+        { "label": "Yes — things got closer, or more official", "names": "Growing Dependency", "cites": ["Growing Dependency"], "goto": "hurt-check" },
+        { "label": "Yes — logistics changed. Moving in, more time, more expected of me", "names": "Relationship Escalation", "cites": ["Relationship Escalation"], "goto": "hurt-check" },
+        { "label": "No, nothing changed that I noticed", "goto": "hurt-check" } ] },
+
+    { "id": "hurt-check", "kind": "choice", "reframe": true,
+      "ask": "Look at what you wrote about them. Does any of it read as looking down on them?",
+      "help": "Not an accusation — a diagnostic. Contempt is often what surfaces when something landed as hurt and the hurt never made it into awareness. If it's there, it's pointing at something.",
+      "cites": ["Contempt", "Unregistered Hurt", "Affect Suppression", "Reading Contempt As A Signal"],
+      "options": [
+        { "label": "Yes, honestly — some of it does", "names": "Contempt", "cites": ["Reading Contempt As A Signal", "Unregistered Hurt"], "goto": "underneath" },
+        { "label": "No, it reads more like flatness than judgement", "names": "Desensitization To One's Own Emotions", "cites": ["Desensitization To One's Own Emotions"], "goto": "difference" } ] },
+
+    { "id": "underneath", "kind": "text", "reframe": true,
+      "ask": "Then: did they do anything recently that would have hurt, if you'd let it?",
+      "help": "Small counts. A promise not kept, being deprioritised, a thing you'd decided not to mind. The question isn't whether it was reasonable to mind — it's whether you did.",
+      "cites": ["Broken Promise", "Naming Hurt And Repairing"],
+      "goto": "difference" },
+
+    { "id": "difference", "kind": "text", "reframe": true,
+      "ask": "What would you need to know to tell the difference between \"this person isn't right\" and \"my system switched off\"?",
+      "help": "Something checkable. One useful test: were the things you now dislike visible to you before, and did you rate them differently then?",
+      "cites": ["Accurate Reappraisal", "Loss Of Attraction"],
+      "goto": "ledger" },
+
+    { "id": "ledger", "kind": "text", "reframe": true,
+      "ask": "What do you actually get from this relationship?",
+      "help": "This one is harder than it sounds, and its difficulty is the point. If only the costs are legible, the ledger can only ever read as loss — and leaving will look rational every time.",
+      "cites": ["Tracking What You Receive", "Relationships Only Take", "Relationships As Resource"],
+      "goto": "control" },
+
+    { "id": "control", "kind": "choice", "reframe": true,
+      "ask": "The thing you want here — can you do it, or would they have to agree to it?",
+      "help": "Worth separating, because withdrawing quietly and setting a boundary look identical from the outside and are not the same act.",
+      "cites": ["Boundary", "Expectation", "Ignoring People As A Boundary"],
+      "options": [
+        { "label": "Something I can do on my own", "names": "Boundary", "cites": ["Setting A Boundary You Control"], "goto": "end" },
+        { "label": "Something they'd have to agree to", "names": "Expectation", "cites": ["Agreeing Expectations Explicitly"], "goto": "end" },
+        { "label": "I want to say nothing and let it fade", "names": "Ignoring People As A Boundary", "cites": ["Ignoring People As A Boundary", "Emotional Withdrawal"], "goto": "end" } ] },
+
+    { "id": "end", "kind": "end",
+      "say": "Your words, not a verdict. Nothing here says stay or go — only that a decision made while the appraisal program is offline is worth making twice.",
+      "cites": ["Holding Both Programs", "How Not To Use This"] }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "want-to-end-it",
+  "title": "I want to end it and I don't know if that's real",
+  "blurb": "For the urge to leave that shows up when things are calm, not when they're bad.",
+  "lens": ["fearful-avoidant"],
+  "entry_signals": ["I keep thinking about breaking up", "I want out but I don't know why", "things are good and I want to run", "I'm going to ruin this"],
+  "steps": [
+    { "id": "land", "kind": "scale",
+      "ask": "How urgent does ending it feel right now, one to ten?",
+      "help": "Urgency is the reading that matters here, more than certainty.",
+      "cites": ["Window Of Tolerance"],
+      "branches": [{ "when": ">=8", "goto": "regulate-first" }, { "when": "*", "goto": "safety" }] },
+
+    { "id": "regulate-first", "kind": "stop", "title": "Not from here",
+      "say": "An urge this loud is a nervous system doing something, and it will still be available to you tomorrow if it's real.\n\nThe pattern worth knowing about: the urge tends to peak inside the relationship and dissolve once there's distance — which is exactly what makes it feel like clarity in the moment and like a mistake a fortnight later.\n\nDon't decide today. Come back to this at a five.",
+      "cites": ["Approach-Avoidance Conflict", "Longing At A Safe Distance", "Preemptive Sabotage"] },
+
+    { "id": "safety", "kind": "choice", "safety_gate": true,
+      "ask": "Is there something in this relationship you'd tell a friend to leave over?",
+      "help": "Asked first, and meant. Wanting to leave is not automatically a symptom, and treating it as one is how people talk themselves into staying somewhere they shouldn't.",
+      "options": [
+        { "label": "Yes — there's a real reason", "goto": "situation-first" },
+        { "label": "I can't tell any more", "goto": "when", "flag": "uncertain" },
+        { "label": "No — that's what's confusing, it's fine", "goto": "when" } ] },
+
+    { "id": "situation-first", "kind": "stop", "title": "Then trust it",
+      "say": "You have a reason. Nothing below applies — it's all built for the version where the urge arrives without one.\n\nIf you've been talking yourself out of that reason by calling it your attachment style, that's worth noticing on its own. The framework can be used to override your own judgement, and this is the most common way it happens.",
+      "cites": ["How Not To Use This", "I Cannot Be Okay Until They Change"] },
+
+    { "id": "when", "kind": "choice", "reframe": true,
+      "ask": "Think about when the urge got loudest. What was going on between you?",
+      "help": "The timing is the most diagnostic thing available here.",
+      "cites": ["Things Going Well", "Approach-Avoidance Conflict"],
+      "options": [
+        { "label": "Things were calm. Good, even", "names": "Things Going Well", "cites": ["Things Going Well", "Preemptive Sabotage"], "goto": "before" },
+        { "label": "Right after we got closer, or made something official", "names": "Growing Dependency", "cites": ["Growing Dependency", "Relationship Escalation"], "goto": "before" },
+        { "label": "During or just after a conflict", "names": "Emotional Dysregulation", "cites": ["Emotional Dysregulation", "Identity Threat"], "goto": "before" },
+        { "label": "It's been a slow build with no obvious moment", "goto": "before" } ] },
+
+    { "id": "before", "kind": "choice", "reframe": true,
+      "ask": "Has this happened before — with this person, or previous ones?",
+      "help": "Your history is better evidence about the pattern than your certainty is. What you conclude comes from the conscious mind; who you keep choosing, and what you keep doing at this point in a relationship, comes from underneath it.",
+      "cites": ["History Not Ideals", "Reading Your Relationship History"],
+      "options": [
+        { "label": "Yes, and it usually ends the relationship", "names": "Preemptive Sabotage", "cites": ["Preemptive Sabotage", "Breaking It Off"], "goto": "after" },
+        { "label": "Yes, and I've come back afterwards before", "names": "Longing At A Safe Distance", "cites": ["Longing At A Safe Distance", "Returning To The Relationship"], "goto": "after" },
+        { "label": "No, this is new for me", "goto": "after" } ] },
+
+    { "id": "after", "kind": "text", "reframe": true,
+      "ask": "Picture it done. You've ended it, it's a fortnight later. What do you feel?",
+      "help": "Answer honestly rather than usefully. If the answer is relief that curdles into wanting them back, that's worth knowing before you act, not after.",
+      "cites": ["Longing At A Safe Distance", "Intimacy Without Touching My Shame"],
+      "goto": "unsaid" },
+
+    { "id": "unsaid", "kind": "text", "reframe": true,
+      "ask": "Is there anything you've wanted to say to them and haven't?",
+      "help": "Often the urge to leave is carrying something that was never said — a need, a hurt, a limit. Leaving resolves the pressure without ever putting the thing on the table.",
+      "cites": ["Naming The Premise Out Loud", "Honest Expression Of Need", "Confiding In Friends Not The Partner"],
+      "goto": "end" },
+
+    { "id": "end", "kind": "end",
+      "say": "No verdict here, and deliberately so. The only claim being made is that a decision taken at the moment the system spikes deserves to be taken twice.",
+      "cites": ["Keeping Both Faculties Online", "How Not To Use This"] }
+  ]
+}

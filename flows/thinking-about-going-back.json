@@ -1,0 +1,162 @@
+{
+  "id": "thinking-about-going-back",
+  "title": "I'm thinking about getting back together with them",
+  "blurb": "For the pull toward a relationship that already ended once — before you act on it rather than after.",
+  "lens": ["anxious-preoccupied", "fearful-avoidant", "dismissive-avoidant"],
+  "entry_signals": [
+    "I think we could make it work this time",
+    "I miss them",
+    "maybe I gave up too early",
+    "they've changed",
+    "nobody else has come close"
+  ],
+  "steps": [
+    {
+      "id": "land",
+      "kind": "scale",
+      "ask": "How much do you want this right now, one to ten?",
+      "help": "The wanting, not the reasoning.",
+      "cites": ["The Distress Scale", "Window Of Tolerance"],
+      "branches": [
+        { "when": ">=9", "goto": "peak" },
+        { "when": "*", "goto": "safety" }
+      ]
+    },
+    {
+      "id": "peak",
+      "kind": "stop",
+      "title": "Not a decision to make at a nine",
+      "say": "A decision this size, taken at this pitch, is not being made by the part of you that will live with it. And there is a particular trap here: a system that flips between states will make a commitment in one and come due in another, which is where the sincere promise you cannot keep comes from.\n\nThe pull will still be here tomorrow. If it is real it survives a week; if it does not survive a week, that is also information.\n\nCome back lower. Nothing about this needs deciding tonight.",
+      "cites": ["Promises Made By A Self You Cannot Guarantee", "Urgency Is The Nervous System"]
+    },
+    {
+      "id": "safety",
+      "kind": "choice",
+      "safety_gate": true,
+      "ask": "First, plainly: was there anything in that relationship that frightened you, or that you found yourself hiding from people who care about you?",
+      "help": "Asked first because everything after it is about compatibility and timing, and those are the wrong questions if this one has a yes in it.",
+      "options": [
+        { "label": "No, nothing like that", "goto": "why-ended" },
+        { "label": "There were things I didn't tell people", "goto": "hidden" },
+        { "label": "Yes — I was frightened at times", "goto": "hidden" }
+      ]
+    },
+    {
+      "id": "hidden",
+      "kind": "stop",
+      "title": "Start somewhere else",
+      "say": "Hiding a relationship from the people who know you is worth taking seriously on its own, separately from whatever you decide. It is one of the few signals that is hard to argue with from inside, because the concealment is doing a job — and only you know what job.\n\nSo before any decision: tell one person who knows you well what it was actually like. Not to be talked out of anything. Just so that one other human has the accurate version, which is the thing that has been missing.\n\nThe questions below will still be here afterwards, and they will work better with someone else's eyes on it. What keeps people in the wrong places is rarely bad judgement; it is being the only witness.",
+      "cites": ["Checking What Your Friends Know", "Venting Instead Of Being Vulnerable"]
+    },
+    {
+      "id": "why-ended",
+      "kind": "split",
+      "ask_a": "What actually ended it?",
+      "ask_b": "Is that thing resolved, or do you have a different way of handling it now?",
+      "help_a": "The real reason, not the tidy one you have been giving people.",
+      "help_b": "This is the question. Not whether you miss them — whether the specific thing that broke it has changed, in one of you or in how you would handle it together.",
+      "cites": ["The Premature Breakup", "Reviewing The Relationship Objectively"],
+      "goto": "which-kind"
+    },
+    {
+      "id": "which-kind",
+      "kind": "choice",
+      "ask": "Which of these is closest to how it ended?",
+      "options": [
+        { "label": "I was overwhelmed and needed space I didn't know how to ask for", "goto": "boundary-request", "flag": "boundary" },
+        { "label": "We wanted genuinely different things", "goto": "future" },
+        { "label": "It kept going wrong the same way", "goto": "future" },
+        { "label": "I still don't really know", "goto": "future" }
+      ]
+    },
+    {
+      "id": "boundary-request",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Then what ended it may not have been the relationship being wrong — it may have been the only route to room that you had available.\n\nThat matters both ways. It means going back could work, and it means going back without the missing skill puts you on the same track: in, overwhelmed, out. The thing to change is not the decision, it is whether you can ask for space from inside a relationship rather than by leaving one.",
+      "cites": ["The Breakup That Is A Boundary Request", "Inside A Relationship I Cannot Have Boundaries"],
+      "goto": "future"
+    },
+    {
+      "id": "future",
+      "kind": "text",
+      "ask": "Picture it working in a year. Now write the steps — what has to actually happen between here and there?",
+      "help": "Not the picture. The route. If conflict is unresolvable now, a year on it is unresolvable with more history attached. A future with no steps under it is a mood, and it is very convincing.",
+      "cites": ["The Magical Future Fantasy", "Mapping The Steps To The Future"],
+      "goto": "child"
+    },
+    {
+      "id": "child",
+      "kind": "choice",
+      "ask": "Now Priebe's question. If you were responsible for a four-year-old — would you let her live with this person?",
+      "help": "Not a trick and not a verdict on them. It reaches something the other questions do not, because most people protect a child more readily than they protect themselves.",
+      "options": [
+        { "label": "Yes, without hesitating", "goto": "promises" },
+        { "label": "Yes, but I'd want things in place first", "goto": "protections", "flag": "conditional" },
+        { "label": "No", "goto": "no-child", "flag": "no" }
+      ],
+      "cites": ["The Four-Year-Old Test"]
+    },
+    {
+      "id": "no-child",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Sit with that rather than moving past it. It does not settle the decision, and it is not an accusation — it is a gap between what you would accept for someone in your care and what you are considering accepting for yourself, and that gap is the thing worth looking at.\n\nIt may mean the situation is not safe enough. It may mean the inner parenting to survive that dynamic is not built yet. Those need different responses, and both are better answered with someone who knows you.",
+      "cites": ["The Four-Year-Old Test", "Re-Parenting Yourself", "Compartmentalising Yourself To Stay"],
+      "goto": "promises"
+    },
+    {
+      "id": "protections",
+      "kind": "text",
+      "ask": "What would have to be in place? Name them concretely.",
+      "help": "The specific arrangements, not a general intention to do better. What you would do, not only what they would.",
+      "cites": ["Setting A Boundary You Control", "Agreeing Expectations Explicitly"],
+      "goto": "promises"
+    },
+    {
+      "id": "promises",
+      "kind": "choice",
+      "ask": "Is there anything you would be agreeing to that, honestly, you don't think you can sustain?",
+      "help": "The amount of space, the pace, the thing you said you were fine with. Priebe's line is that we always know in our gut when we are doing this.",
+      "options": [
+        { "label": "No — what I'd agree to is real", "goto": "outside" },
+        { "label": "Yes, probably", "goto": "false-start", "flag": "overpromise" },
+        { "label": "I'd get in first and renegotiate later", "goto": "false-start", "flag": "overpromise" }
+      ],
+      "cites": ["Best Behaviour To Get Back In"]
+    },
+    {
+      "id": "false-start",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Worth naming for what it is, since you have already spotted it. Agreeing to terms you expect to renegotiate once you are back in is not optimism — it enrols someone else in a plan on conditions you have privately not accepted, and it is why the second attempt so often fails the same way as the first, only later and with more damage.\n\nThe alternative is not silence. It is saying the actual terms now and finding out whether there is a version both of you can hold — which is a harder conversation and a much better use of the attempt.",
+      "cites": ["Best Behaviour To Get Back In", "Agreeing Expectations Explicitly"],
+      "goto": "outside"
+    },
+    {
+      "id": "outside",
+      "kind": "choice",
+      "ask": "Last one. How is the rest of your life, honestly?",
+      "help": "Nothing to do with them. Work, friendships, the things you do alone.",
+      "options": [
+        { "label": "Good — they'd be joining something that already works", "goto": "end" },
+        { "label": "Thin. They'd be the main thing again", "goto": "raft", "flag": "raft" },
+        { "label": "Bad. I'm not coping well on my own", "goto": "raft", "flag": "raft" }
+      ]
+    },
+    {
+      "id": "raft",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "That does not make the answer no, and it does change what you are answering.\n\nThere is a difference between a person who would add to a life you already have, and a raft in a sea you are currently in — and the second feels far more like certainty than the first, which is exactly the problem. The pull is strongest when the alternative is emptiest, and that strength is not evidence about them.\n\nThe honest version of the question: if the rest of your life were full, would you still want this?",
+      "cites": ["The Best I Have Found So Far", "Keeping Your Life Outside The Relationship", "Dispersing Your Needs"],
+      "goto": "end"
+    },
+    {
+      "id": "end",
+      "kind": "end",
+      "say": "None of that adds up to an answer, and it is not supposed to. What you have is the thing that actually ended it, whether it has changed, what you would be promising, and what you would be walking back into.\n\nIf one question stuck more than the others, that is the one to take to someone who knows you both — out loud, where you cannot quietly edit it.",
+      "cites": ["Checking What Your Friends Know", "How Not To Use This"]
+    }
+  ]
+}

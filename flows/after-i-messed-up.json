@@ -1,0 +1,158 @@
+{
+  "id": "after-i-messed-up",
+  "title": "I messed up and I don't know what to do now",
+  "blurb": "For the hours after you blew up, went cold, or said the thing — when shame is loudest and the urge is to fix it immediately.",
+  "lens": ["anxious-preoccupied", "dismissive-avoidant", "fearful-avoidant"],
+  "entry_signals": [
+    "I lost it at them",
+    "I said something I can't take back",
+    "I don't know how to face them",
+    "I need to apologise but I don't know what to say",
+    "I keep replaying what I did"
+  ],
+  "steps": [
+    {
+      "id": "land",
+      "kind": "scale",
+      "ask": "Where are you right now, one to ten?",
+      "help": "Not how bad the thing was. How loud it is in you at this moment.",
+      "cites": ["Window Of Tolerance", "The Distress Scale"],
+      "branches": [
+        { "when": ">=8", "goto": "too-hot" },
+        { "when": "*", "goto": "safety" }
+      ]
+    },
+    {
+      "id": "too-hot",
+      "kind": "stop",
+      "title": "Not from here",
+      "say": "Two things go wrong at this level. Whatever you send will be written to make the feeling stop rather than to reach them — and afterwards you will not fully remember choosing it.\n\nThe repair does not expire. It survives a night. What does not survive is a message sent to get relief, which usually needs its own repair later.\n\nCome back when it is quieter. If you need to send anything now, send only this: that you know something went wrong, and that you will come back to it properly.",
+      "cites": ["The Fawn Response After A Rupture", "Intervening At Low Distress"]
+    },
+    {
+      "id": "safety",
+      "kind": "choice",
+      "safety_gate": true,
+      "ask": "Before anything about patterns — was anyone frightened, hurt, or unsafe?",
+      "help": "This comes first on purpose. Everything below assumes a rupture between two people who can still talk. If it was more than that, the questions underneath are the wrong ones.",
+      "options": [
+        { "label": "Yes — someone was frightened or hurt", "goto": "beyond" },
+        { "label": "It was ugly but nobody was frightened", "goto": "notice" },
+        { "label": "No, nothing like that", "goto": "notice" }
+      ]
+    },
+    {
+      "id": "beyond",
+      "kind": "stop",
+      "title": "This needs more than a flow",
+      "say": "If someone was frightened or hurt, that is not a communication problem and it is not something to work out alone at two in the morning with a set of questions.\n\nThat holds whichever side of it you are on. The thing that helps is a person — a therapist, a service, someone who can sit with the whole of it and is not inside the situation.\n\nOne thing worth carrying anyway: an explanation of where a reaction came from is not the same as a defence of what it did, and offering the first as though it settles the second is what usually makes these worse.",
+      "cites": ["Separating The Feeling From The Action", "Impact Regardless Of Intent"]
+    },
+    {
+      "id": "notice",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Start with something that will not feel like progress. You are here, aware that it went wrong, which is a different position from where this pattern usually runs — badly, and without noticing.\n\nThat is not absolution and it does not fix anything. It is the rung you are actually on, and the next one is only reachable from it.",
+      "help": "The reflex after catching yourself is usually a round of self-attack. It feels like accountability and it does none of accountability's work.",
+      "cites": ["Congratulating Yourself For Catching It", "Self-Punishment Instead Of Amends"],
+      "goto": "urgency"
+    },
+    {
+      "id": "urgency",
+      "kind": "choice",
+      "ask": "How urgent does apologising feel right now?",
+      "help": "Worth knowing before you do it, because urgency is information about you rather than about them.",
+      "options": [
+        { "label": "Extremely — I can't settle until it's fixed", "goto": "fawn", "flag": "fawn" },
+        { "label": "I want to, but I can wait", "goto": "record" },
+        { "label": "Honestly, I'd rather not have to", "goto": "record", "flag": "avoidant" }
+      ]
+    },
+    {
+      "id": "fawn",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "That pressure to resolve it immediately is not the repair. It is the same threat response that produced the rupture, pointed the other way — and it optimises for the relationship feeling safe again in the next ten minutes, not for the thing actually changing.\n\nAn apology delivered from there tends to over-promise, because over-promising is what makes the feeling stop fastest.",
+      "cites": ["The Fawn Response After A Rupture", "An Apology Must Promise It Will Never Happen Again"],
+      "goto": "record"
+    },
+    {
+      "id": "record",
+      "kind": "text",
+      "ask": "Write down what actually happened. All of it, unfiltered — including the parts you would not want quoted.",
+      "help": "Not the version you would tell a friend, and not the version you would defend. Times, words, what you did. Read it as data rather than as a charge sheet. You cannot change something you have not been able to look at squarely.",
+      "cites": ["Naming It Before Apologising", "Treating Emotion As Data"],
+      "goto": "trigger"
+    },
+    {
+      "id": "trigger",
+      "kind": "choice",
+      "ask": "Now the useful question. If the thing in front of you had been solved right then — would the feeling have stopped?",
+      "help": "Take it seriously rather than answering quickly. It is the cleanest test there is for what you were actually reacting to.",
+      "options": [
+        { "label": "Yes — it was about what was happening", "goto": "present" },
+        { "label": "No — it would still have been there", "goto": "old", "flag": "flashback" },
+        { "label": "I can't tell", "goto": "old" }
+      ],
+      "cites": ["Insatiable Anger As A Trauma Signal"]
+    },
+    {
+      "id": "old",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "Then the size of it did not belong to this occasion, and no apology about this occasion will settle it — which is why these episodes repeat even after they are talked through.\n\nThat does not make what you did their problem, and it is not a reason to explain the history at them. It changes what you are apologising for: the way you handled it, which is yours, rather than the feeling, which is real and needs somewhere else to go.",
+      "cites": ["Responding To The Past In The Present", "Separating The Feeling From The Action"],
+      "goto": "keep"
+    },
+    {
+      "id": "present",
+      "kind": "reflect",
+      "say": "Then this is the more straightforward kind, which is genuinely good news — it means the repair can be about the actual thing.",
+      "goto": "keep"
+    },
+    {
+      "id": "keep",
+      "kind": "split",
+      "ask_a": "What are you apologising for — the specific thing you did?",
+      "ask_b": "And what was the need or feeling underneath it that still needs somewhere to go?",
+      "help_a": "The action. Not the state that produced it. Specific enough that they would recognise it.",
+      "help_b": "Keep this. The instinct after a rupture is to disown the whole episode, feeling included — but the need does not stop existing because you expressed it badly.",
+      "cites": ["Separating The Feeling From The Action", "Naming The Feeling Accurately"],
+      "goto": "promise"
+    },
+    {
+      "id": "promise",
+      "kind": "choice",
+      "ask": "Were you about to promise it will never happen again?",
+      "help": "No wrong answer. It is just worth catching before it is said out loud.",
+      "options": [
+        { "label": "Yes", "goto": "honest-apology", "flag": "overpromise" },
+        { "label": "I was going to imply it", "goto": "honest-apology", "flag": "overpromise" },
+        { "label": "No", "goto": "honest-apology" }
+      ],
+      "cites": ["An Apology Must Promise It Will Never Happen Again"]
+    },
+    {
+      "id": "honest-apology",
+      "kind": "reflect",
+      "reframe": true,
+      "say": "A guarantee is the tempting shape, and it is the one that costs you their trust — because a pattern laid down early does not end after one bad night, so the promise is usually a lie, and a lie repeated across several apologies is what teaches someone not to believe you.\n\nThe version that holds has three parts: what you did and what you can see it cost them; that there is something in you still unresolved that this comes out of; and an actual conversation about what would make it less likely next time. Naming the unhealed thing is not a plea for leniency — it gives them enough of the picture to decide their own limits, which is what people are really asking for when they ask whether you have changed.",
+      "cites": ["Apologising With An Action Plan", "Repair Without Needing Forgiveness"],
+      "goto": "own-boundary"
+    },
+    {
+      "id": "own-boundary",
+      "kind": "text",
+      "ask": "Last one, and it is about you rather than them. What will you do next time you feel that specific thing coming — not what you will stop feeling?",
+      "help": "Set it now while you are regulated, for a version of you who will not be. Leave the room, go for the walk, say you need an hour. Priebe's own is not continuing a conversation once anger passes a known threshold. She does not keep it perfectly. Imperfectly has still changed things.",
+      "cites": ["A Boundary With Your Own Triggered Self", "Setting A Boundary You Control"],
+      "goto": "end"
+    },
+    {
+      "id": "end",
+      "kind": "end",
+      "say": "What you have is the three-part apology and one thing you will do differently — both in your own words rather than mine.\n\nOne last thing, for when you deliver it. If they meet it with the ten other things you have not accounted for, that is worth expecting rather than being wounded by. You can hold that and say so, and still not withdraw the apology.",
+      "cites": ["Punishing Humility", "How Not To Use This"]
+    }
+  ]
+}
