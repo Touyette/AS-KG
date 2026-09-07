@@ -70,6 +70,10 @@ const nodes = notes
     citations: citations.get(n.path) ?? 0,
     degree: 0,
     status: n.data.status ?? 'draft',
+    // Only set where a video had no caption file and its timestamps had to be
+    // derived from position in the transcript. A consumer should not treat those
+    // as exact, and cannot tell without being told.
+    timestamps: n.data.timestamps ?? null,
   }));
 
 const known = new Set(nodes.map((n) => n.id));

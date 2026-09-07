@@ -1,7 +1,7 @@
 ---
 title: Owning The Feeling As Yours
 type: practice
-aliases: [radical self-responsibility, taking your emotions back, undoing projection]
+aliases: [taking responsibility for your own feeling, taking your emotions back, undoing projection]
 attribution: priebe
 domain: attachment
 actor: self

@@ -106,6 +106,16 @@ for (const p of pages) {
   if (empties > 2) fail(`${rel}: ${empties} empty sections — the style key is probably wrong`);
 }
 
+/* A published page carrying its own template warning is a page that lies about
+   itself. 54 video pages read "Not yet ingested" for weeks while the ideas from
+   them were already in the graph. */
+for (const page of walk(path.join(ROOT, 'videos'))) {
+  const body = fs.readFileSync(page, 'utf8');
+  const rel = path.relative(ROOT, page);
+  if (/Not yet ingested/.test(body)) fail(`${rel}: still carries the "not yet ingested" stub warning`);
+  if (body.includes('<!-- auto:')) fail(`${rel}: an auto: marker was never expanded`);
+}
+
 /* every note the graph claims exists should have a page */
 try {
   const d = JSON.parse(read('static/typed-graph-data.json'));

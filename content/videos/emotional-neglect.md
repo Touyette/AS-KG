@@ -8,14 +8,8 @@ styles: [dismissive-avoidant, fearful-avoidant]
 status: ingested
 ---
 
+The absence that gets missed most often: the symptoms are recognisable and nothing in the childhood was overtly traumatic. Trauma disrupts meaning; neglect prevents it forming at all, because a child categorises its own states by reading the faces around it, and states nobody attended to arrive with no regulation attached. What follows is a system that redirects before certain feelings land, decision-making broken at the scale of the evening and of the life, and a loneliness that treats being known as impossible rather than merely absent.
+
 **Source:** [Watch on YouTube](https://youtu.be/lsBPvgnCJsQ) · 40:51 · Heidi Priebe
 
-> [!warning] Stub
-> Not yet ingested. Summary and typed relationships are added after the
-> transcript pass. Nothing here reproduces transcript text.
-
-## Summary
-
-## Concepts introduced
-
-## Relationships
+<!-- auto:video -->

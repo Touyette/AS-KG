@@ -8,14 +8,8 @@ styles: [secure]
 status: ingested
 ---
 
+Asking for help is unremarkable when needs were met early without having to be exaggerated or fought for. Moods can be taken personally in two ways — read as rejection, or resented as a display of what someone has learned to suppress — and pulling away from another person's state counts as enmeshment just as much as being pulled in. Emotion is felt in its clearest form here, conflict is uncomfortable without being catastrophic, and other people are neither idealised nor prosecuted.
+
 **Source:** [Watch on YouTube](https://youtu.be/u203fXLJ79w) · 30:05 · Heidi Priebe
 
-> [!warning] Stub
-> Not yet ingested. Summary and typed relationships are added after the
-> transcript pass. Nothing here reproduces transcript text.
-
-## Summary
-
-## Concepts introduced
-
-## Relationships
+<!-- auto:video -->

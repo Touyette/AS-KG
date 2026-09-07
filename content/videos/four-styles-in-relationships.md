@@ -8,14 +8,8 @@ styles: [dismissive-avoidant, anxious-preoccupied, fearful-avoidant, secure]
 status: ingested
 ---
 
+Attachment is framed as an emotional immune system, with love as the medicine a compromised one cannot manufacture for itself. Anxious patterning treats attraction as a decision rather than a yellow light, and spends the dating phase auditing whether it is acceptable yet. Avoidance needs the same medicine and reacts badly to it in quantity, so it is taken in small spaced doses and topped up with painkillers — overwork, drink, compulsive escape. Fearful-avoidance needs the dose most, has the reaction, and blames whoever supplied it.
+
 **Source:** [Watch on YouTube](https://youtu.be/ZZOVY0HTpxU) · 41:06 · Heidi Priebe
 
-> [!warning] Stub
-> Not yet ingested. Summary and typed relationships are added after the
-> transcript pass. Nothing here reproduces transcript text.
-
-## Summary
-
-## Concepts introduced
-
-## Relationships
+<!-- auto:video -->

@@ -48,6 +48,21 @@ def _types():
         if m: ts[path] = m.group(1)
     return ts
 
+def check_names(batch):
+    """A new title or alias that already names something else on disk is a
+    collision, not an override. mknote used to let the batch win and the
+    validator let the file on disk win, so a range violation could pass here and
+    fail at build time. Refuse it while it is still cheap to rename."""
+    ks = _keys()
+    bad = []
+    for n in batch['notes']:
+        for name in [n['title']] + list(n['aliases']):
+            key = name.strip().lower()
+            if key in ks and ks[key] != n['path']:
+                bad.append(f"{n['path']}: name '{name}' already resolves to {ks[key]}")
+    return bad
+
+
 def check_links(batch):
     ks = _keys()
     ts = _types()
@@ -83,7 +98,7 @@ def link(vid, s):
     return f"https://youtu.be/{vid}?t={s}", f"{s//60}:{s%60:02d}"
 
 batch = json.load(open(sys.argv[1], encoding='utf-8'))
-bad = check(batch) + check_links(batch)
+bad = check(batch) + check_names(batch) + check_links(batch)
 if bad:
     print('refusing to write — schema violations:')
     for b in bad: print('   ' + b)
