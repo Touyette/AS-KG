@@ -6,7 +6,7 @@ const app = () => document.getElementById('app');
 const esc = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 const nl = (s) => esc(s).replace(/\n/g, '<br>');
 
-fetch('../static/flows.json').then((r) => r.json()).then((d) => {
+fetch('__BASE__/static/flows.json').then((r) => r.json()).then((d) => {
   DATA = d;
   addEventListener('hashchange', route);
   route();

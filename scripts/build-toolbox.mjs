@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { loadNotes } from './lib/notes.mjs';
+import { basePath } from './lib/base.mjs';
 import { loadFlows, validateFlows } from './flows.mjs';
 const OUT = process.argv[2] ?? 'public/toolbox';
 const flows = loadFlows('flows');
@@ -16,6 +17,9 @@ for (const n of loadNotes('content')) {
 fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync('public/static', { recursive: true });
 fs.writeFileSync('public/static/flows.json', JSON.stringify({ flows, nodes }));
-fs.copyFileSync('scripts/toolbox.html', path.join(OUT, 'index.html'));
-fs.copyFileSync('scripts/toolbox.js', path.join(OUT, 'toolbox.js'));
+const BASE = basePath();
+const copy = (from, to) =>
+  fs.writeFileSync(path.join(OUT, to), fs.readFileSync(from, 'utf8').replaceAll('__BASE__', BASE));
+copy('scripts/toolbox.html', 'index.html');
+copy('scripts/toolbox.js', 'toolbox.js');
 console.log(`toolbox → ${OUT}/ · ${flows.length} flows · ${Object.keys(nodes).length} node aliases`);

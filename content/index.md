@@ -14,19 +14,19 @@ watching it.
 
 ## Three ways in
 
-**[The typed graph](/typed-graph/)** is the main view. Unlike an ordinary link
+**<a href="/typed-graph/" data-router-ignore>The typed graph</a>** is the main view. Unlike an ordinary link
 graph it never draws everything at once: you open on one idea and see what
 *triggers* it, what it *defends against*, what it *manifests as*, what *heals*
 it, and which move in another style *mirrors* it. Click any neighbour to move
 there. The four lenses re-weight the same topology, and the loops are drawn as
 loops.
 
-**[The toolbox](/toolbox/)** is for when something is happening right now. Each
+**<a href="/toolbox/" data-router-ignore>The toolbox</a>** is for when something is happening right now. Each
 entry is a short sequence of questions with a safety gate at the front — it will
 stop and say so rather than reframe something that is actually going wrong. It
 asks; it does not score, diagnose or advise.
 
-**[The agent kit](/agent/)** is the machine-readable surface: the whole graph as
+**<a href="/agent/" data-router-ignore>The agent kit</a>** is the machine-readable surface: the whole graph as
 one JSON file, the schema, the operating rules and the decision flows. It is
 meant to be handed to an assistant so it can work from this material instead of
 from memory — and so it can show you the nodes it is drawing on while it talks.

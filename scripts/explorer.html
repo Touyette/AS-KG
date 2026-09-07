@@ -150,7 +150,7 @@ select{
 #detail .lensrow{display:grid; grid-template-columns:1fr auto; gap:.1rem .5rem; font-size:12.5px; margin-bottom:.9rem}
 #detail .lensrow span:nth-child(even){color:var(--dim)}
 
-#loading{position:absolute; inset:0; display:grid; place-items:center; color:var(--dim); font-size:14px}
+#loading{position:absolute; inset:0; display:grid; place-items:center; color:var(--dim); font-size:14px; pointer-events:none}
 
 @media (max-width:1080px){
   #right{width:280px} aside{width:240px}
@@ -165,14 +165,14 @@ select{
 </head>
 <body>
 <header>
-  <a class="home" href="..">← Site</a>
+  <a class="home" href="__BASE__/" data-router-ignore>← Site</a>
   <h1>The typed graph</h1>
   <div class="modes" id="modes" role="tablist">
     <button data-mode="explore" role="tab">Explore</button>
     <button data-mode="discussion" role="tab">Discussion</button>
   </div>
   <div class="spacer"></div>
-  <a class="btn" href="../agent/">For agents</a>
+  <a class="btn" href="__BASE__/agent/" data-router-ignore>For agents</a>
   <button class="btn" id="copy" title="Copy a link to exactly this view">Copy link</button>
   <button class="btn" id="theme" title="Light / dark">◐</button>
 </header>
@@ -218,6 +218,23 @@ select{
   <aside id="right"><div id="detail"></div></aside>
 </main>
 
-<script src="explorer.js"></script>
+<script>
+  // If this page is reached through Quartz's SPA router the script above can be
+  // re-inserted against the wrong base and 404 silently. Do not leave someone
+  // staring at a spinner when that happens.
+  setTimeout(function () {
+    if (window.__askgReady) return;
+    var el = document.getElementById('loading');
+    if (!el) return;
+    el.style.pointerEvents = 'auto';
+    el.innerHTML =
+      '<div style="max-width:30rem;text-align:center;padding:1.25rem">' +
+      '<p style="font-weight:600;margin:0 0 .4rem">The graph did not start.</p>' +
+      '<p style="margin:0 0 1rem;color:var(--dim);font-size:13.5px">Its script or its data did not load. ' +
+      'Reloading this page directly usually fixes it.</p>' +
+      '<a class="btn" data-router-ignore href="' + location.pathname + location.search + location.hash + '">Reload the page</a></div>';
+  }, 9000);
+</script>
+<script src="__BASE__/typed-graph/explorer.js"></script>
 </body>
 </html>

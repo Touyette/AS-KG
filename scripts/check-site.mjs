@@ -63,6 +63,29 @@ for (const target of ['typed-graph', 'toolbox', 'agent']) {
   }
 }
 
+/* The standalone pages are not Quartz pages. When Quartz's SPA router morphs
+   one into view it re-inserts its <script src> resolved against the URL you
+   came from, so a relative src 404s and the page hangs on its own spinner.
+   This shipped once; it does not get to ship twice. */
+for (const page of ['typed-graph/index.html', 'toolbox/index.html']) {
+  const body = read(page);
+  if (body === null) continue;
+  for (const m of body.matchAll(/<script[^>]*\ssrc="([^"]+)"/g)) {
+    if (!/^(https?:)?\//.test(m[1])) {
+      fail(`${page}: <script src="${m[1]}"> is relative — it breaks when reached through the SPA router. Use a root-absolute path.`);
+    }
+  }
+}
+
+/* and the links to them must opt out of routing entirely */
+for (const target of ['typed-graph', 'toolbox', 'agent']) {
+  const re = new RegExp(`<a[^>]*href="[^"]*${target}/?"[^>]*>`);
+  const tag = (read('index.html') ?? '').match(re);
+  if (tag && !/data-router-ignore/.test(tag[0])) {
+    fail(`the home page link to /${target}/ is missing data-router-ignore — Quartz will morph the page instead of loading it`);
+  }
+}
+
 /* the entry pages are templates; an unexpanded one publishes as a stub */
 const walk = (dir, acc = []) => {
   if (!fs.existsSync(dir)) return acc;

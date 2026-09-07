@@ -11,8 +11,8 @@
  */
 'use strict';
 
-const DATA = '../static/typed-graph-data.json';
-const SITE = '..';                       // note pages live one level up from /typed-graph/
+const DATA = '__BASE__/static/typed-graph-data.json';
+const SITE = '__BASE__';                 // both are rewritten at build time from baseUrl
 
 const TYPE_COLOR = {
   trigger: '#f2643e', state: '#eda72c', strategy: '#e04f86', behavior: '#c56ad9',
@@ -706,6 +706,7 @@ fetch(DATA).then((r) => r.json()).then((data) => {
   buildControls();
   paintChrome();
   render();
+  window.__askgReady = true;          // the inline watchdog in the page reads this
   if (state.focus.length === 1) showDetail(state.focus[0], false);
   else {
     $('#detail').innerHTML = '<p class="empty-note">Search for something, or click any node.<br><br>This view opens on one idea and its neighbourhood. It never draws all ' + G.counts.nodes + ' nodes at once, because that picture says nothing.</p>';
