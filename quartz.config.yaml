@@ -137,7 +137,7 @@ plugins:
       position: left
       priority: 50
   - source: "@quartz-community/graph"
-    enabled: true
+    enabled: false   # replaced by the typed explorer at /typed-graph/
     layout:
       position: right
       priority: 10

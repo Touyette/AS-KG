@@ -12,20 +12,37 @@ text — every claim links back to the moment in the source video where she make
 it. The intent is to help you navigate and re-find her material, not to replace
 watching it.
 
-## How to read this
+## Three ways in
 
 **[The typed graph](/typed-graph/)** is the main view. Unlike an ordinary link
-graph, edges here carry meaning: what *triggers* what, which strategy *defends
-against* which fear, which practice *heals* which pattern, and which move in one
-style *mirrors* a move in another.
+graph it never draws everything at once: you open on one idea and see what
+*triggers* it, what it *defends against*, what it *manifests as*, what *heals*
+it, and which move in another style *mirrors* it. Click any neighbour to move
+there. The four lenses re-weight the same topology, and the loops are drawn as
+loops.
+
+**[The toolbox](/toolbox/)** is for when something is happening right now. Each
+entry is a short sequence of questions with a safety gate at the front — it will
+stop and say so rather than reframe something that is actually going wrong. It
+asks; it does not score, diagnose or advise.
+
+**[The agent kit](/agent/)** is the machine-readable surface: the whole graph as
+one JSON file, the schema, the operating rules and the decision flows. It is
+meant to be handed to an assistant so it can work from this material instead of
+from memory — and so it can show you the nodes it is drawing on while it talks.
+
+## Reading the graph
 
 **Four lenses.** The same topology reads differently depending on which style
 you're looking through. Closeness is a threat in one lens and a promise that never
 arrives in another. Toggle the lens and the graph re-weights.
 
-**Loops.** The `triggers` edges form cycles, and the cycles are the point — the
+**Loops.** The causal edges form cycles, and the cycles are the point — the
 pursue/withdraw loop, the shame spiral, the on-again-off-again cycle. They are
 detected automatically and rendered as objects you can step through.
+
+**Receipts.** Every relationship carries the video and the second where she says
+it. Follow the timestamp rather than taking a note's word for anything.
 
 ## Start here
 

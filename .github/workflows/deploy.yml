@@ -38,11 +38,15 @@ jobs:
       - name: Expand the entry-page markers
         run: node scripts/expand-moc.mjs content
       - run: npx quartz build
-      - name: Build the typed graph and the toolbox
+      - name: Build the typed graph, the toolbox and the agent kit
         run: |
           node scripts/build-typed-graph.mjs
           node scripts/build-typed-graph-page.mjs
           node scripts/build-toolbox.mjs
+          node scripts/bundle.mjs public/agent/context
+          node scripts/build-agent-kit.mjs
+      - name: Check what actually shipped
+        run: node scripts/check-site.mjs public
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public

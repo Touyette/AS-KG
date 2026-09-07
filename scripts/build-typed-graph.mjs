@@ -1,20 +1,22 @@
 // content/ -> typed-graph-data.json
 //
-// Beyond a plain link graph this emits: typed edges, per-style lens membership,
-// edge-level timestamp provenance, citation-count node weight, and the cycles in
-// the `triggers` subgraph — the pursue/withdraw and shame-spiral loops, which are
-// the point of modelling attachment as a directed graph in the first place.
+// This file is the project's machine-readable surface: the explorer page reads
+// it, and so does any agent handed the corpus. Beyond a plain link graph it
+// emits typed edges, per-style lens membership, edge-level timestamp provenance,
+// a one-line gloss and the aliases for every node, citation-count weight, and
+// the cycles in the causal subgraph — the pursue/withdraw and shame-spiral
+// loops, which are the point of modelling attachment as a directed graph.
 import fs from 'node:fs';
 import path from 'node:path';
 import { loadNotes, buildIndex } from './lib/notes.mjs';
-import { PREDICATES, CYCLE_PREDICATES, STYLES } from './schema.mjs';
+import { gloss } from './lib/gloss.mjs';
+import { PREDICATES, CYCLE_PREDICATES, STYLES, NODE_TYPES, LENS_VALUES } from './schema.mjs';
 
 const OUT = process.argv[2] ?? 'public/static/typed-graph-data.json';
 const MAX_CYCLE = 8;
 
 const notes = loadNotes('content');
 const index = buildIndex(notes);
-const byPath = new Map(notes.map((n) => [n.path, n]));
 
 const edges = [];
 const push = (from, to, predicate, src, derived = false) => {
@@ -58,17 +60,26 @@ const nodes = notes
     type: n.type,
     slug: n.slug,
     url: `/${n.path}`,
+    gloss: gloss(n.body),
+    aliases: (n.data.aliases ?? []).map(String),
     attribution: n.data.attribution ?? null,
     actor: n.data.actor ?? 'self',
     marker: n.data.marker === true,
     lens: n.data.lens ?? null,
     styles: n.data.styles ?? null,
     citations: citations.get(n.path) ?? 0,
+    degree: 0,
     status: n.data.status ?? 'draft',
   }));
 
 const known = new Set(nodes.map((n) => n.id));
 const kept = edges.filter((e) => known.has(e.source) && known.has(e.target));
+
+// Degree counts distinct neighbours, not edges: two nodes joined by three
+// predicates are one connection to a reader, and the renderer sizes by this.
+const nbrs = new Map(nodes.map((n) => [n.id, new Set()]));
+for (const e of kept) { nbrs.get(e.source).add(e.target); nbrs.get(e.target).add(e.source); }
+for (const n of nodes) n.degree = nbrs.get(n.id).size;
 
 // Elementary cycles in the causal subgraph, bounded depth, deduped by rotation.
 function findCycles(preds) {
@@ -104,12 +115,29 @@ function findCycles(preds) {
 
 const cycles = findCycles(CYCLE_PREDICATES);
 
+const counts = { nodes: nodes.length, edges: kept.length, cycles: cycles.length, byType: {}, byPredicate: {} };
+for (const n of nodes) counts.byType[n.type] = (counts.byType[n.type] ?? 0) + 1;
+for (const e of kept) counts.byPredicate[e.predicate] = (counts.byPredicate[e.predicate] ?? 0) + 1;
+
 const data = {
+  // Bumped whenever the shape changes, so a consumer can fail loudly rather
+  // than silently reading a field that moved.
+  format: 'as-kg/graph@1',
   generated: new Date().toISOString(),
   styles: STYLES,
+  nodeTypes: NODE_TYPES,
+  lensValues: LENS_VALUES,
+  cyclePredicates: CYCLE_PREDICATES,
   predicates: Object.fromEntries(
-    Object.entries(PREDICATES).map(([k, v]) => [k, { group: v.group, symmetric: !!v.symmetric }]),
+    Object.entries(PREDICATES).map(([k, v]) => [k, {
+      group: v.group,
+      symmetric: !!v.symmetric,
+      flow: !!v.flow,
+      domain: v.domain === '*' ? 'any' : v.domain,
+      range: v.range === '*' ? 'any' : v.range,
+    }]),
   ),
+  counts,
   nodes,
   edges: kept,
   cycles,
