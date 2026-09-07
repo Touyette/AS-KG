@@ -1,28 +1,51 @@
 /* The typed-graph explorer.
  *
- * Two things drive the same view. In explore mode a person clicks outward from
- * one node. In discussion mode an agent hands over a focus set in the URL and
- * the page draws exactly that. There is no server and no socket: the link *is*
- * the transport, which is what lets this work on a static host and with any
- * assistant that can type a URL.
+ * Two things drive the same view. A person clicks outward from one node; an
+ * assistant hands over a set of nodes in the URL and the page draws exactly
+ * those. There is no server and no socket: the link *is* the transport, which is
+ * what lets this work on a static host and with any assistant that can type.
  *
- * The whole graph is never drawn. 590 nodes at once is a hairball nobody can
+ * Two visual channels, deliberately separate. Colour is the attachment style a
+ * node belongs to. Shape is the kind of node it is. A reader can therefore scan
+ * for "the anxious side of this" and "which of these are practices" at the same
+ * time without the two questions fighting for the same encoding.
+ *
+ * The whole graph is never drawn. 600-odd nodes at once is a hairball nobody can
  * read; a node plus its neighbourhood is a picture with a claim in it.
  */
 'use strict';
 
 const DATA = '__BASE__/static/typed-graph-data.json';
-const SITE = '__BASE__';                 // both are rewritten at build time from baseUrl
+const SITE = '__BASE__';                 // both rewritten at build time from baseUrl
 
-const TYPE_COLOR = {
-  trigger: '#f2643e', state: '#eda72c', strategy: '#e04f86', behavior: '#c56ad9',
-  belief: '#5b83e8', origin: '#3c5fa8', style: '#7a5cf0',
-  concept: '#2bb0a3', practice: '#5bb84f',
-  video: '#8b8b96', source: '#6f7480',
+/* Colour = attachment style. */
+const STYLE_COLOR = {
+  'anxious-preoccupied': '#4a86e8',
+  'dismissive-avoidant': '#e8a33d',
+  'fearful-avoidant': '#e0524f',
+  'secure': '#49b06d',
 };
+const STYLE_LABEL = {
+  'anxious-preoccupied': 'Anxious',
+  'dismissive-avoidant': 'Dismissive',
+  'fearful-avoidant': 'Fearful-avoidant',
+  'secure': 'Secure',
+};
+const STYLE_ORDER = ['anxious-preoccupied', 'dismissive-avoidant', 'fearful-avoidant', 'secure'];
+const ACROSS = '#8b8f9e';     // belongs to more than one style — not style-specific
+const OFFSTAGE = '#6f7482';   // videos, sources, the style pages themselves
+const CORE = new Set(['core', 'secure-form']);
+
+/* Shape = kind of node. */
+const SHAPE_LABEL = {
+  trigger: 'trigger', state: 'state', strategy: 'strategy', behavior: 'behaviour',
+  belief: 'belief', origin: 'origin', style: 'style', concept: 'concept',
+  practice: 'practice', video: 'video', source: 'source',
+};
+
 const GROUP_COLOR = {
-  activation: '#eda72c', defense: '#e04f86', identity: '#5b83e8',
-  healing: '#5bb84f', provenance: '#8b8b96',
+  activation: '#c9922f', defense: '#c2557a', identity: '#5878c2',
+  healing: '#4f9a5c', provenance: '#8b8b96',
 };
 const GROUP_LABEL = {
   activation: 'what fires what', defense: 'how it is built', identity: 'how it compares',
@@ -30,60 +53,157 @@ const GROUP_LABEL = {
 };
 const GROUP_ORDER = ['activation', 'defense', 'identity', 'healing', 'provenance'];
 
-const MAX_RING1 = 30;   // neighbours drawn around the focus before folding
-const MAX_RING2 = 60;   // second-hop budget
+const MAX_RING1 = 30;
+const MAX_RING2 = 60;
 const OVERVIEW_N = 46;
-// Fractions along a spoke at which to drop its predicate label, cycled so
-// neighbouring spokes never place theirs at the same radius.
 const STAGGER = [0.40, 0.58, 0.48, 0.67, 0.44, 0.62];
-const CHAR_W = 6.4;   // rough advance width of the label font, for bounds
+const CHAR_W = 6.4;
 
 const $ = (s) => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
 const svgEl = (n, a = {}) => {
-  const e = document.createElementNS('http://www.w3.org/2000/svg', n);
-  for (const [k, v] of Object.entries(a)) if (v !== '') e.setAttribute(k, v);
+  const e = document.createElementNS(NS, n);
+  for (const [k, v] of Object.entries(a)) if (v !== '' && v != null) e.setAttribute(k, v);
   return e;
 };
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const titled = (el, text) => { const t = svgEl('title'); t.textContent = text; el.appendChild(t); return el; };
 
-let G = null;                 // the loaded graph
+let G = null;
 let byId = new Map();
+let byLoose = new Map();
 const out = new Map(), inc = new Map();
 const weight = new Map();
 
 const state = {
-  focus: [], mode: 'explore', depth: 1, why: '', lens: '',
-  groups: new Set(GROUP_ORDER), trace: null, expand: false,
+  focus: [], mode: 'explore', depth: 1, why: '',
+  styles: new Set(STYLE_ORDER), groups: new Set(GROUP_ORDER),
+  trace: null, expand: false,
 };
 let view = { x: 0, y: 0, k: 1 };
-let dragged = false;   // set while panning, so a drag never re-centres the graph
+let dragged = false;
+
+/* ------------------------------------------------------------- style & shape */
+
+const lensOf = (n) => n.lens || null;
+const coreStyles = (n) => {
+  const l = lensOf(n);
+  if (!l) return [];
+  return STYLE_ORDER.filter((s) => CORE.has(l[s]));
+};
+const allStyles = () => state.styles.size === STYLE_ORDER.length;
+
+/* A node is visible when it belongs to at least one of the selected styles.
+ * Videos, sources and the style pages carry no lens and are structural, so they
+ * stay — except a style page itself, which follows its own style. */
+function styleOK(n) {
+  if (allStyles()) return true;
+  if (n.type === 'style') return state.styles.has(n.slug);
+  const l = lensOf(n);
+  if (!l) return true;
+  return [...state.styles].some((s) => l[s] && l[s] !== 'absent');
+}
+
+const RANK = { core: 4, 'secure-form': 4, alternating: 3, secondary: 2, feared: 1 };
+
+/* Fill and outline for a node. With all four styles on, colour says which style
+ * a node belongs to and grey says "more than one, so not style-specific". With a
+ * filter on, colour says how strongly it belongs to what you selected. */
+function paint(n) {
+  const l = lensOf(n);
+  if (!l) return { fill: OFFSTAGE, stroke: null };
+
+  if (!allStyles()) {
+    let best = null, bestRank = 0;
+    for (const s of state.styles) {
+      const r = RANK[l[s]] ?? 0;
+      if (r > bestRank) { bestRank = r; best = s; }
+    }
+    if (!best) return { fill: OFFSTAGE, stroke: null };
+    const c = STYLE_COLOR[best];
+    if (bestRank === 4) return { fill: c, stroke: null };
+    if (bestRank === 1) return { fill: 'none', stroke: c };   // feared: present as a threat
+    return { fill: c, stroke: null, soft: true };             // alternating / secondary
+  }
+
+  const cs = coreStyles(n);
+  if (cs.length === 1) return { fill: STYLE_COLOR[cs[0]], stroke: null };
+  if (cs.length > 1) return { fill: ACROSS, stroke: null };
+  return { fill: OFFSTAGE, stroke: null };
+}
+
+const poly = (sides, r, rot = -Math.PI / 2) => {
+  const pts = [];
+  for (let i = 0; i < sides; i++) {
+    const a = rot + (i * 2 * Math.PI) / sides;
+    pts.push(`${(Math.cos(a) * r).toFixed(2)},${(Math.sin(a) * r).toFixed(2)}`);
+  }
+  return pts.join(' ');
+};
+const star = (points, r, inner) => {
+  const pts = [];
+  for (let i = 0; i < points * 2; i++) {
+    const a = -Math.PI / 2 + (i * Math.PI) / points;
+    const rr = i % 2 ? inner : r;
+    pts.push(`${(Math.cos(a) * rr).toFixed(2)},${(Math.sin(a) * rr).toFixed(2)}`);
+  }
+  return pts.join(' ');
+};
+
+function glyph(type, r) {
+  switch (type) {
+    case 'belief':   return svgEl('polygon', { points: poly(4, r * 1.05, -Math.PI / 4) });
+    case 'state':    return svgEl('polygon', { points: poly(4, r * 1.2) });
+    case 'strategy': return svgEl('polygon', { points: poly(3, r * 1.25) });
+    case 'behavior': return svgEl('polygon', { points: poly(3, r * 1.25, Math.PI / 2) });
+    case 'origin':   return svgEl('polygon', { points: poly(5, r * 1.14) });
+    case 'practice': return svgEl('polygon', { points: poly(6, r * 1.1) });
+    case 'trigger':  return svgEl('polygon', { points: star(4, r * 1.42, r * 0.56) });
+    case 'video':    return svgEl('rect', { x: -r * 1.28, y: -r * 0.66, width: r * 2.56, height: r * 1.32, rx: r * 0.32 });
+    case 'source':   return svgEl('polygon', { points: [
+      `${-r*0.36},${-r*1.1} ${r*0.36},${-r*1.1} ${r*0.36},${-r*0.36} ${r*1.1},${-r*0.36}`,
+      `${r*1.1},${r*0.36} ${r*0.36},${r*0.36} ${r*0.36},${r*1.1} ${-r*0.36},${r*1.1}`,
+      `${-r*0.36},${r*0.36} ${-r*1.1},${r*0.36} ${-r*1.1},${-r*0.36} ${-r*0.36},${-r*0.36}`,
+    ].join(' ') });
+    case 'style':    return svgEl('circle', { r: r * 1.08 });
+    default:         return svgEl('circle', { r });
+  }
+}
 
 /* ---------------------------------------------------------------- url state */
 
-function readHash() {
-  const p = new URLSearchParams(location.hash.replace(/^#/, ''));
-  const ids = (p.get('focus') || '').split(',').map((s) => s.trim()).filter(Boolean);
-  state.focus = ids.map(resolve).filter(Boolean);
-  state.mode = p.get('mode') === 'discussion' ? 'discussion' : 'explore';
-  state.depth = ['0', '1', '2'].includes(p.get('depth')) ? Number(p.get('depth')) : 1;
-  state.why = (p.get('why') || '').slice(0, 300);
-  state.lens = G.styles.includes(p.get('lens')) ? p.get('lens') : '';
-  const g = p.get('rel');
-  state.groups = g ? new Set(g.split(',').filter((x) => GROUP_ORDER.includes(x))) : new Set(GROUP_ORDER);
-  if (!state.groups.size) state.groups = new Set(GROUP_ORDER);
-  const t = (p.get('trace') || '').split('>').map((s) => resolve(s.trim()));
-  state.trace = t.length === 2 && t.every(Boolean) ? t : null;
-  state.expand = p.get('all') === '1';
-}
-
-/* An agent writing a link should not have to know our folder names, so a focus
- * id resolves by full path, by slug, or by title. */
-let byLoose = new Map();
 function resolve(s) {
   if (!s) return null;
   if (byId.has(s)) return s;
   return byLoose.get(s.toLowerCase().replace(/^\//, '')) ?? null;
+}
+
+function readHash() {
+  const p = new URLSearchParams(location.hash.replace(/^#/, ''));
+  state.focus = (p.get('focus') || '').split(',').map((s) => resolve(s.trim())).filter(Boolean);
+  state.focus = [...new Set(state.focus)];
+  state.mode = p.get('mode') === 'discussion' ? 'discussion' : 'explore';
+  state.depth = ['0', '1', '2'].includes(p.get('depth')) ? Number(p.get('depth')) : 1;
+  state.why = (p.get('why') || '').slice(0, 300);
+
+  // `style` takes a list; `lens` is the older single-style spelling and still works
+  const st = p.get('style'), lens = p.get('lens');
+  if (st) {
+    const picked = st.split(',').map((s) => s.trim()).filter((s) => STYLE_ORDER.includes(s));
+    state.styles = new Set(picked.length ? picked : STYLE_ORDER);
+  } else if (lens && STYLE_ORDER.includes(lens)) {
+    state.styles = new Set([lens]);
+  } else {
+    state.styles = new Set(STYLE_ORDER);
+  }
+
+  const g = p.get('rel');
+  state.groups = g ? new Set(g.split(',').filter((x) => GROUP_ORDER.includes(x))) : new Set(GROUP_ORDER);
+  if (!state.groups.size) state.groups = new Set(GROUP_ORDER);
+
+  const t = (p.get('trace') || '').split('>').map((s) => resolve(s.trim()));
+  state.trace = t.length === 2 && t.every(Boolean) ? t : null;
+  state.expand = p.get('all') === '1';
 }
 
 function writeHash(push) {
@@ -92,7 +212,7 @@ function writeHash(push) {
   if (state.mode !== 'explore') p.set('mode', state.mode);
   if (state.depth !== 1) p.set('depth', String(state.depth));
   if (state.why) p.set('why', state.why);
-  if (state.lens) p.set('lens', state.lens);
+  if (!allStyles()) p.set('style', [...state.styles].join(','));
   if (state.groups.size !== GROUP_ORDER.length) p.set('rel', [...state.groups].join(','));
   if (state.trace) p.set('trace', state.trace.join('>'));
   if (state.expand) p.set('all', '1');
@@ -103,24 +223,17 @@ function writeHash(push) {
 
 /* ------------------------------------------------------------------ helpers */
 
-const lensOK = (n) => {
-  if (!state.lens) return true;
-  if (!n.lens) return true;                 // videos, sources and styles carry no lens
-  return n.lens[state.lens] && n.lens[state.lens] !== 'absent';
-};
 const edgeOK = (e) =>
-  state.groups.has(e.group) && lensOK(byId.get(e.source)) && lensOK(byId.get(e.target));
+  state.groups.has(e.group) && styleOK(byId.get(e.source)) && styleOK(byId.get(e.target));
 
 function neighbours(id) {
   const seen = new Map();
   for (const e of out.get(id) ?? []) if (edgeOK(e)) seen.set(e.target, e);
   for (const e of inc.get(id) ?? []) if (edgeOK(e) && !seen.has(e.source)) seen.set(e.source, e);
   seen.delete(id);
-  return seen;                              // neighbour id -> the edge that reached it
+  return seen;
 }
 
-/* Shortest path, undirected over the filtered graph. Direction is kept on each
- * hop so the drawn chain still shows which way the arrow points. */
 function shortestPath(a, b) {
   if (a === b) return null;
   const prev = new Map([[a, null]]);
@@ -147,8 +260,6 @@ function shortestPath(a, b) {
 
 /* --------------------------------------------------------------- node select */
 
-/* The drawn set: one ring per hop, capped, plus a count of what was folded
- * away — so the page says so rather than quietly showing you less. */
 function select() {
   const level = new Map();
   const via = new Map();
@@ -159,8 +270,8 @@ function select() {
     if (chain) return { kind: 'trace', chain, level: new Map(chain.map((c, i) => [c.id, i])), via, folded: 0 };
   }
 
-  if (!state.focus.length) {                            // overview: the hubs
-    const top = [...byId.values()].filter(lensOK)
+  if (!state.focus.length) {
+    const top = [...byId.values()].filter(styleOK)
       .sort((a, b) => weight.get(b.id) - weight.get(a.id)).slice(0, OVERVIEW_N);
     for (const n of top) level.set(n.id, 1);
     return { kind: 'overview', level, via, folded: 0 };
@@ -232,15 +343,13 @@ function place(sel) {
   if (l0.length === 1) {
     pos.set(l0[0], { x: 0, y: 0, a: 0 });
   } else {
-    const R0 = Math.max(78, (l0.length * 68) / (2 * Math.PI));
+    const R0 = Math.max(84, (l0.length * 74) / (2 * Math.PI));
     l0.forEach((id, i) => {
       const a = ((i + 0.5) / l0.length) * 2 * Math.PI - Math.PI / 2;
       pos.set(id, { x: Math.cos(a) * R0, y: Math.sin(a) * R0, a });
     });
   }
 
-  // Ring one clusters by the kind of relationship that reached each node, so
-  // "what fires this" and "what heals this" sit in different parts of the dial.
   const l1 = ids.filter((id) => sel.level.get(id) === 1);
   const ordered = GROUP_ORDER.flatMap((g) =>
     l1.filter((id) => (sel.via.get(id)?.group ?? 'identity') === g)
@@ -264,13 +373,10 @@ function place(sel) {
   return pos;
 }
 
-// Focus nodes and trace steps get their label underneath; everything on a ring
-// gets a radial one.
 const isCentral = (sel, id) =>
   (sel.level.get(id) === 0 && sel.kind === 'ego') || sel.kind === 'trace';
-
 const radius = (n, lvl) =>
-  (lvl === 0 ? 6 : 0) + 7 + Math.min(9, Math.sqrt(n.citations || 0) * 2.7) + Math.min(4, n.degree * 0.13);
+  (lvl === 0 ? 5 : 0) + 7 + Math.min(8, Math.sqrt(n.citations || 0) * 2.5) + Math.min(4, n.degree * 0.12);
 
 /* -------------------------------------------------------------------- render */
 
@@ -318,8 +424,8 @@ function render() {
     const p = svgEl('path', {
       d: straight ? `M${a.x},${a.y} L${b.x},${b.y}` : `M${a.x},${a.y} Q${mx},${my} ${b.x},${b.y}`,
       class: 'edge', fill: 'none', stroke: GROUP_COLOR[e.group],
-      'stroke-width': e.group === 'provenance' ? 1 : 1.5,
-      'stroke-opacity': e.group === 'provenance' ? 0.3 : 0.55,
+      'stroke-width': e.group === 'provenance' ? 1 : 1.4,
+      'stroke-opacity': e.group === 'provenance' ? 0.26 : 0.46,
       'marker-end': G.predicates[e.predicate].symmetric ? '' : `url(#arw-${e.group})`,
     });
     p.dataset.a = e.source; p.dataset.b = e.target;
@@ -339,78 +445,90 @@ function render() {
     }
   }
 
+  const picking = state.mode === 'discussion' && sel.kind === 'ego';
   for (const [id, p] of pos) {
     const n = byId.get(id);
     const lvl = sel.level.get(id);
     const r = radius(n, lvl);
-    const picked = state.mode === 'discussion' && sel.kind === 'ego';
-    const g = svgEl('g', {
-      class: 'node' + (lvl === 0 ? ' focus' : '') +
-        (picked ? (lvl === 0 ? ' pick' : ' dim') : ''),
-      transform: `translate(${p.x},${p.y})`,
-    });
+    const cls = ['node'];
+    if (lvl === 0) cls.push('focus');
+    if (state.focus.length > 1 && lvl === 0) cls.push('picked');
+    if (picking) cls.push(lvl === 0 ? 'picked' : 'dim');
+    const g = svgEl('g', { class: cls.join(' '), transform: `translate(${p.x},${p.y})` });
     g.dataset.id = id;
+
+    g.appendChild(svgEl('circle', { r: r + 9, fill: 'transparent' }));   // hit area
     if (n.marker) {
       g.appendChild(svgEl('circle', {
-        r: r + 3.5, fill: 'none', stroke: TYPE_COLOR[n.type] ?? '#888',
-        'stroke-opacity': 0.45, 'stroke-width': 1.2,
+        r: r + 4.5, fill: 'none', stroke: paint(n).fill === 'none' ? ACROSS : paint(n).fill,
+        'stroke-opacity': 0.4, 'stroke-width': 1.1, 'stroke-dasharray': '2 2.5',
       }));
     }
-    // A transparent disc a little larger than the dot: small nodes are hard to
-    // hit otherwise, and the label itself takes no pointer events.
-    g.appendChild(svgEl('circle', { r: r + 9, fill: 'transparent' }));
-    g.appendChild(svgEl('circle', {
-      r, fill: TYPE_COLOR[n.type] ?? '#888', 'fill-opacity': lvl === 2 ? 0.62 : 1,
-    }));
+    const { fill, stroke, soft } = paint(n);
+    const sh = glyph(n.type, r);
+    sh.setAttribute('class', 'glyph');
+    sh.setAttribute('fill', fill === 'none' ? 'none' : fill);
+    if (fill !== 'none' && soft) sh.setAttribute('fill-opacity', lvl === 2 ? 0.34 : 0.5);
+    else if (fill !== 'none') sh.setAttribute('fill-opacity', lvl === 2 ? 0.62 : 1);
+    if (stroke) { sh.setAttribute('stroke', stroke); sh.setAttribute('stroke-width', 2); }
+    if (n.type === 'style') {                       // a ring, not a disc
+      sh.setAttribute('fill', 'none');
+      sh.setAttribute('stroke', fill === 'none' ? ACROSS : fill);
+      sh.setAttribute('stroke-width', 3.4);
+    }
+    g.appendChild(sh);
 
     const label = svgEl('text');
     label.textContent = n.title.length > 34 ? n.title.slice(0, 33) + '…' : n.title;
-    const central = isCentral(sel, id);
-    if (central) {
+    if (isCentral(sel, id)) {
       label.setAttribute('text-anchor', 'middle');
-      label.setAttribute('y', r + 15);
+      label.setAttribute('y', r + 16);
     } else {
-      // Radial labels read outward along the spoke, so a crowded ring never
-      // collides with itself however many nodes are on it.
       const deg = (p.a * 180) / Math.PI;
       const flip = Math.cos(p.a) < 0;
       label.setAttribute('text-anchor', flip ? 'end' : 'start');
       label.setAttribute('transform',
-        `rotate(${deg}) translate(${flip ? -(r + 7) : r + 7},0) rotate(${flip ? 180 : 0})`);
+        `rotate(${deg}) translate(${flip ? -(r + 8) : r + 8},0) rotate(${flip ? 180 : 0})`);
       label.setAttribute('dy', '0.34em');
     }
     g.appendChild(label);
-    titled(g, n.gloss || n.title);
+    titled(g, `${n.title} — ${SHAPE_LABEL[n.type] ?? n.type}${n.gloss ? '\n' + n.gloss : ''}`);
     gNodes.appendChild(g);
 
-    g.addEventListener('click', (ev) => { ev.stopPropagation(); if (!dragged) focusOn(id); });
+    g.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      if (dragged) return;
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey) togglePick(id);
+      else focusOn(id);
+    });
     g.addEventListener('mouseenter', () => setHot(id));
     g.addEventListener('mouseleave', () => setHot(null));
   }
 
-  fit(pos, svg, sel);
+  fit(pos, svg);
   paintHint(sel, drawn);
   paintLegend(sel);
   const l = $('#loading');
   if (l) l.style.display = 'none';
 }
 
-function fit(pos, svg, sel) {
+function fit(pos, svg) {
   const box = svg.getBoundingClientRect();
   let minX = -60, maxX = 60, minY = -60, maxY = 60;
   const grow = (x, y) => {
     minX = Math.min(minX, x); maxX = Math.max(maxX, x);
     minY = Math.min(minY, y); maxY = Math.max(maxY, y);
   };
+  const sel = { level: new Map(), kind: '' };
   for (const [id, p] of pos) {
     grow(p.x, p.y);
     const n = byId.get(id);
     const chars = Math.min(34, (n?.title ?? '').length);
-    const reach = radius(n, sel.level.get(id)) + 9 + chars * CHAR_W;
-    if (isCentral(sel, id)) { grow(p.x - reach / 2, p.y - 22); grow(p.x + reach / 2, p.y + 26); }
-    else grow(p.x + Math.cos(p.a) * reach, p.y + Math.sin(p.a) * reach);
+    const reach = 20 + chars * CHAR_W;
+    grow(p.x + Math.cos(p.a) * reach, p.y + Math.sin(p.a) * reach);
+    grow(p.x - Math.cos(p.a) * 24, p.y - Math.sin(p.a) * 24);
   }
-  const pad = 34;
+  const pad = 40;
   const w = maxX - minX + pad * 2, h = maxY - minY + pad * 2;
   const k = Math.min((box.width || 900) / w, (box.height || 600) / h, 1.35);
   view = {
@@ -442,29 +560,51 @@ function setHot(id) {
     n.classList.toggle('faded', !near.has(n.dataset.id));
     n.classList.toggle('hot', n.dataset.id === id);
   });
-  showDetail(id, true);
+  if (state.focus.length <= 1) showDetail(id, true);
 }
 
 function paintHint(sel, drawn) {
-  let text;
-  if (sel.kind === 'trace') text = `shortest path · ${sel.chain.length} nodes`;
-  else if (sel.kind === 'overview') text = `the ${drawn.size} most-cited nodes · search, or click one to open it`;
-  else text = `${drawn.size} of ${G.counts.nodes} nodes`;
-  let html = `<span>${text}</span>`;
+  const bits = [];
+  if (sel.kind === 'trace') bits.push(`shortest path · ${sel.chain.length} nodes`);
+  else if (sel.kind === 'overview') bits.push(`the ${drawn.size} most-cited nodes · click one to open it`);
+  else bits.push(`${drawn.size} of ${G.counts.nodes} nodes`);
+  if (state.focus.length > 1) bits.push(`<b>${state.focus.length} selected</b>`);
+  let html = `<span>${bits.join(' · ')}</span>`;
+  if (state.focus.length > 1) html += '<button class="btn" id="clearpick">Clear selection</button>';
   if (sel.folded) html += `<button class="btn" id="expand">Show ${sel.folded} more</button>`;
   else if (state.expand) html += '<button class="btn" id="expand">Fold back</button>';
   if (state.trace) html += '<button class="btn" id="untrace">Clear the trace</button>';
+  if (state.focus.length <= 1) html += '<span style="opacity:.75">⌘/ctrl-click to add a node</span>';
   $('#hint').innerHTML = html;
   const ex = $('#expand');
   if (ex) ex.onclick = () => { state.expand = !state.expand; writeHash(false); render(); };
   const un = $('#untrace');
   if (un) un.onclick = () => { state.trace = null; writeHash(true); render(); };
+  const cp = $('#clearpick');
+  if (cp) cp.onclick = () => { state.focus = state.focus.slice(0, 1); writeHash(true); render(); showDetail(state.focus[0], false); };
+}
+
+function miniGlyph(type, colour) {
+  const s = svgEl('svg', { width: 16, height: 16, viewBox: '-9 -9 18 18' });
+  const g = glyph(type, 6);
+  g.setAttribute('fill', colour);
+  if (type === 'style') { g.setAttribute('fill', 'none'); g.setAttribute('stroke', colour); g.setAttribute('stroke-width', 2.4); }
+  s.appendChild(g);
+  return s.outerHTML;
 }
 
 function paintLegend(sel) {
-  const types = [...new Set([...sel.level.keys()].map((id) => byId.get(id).type))].sort();
-  $('#legend').innerHTML = types
-    .map((t) => `<span><i class="dot" style="background:${TYPE_COLOR[t] ?? '#888'}"></i>${t}</span>`).join('');
+  const types = [...new Set([...sel.level.keys()].map((id) => byId.get(id).type))]
+    .sort((a, b) => (SHAPE_LABEL[a] ?? a).localeCompare(SHAPE_LABEL[b] ?? b));
+  const shapes = types.map((t) =>
+    `<span class="row">${miniGlyph(t, 'currentColor')}${SHAPE_LABEL[t] ?? t}</span>`).join('');
+  const colours = STYLE_ORDER
+    .filter((s) => state.styles.has(s))
+    .map((s) => `<span class="row"><i class="dot" style="background:${STYLE_COLOR[s]}"></i>${STYLE_LABEL[s]}</span>`)
+    .join('') + `<span class="row"><i class="dot" style="background:${ACROSS}"></i>across styles</span>`;
+  $('#legend').innerHTML =
+    `<div class="col"><h3>shape = kind</h3>${shapes}</div>` +
+    `<div class="col"><h3>colour = style</h3>${colours}</div>`;
 }
 
 /* --------------------------------------------------------------------- panels */
@@ -497,14 +637,24 @@ function relBlocks(id) {
   }).join('');
 }
 
+function styleTags(n) {
+  const l = lensOf(n);
+  if (!l) return '';
+  return STYLE_ORDER.filter((s) => l[s] && l[s] !== 'absent')
+    .map((s) => `<span class="tag style" style="background:${STYLE_COLOR[s]}">${STYLE_LABEL[s]}</span>`)
+    .join('');
+}
+
 function showDetail(id, preview) {
+  if (state.focus.length > 1 && !preview) return showSelection();
   const n = byId.get(id);
   if (!n) return;
-  const lens = n.lens ? Object.entries(n.lens).filter(([, v]) => v && v !== 'absent') : [];
+  const l = lensOf(n);
+  const lens = l ? STYLE_ORDER.filter((s) => l[s] && l[s] !== 'absent') : [];
   $('#detail').innerHTML = `
     <h3>${esc(n.title)}</h3>
     <div class="meta">
-      <span class="tag type" style="background:${TYPE_COLOR[n.type] ?? '#888'}">${esc(n.type)}</span>
+      <span class="tag">${miniGlyph(n.type, 'currentColor')} ${esc(SHAPE_LABEL[n.type] ?? n.type)}</span>
       ${n.attribution ? `<span class="tag">${esc(n.attribution)}</span>` : ''}
       ${n.actor !== 'self' ? `<span class="tag">${esc(n.actor)}</span>` : ''}
       ${n.marker ? '<span class="tag">sign of change</span>' : ''}
@@ -512,25 +662,119 @@ function showDetail(id, preview) {
     </div>
     ${n.gloss ? `<p class="gloss">${esc(n.gloss)}</p>` : ''}
     <div class="acts">
-      <a class="btn" href="${SITE}${esc(n.url)}">Open the note ↗</a>
+      <button class="btn" data-read="${esc(id)}">Read the note</button>
       ${preview ? `<button class="btn" data-go="${esc(id)}">Centre here</button>` : ''}
       ${state.focus.length === 1 && state.focus[0] !== id ? `<button class="btn" data-trace="${esc(id)}">Trace from the focus</button>` : ''}
     </div>
-    ${lens.length ? `<h2>Through each lens</h2><div class="lensrow">${lens.map(([k, v]) => `<span>${esc(k)}</span><span>${esc(v)}</span>`).join('')}</div>` : ''}
+    ${lens.length ? `<h2>Through each style</h2><div class="lensrow">${lens.map((s) =>
+      `<i class="dot" style="background:${STYLE_COLOR[s]}"></i><span>${STYLE_LABEL[s]}</span><span class="v">${l[s]}</span>`).join('')}</div>` : ''}
     <h2>Relationships</h2>
     ${relBlocks(id)}
   `;
+  wireDetail();
+}
+
+function showSelection() {
+  const items = state.focus.map((id) => {
+    const n = byId.get(id);
+    const { fill } = paint(n);
+    return `<li><i class="dot" style="background:${fill === 'none' ? ACROSS : fill}"></i>
+      <span style="flex:1">${esc(n.title)}</span>
+      <button data-drop="${esc(id)}" title="Remove">✕</button></li>`;
+  }).join('');
+  $('#detail').innerHTML = `
+    <h3>${state.focus.length} nodes selected</h3>
+    <p class="empty-note" style="margin:0 0 .8rem">Their shared neighbourhood is drawn around them.
+    Copy the link to hand this exact view to someone else.</p>
+    <ul class="multi">${items}</ul>
+    <div class="acts">
+      <button class="btn" id="selclear">Clear</button>
+      <button class="btn" id="selcopy">Copy link</button>
+    </div>`;
+  $('#detail').querySelectorAll('[data-drop]').forEach((b) =>
+    b.addEventListener('click', () => {
+      state.focus = state.focus.filter((x) => x !== b.dataset.drop);
+      writeHash(true); render();
+      if (state.focus.length === 1) showDetail(state.focus[0], false); else showSelection();
+    }));
+  $('#selclear').onclick = () => {
+    state.focus = state.focus.slice(0, 1); writeHash(true); render(); showDetail(state.focus[0], false);
+  };
+  $('#selcopy').onclick = () => copyLink($('#selcopy'));
+}
+
+function wireDetail() {
   $('#detail').querySelectorAll('[data-go]').forEach((a) =>
     a.addEventListener('click', () => focusOn(a.dataset.go)));
+  const rd = $('#detail [data-read]');
+  if (rd) rd.addEventListener('click', () => openReader(rd.dataset.read));
   const tr = $('#detail [data-trace]');
-  if (tr) {
-    tr.addEventListener('click', () => {
-      state.trace = [state.focus[0], tr.dataset.trace];
-      writeHash(true);
-      render();
+  if (tr) tr.addEventListener('click', () => {
+    state.trace = [state.focus[0], tr.dataset.trace];
+    writeHash(true); render();
+  });
+}
+
+/* ---------------------------------------------------------------- the reader */
+
+/* The note, read without leaving the graph. Quartz serves it as an ordinary
+ * page; take the article out of it and drop the relationship list, which the
+ * side panel already shows in a more useful form. */
+async function openReader(id) {
+  const n = byId.get(id);
+  if (!n) return;
+  $('#readerTitle').textContent = n.title;
+  $('#readerOpen').href = SITE + n.url;
+  $('#readerBody').innerHTML = '<p style="color:var(--dim)">Loading the note…</p>';
+  $('#reader').hidden = false;
+  try {
+    const html = await fetch(SITE + n.url).then((r) => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
     });
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const art = doc.querySelector('article') || doc.querySelector('.popover-hint') || doc.querySelector('main');
+    if (!art) throw new Error('no article in the page');
+    art.querySelectorAll('script,style,noscript').forEach((e) => e.remove());
+
+    // drop the Relationships section — the panel beside the graph does it better
+    const h = [...art.querySelectorAll('h1,h2,h3')].find((x) => /^relationships$/i.test(x.textContent.trim()));
+    if (h) { let cur = h; while (cur) { const next = cur.nextSibling; cur.remove(); cur = next; } }
+
+    $('#readerBody').innerHTML = '';
+    $('#readerBody').appendChild(art);
+
+    // internal links move the graph instead of leaving the page
+    $('#readerBody').querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href || /^(https?:)?\/\//.test(href) || href.startsWith('#')) {
+        if (/^https?:/.test(href || '')) { a.target = '_blank'; a.rel = 'noopener'; }
+        return;
+      }
+      let path;
+      try {
+        path = new URL(href, location.origin + SITE + '/x/').pathname
+          .replace(new RegExp('^' + SITE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '/'), '')
+          .replace(/\.html$/, '').replace(/^\//, '');
+      } catch { return; }
+      const target = resolve(path);
+      if (target) {
+        a.href = 'javascript:void 0';
+        a.addEventListener('click', (ev) => { ev.preventDefault(); closeReader(); focusOn(target); });
+      } else {
+        a.href = SITE + '/' + path;
+        a.setAttribute('data-router-ignore', '');
+      }
+    });
+  } catch (err) {
+    $('#readerBody').innerHTML =
+      `<p style="color:var(--dim)">Could not load the note here (${esc(err.message)}).</p>
+       <p><a class="btn" data-router-ignore href="${esc(SITE + n.url)}">Open the full page ↗</a></p>`;
   }
 }
+const closeReader = () => { $('#reader').hidden = true; };
+
+/* ------------------------------------------------------------------ actions */
 
 function focusOn(id) {
   if (!byId.has(id)) return;
@@ -544,20 +788,49 @@ function focusOn(id) {
   showDetail(id, false);
 }
 
-/* ------------------------------------------------------------------- controls */
+function togglePick(id) {
+  if (!byId.has(id)) return;
+  const i = state.focus.indexOf(id);
+  if (i >= 0) { if (state.focus.length === 1) return; state.focus.splice(i, 1); }
+  else state.focus.push(id);
+  state.trace = null;
+  if (state.mode === 'discussion') { state.mode = 'explore'; state.why = ''; }
+  writeHash(true);
+  paintChrome();
+  render();
+  if (state.focus.length > 1) showSelection(); else showDetail(state.focus[0], false);
+}
+
+async function copyLink(btn) {
+  const label = btn.textContent;
+  try { await navigator.clipboard.writeText(location.href); btn.textContent = 'Copied'; }
+  catch { btn.textContent = 'Copy failed'; }
+  setTimeout(() => { btn.textContent = label; }, 1400);
+}
+
+/* ------------------------------------------------------------------- chrome */
 
 function paintChrome() {
-  document.querySelectorAll('#modes button').forEach((b) =>
-    b.setAttribute('aria-selected', String(b.dataset.mode === state.mode)));
-  $('#why').hidden = !(state.mode === 'discussion' && state.why);
+  const showWhy = state.mode === 'discussion' && state.why;
+  $('#why').hidden = !showWhy;
   $('#whytext').textContent = state.why;
   $('#depth').value = String(state.depth);
-  $('#lens').value = state.lens;
+  document.querySelectorAll('#styles .chip').forEach((c) =>
+    c.setAttribute('aria-pressed', String(state.styles.has(c.dataset.s))));
   document.querySelectorAll('#groups .chip').forEach((c) =>
     c.setAttribute('aria-pressed', String(state.groups.has(c.dataset.g))));
 }
 
 function buildControls() {
+  $('#styles').innerHTML = STYLE_ORDER.map((s) =>
+    `<button class="chip" data-s="${s}" title="${STYLE_LABEL[s]}"><i class="dot" style="background:${STYLE_COLOR[s]}"></i>${STYLE_LABEL[s]}</button>`).join('');
+  document.querySelectorAll('#styles .chip').forEach((c) => c.addEventListener('click', () => {
+    const s = c.dataset.s;
+    if (state.styles.has(s)) state.styles.delete(s); else state.styles.add(s);
+    if (!state.styles.size) state.styles = new Set(STYLE_ORDER);
+    writeHash(false); paintChrome(); render();
+  }));
+
   $('#groups').innerHTML = GROUP_ORDER.map((g) =>
     `<button class="chip" data-g="${g}" title="${GROUP_LABEL[g]}"><i class="dot" style="background:${GROUP_COLOR[g]}"></i>${g}</button>`).join('');
   document.querySelectorAll('#groups .chip').forEach((c) => c.addEventListener('click', () => {
@@ -567,46 +840,47 @@ function buildControls() {
     writeHash(false); paintChrome(); render();
   }));
 
-  $('#lens').innerHTML = '<option value="">All four at once</option>' +
-    G.styles.map((s) => `<option value="${s}">${s}</option>`).join('');
-  $('#lens').addEventListener('change', (e) => { state.lens = e.target.value; writeHash(false); render(); });
   $('#depth').addEventListener('change', (e) => { state.depth = Number(e.target.value); writeHash(false); render(); });
 
-  $('#cycles').innerHTML = G.cycles.map((c) =>
-    `<li><button data-cycle="${c.id}">${c.nodes.map((id) => esc(byId.get(id) ? byId.get(id).title : id)).join(' → ')}<span class="n"> · ${c.length} steps</span></button></li>`).join('')
-    || '<li><span class="n">No loops under the current filters.</span></li>';
+  $('#cycles').innerHTML = G.cycles.map((c) => {
+    const styles = new Set();
+    for (const id of c.nodes) for (const s of coreStyles(byId.get(id) ?? {})) styles.add(s);
+    const sw = STYLE_ORDER.filter((s) => styles.has(s))
+      .map((s) => `<i class="dot" style="background:${STYLE_COLOR[s]}" title="${STYLE_LABEL[s]}"></i>`).join('');
+    const names = c.nodes.map((id) => esc(byId.get(id) ? byId.get(id).title : id)).join(' → ');
+    return `<li><button data-cycle="${c.id}">${sw ? `<span class="sw">${sw}</span>` : ''}${names} → ↺<span class="n"> · ${c.length} steps</span></button></li>`;
+  }).join('') || '<li><span class="n">No loops under the current filters.</span></li>';
   document.querySelectorAll('#cycles button').forEach((b) => b.addEventListener('click', () => {
     const c = G.cycles.find((x) => x.id === b.dataset.cycle);
     state.focus = c.nodes.slice();
     state.depth = 0;
     state.trace = null;
+    state.mode = 'explore'; state.why = '';
     writeHash(true); paintChrome(); render();
-    $('#detail').innerHTML = `<h3>A loop</h3><p class="gloss">${c.nodes.map((id) => esc(byId.get(id).title)).join(' → ')} → back to the start.</p><p class="empty-note">Click any node in it to open that node's own neighbourhood.</p>`;
+    $('#detail').innerHTML =
+      `<h3>A loop</h3><p class="gloss">${c.nodes.map((id) => esc(byId.get(id).title)).join(' → ')} → back to the start.</p>
+       <p class="empty-note">Each one fires the next, and the last returns to the first — which is why the pattern keeps itself running. Click any node in it to open that node's own neighbourhood.</p>`;
   }));
 
-  document.querySelectorAll('#modes button').forEach((b) => b.addEventListener('click', () => {
-    state.mode = b.dataset.mode;
-    if (state.mode === 'explore') state.why = '';
-    writeHash(false); paintChrome(); render();
-  }));
-
-  $('#copy').addEventListener('click', async () => {
-    const btn = $('#copy');
-    try { await navigator.clipboard.writeText(location.href); btn.textContent = 'Copied'; }
-    catch { btn.textContent = 'Copy failed'; }
-    setTimeout(() => { btn.textContent = 'Copy link'; }, 1400);
+  $('#leavewhy').addEventListener('click', () => {
+    state.mode = 'explore'; state.why = '';
+    writeHash(true); paintChrome(); render();
   });
+
+  $('#copy').addEventListener('click', () => copyLink($('#copy')));
+  $('#readerClose').addEventListener('click', closeReader);
 
   try {
     const saved = localStorage.getItem('askg-theme');
     if (saved) document.documentElement.dataset.theme = saved;
-  } catch { /* private mode, or storage blocked — the system theme still applies */ }
+  } catch { /* private mode — the system theme still applies */ }
   $('#theme').addEventListener('click', () => {
     const dark = document.documentElement.dataset.theme === 'dark' ||
       (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
     const next = dark ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
     try { localStorage.setItem('askg-theme', next); } catch { /* ignore */ }
+    render();
   });
 
   const q = $('#q'), res = $('#results');
@@ -625,11 +899,15 @@ function buildControls() {
       if (score) hits.push({ n, score: score + Math.min(12, weight.get(n.id) / 4) });
     }
     hits.sort((a, b) => b.score - a.score);
-    res.innerHTML = hits.slice(0, 40).map(({ n }) =>
-      `<li data-id="${esc(n.id)}">${esc(n.title)}<span class="t">${esc(n.type)}</span></li>`).join('')
-      || '<li><span class="t">Nothing matches.</span></li>';
+    res.innerHTML = hits.slice(0, 40).map(({ n }) => {
+      const { fill } = paint(n);
+      return `<li data-id="${esc(n.id)}">${miniGlyph(n.type, fill === 'none' ? ACROSS : fill)} ${esc(n.title)}<span class="t">${esc(SHAPE_LABEL[n.type] ?? n.type)}</span></li>`;
+    }).join('') || '<li><span class="t">Nothing matches.</span></li>';
     res.querySelectorAll('li[data-id]').forEach((li) =>
-      li.addEventListener('click', () => { focusOn(li.dataset.id); q.value = ''; res.innerHTML = ''; }));
+      li.addEventListener('click', (ev) => {
+        if (ev.metaKey || ev.ctrlKey || ev.shiftKey) togglePick(li.dataset.id);
+        else { focusOn(li.dataset.id); q.value = ''; res.innerHTML = ''; }
+      }));
   };
   q.addEventListener('input', run);
   q.addEventListener('keydown', (e) => {
@@ -671,13 +949,16 @@ function buildControls() {
     applyView();
   }, { passive: false });
 
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeReader(); });
+
   let t = null;
   addEventListener('resize', () => { clearTimeout(t); t = setTimeout(render, 180); });
   const onHash = () => {
     readHash();
     paintChrome();
     render();
-    if (state.focus.length === 1) showDetail(state.focus[0], false);
+    if (state.focus.length > 1) showSelection();
+    else if (state.focus.length === 1) showDetail(state.focus[0], false);
   };
   addEventListener('hashchange', onHash);
   addEventListener('popstate', onHash);
@@ -706,10 +987,16 @@ fetch(DATA).then((r) => r.json()).then((data) => {
   buildControls();
   paintChrome();
   render();
-  window.__askgReady = true;          // the inline watchdog in the page reads this
-  if (state.focus.length === 1) showDetail(state.focus[0], false);
+  window.__askgReady = true;
+  if (state.focus.length > 1) showSelection();
+  else if (state.focus.length === 1) showDetail(state.focus[0], false);
   else {
-    $('#detail').innerHTML = '<p class="empty-note">Search for something, or click any node.<br><br>This view opens on one idea and its neighbourhood. It never draws all ' + G.counts.nodes + ' nodes at once, because that picture says nothing.</p>';
+    $('#detail').innerHTML =
+      '<p class="empty-note">Search for something, or click any node.<br><br>' +
+      'Colour is the attachment style a node belongs to; shape is the kind of node. ' +
+      'This view opens on one idea and its neighbourhood — it never draws all ' +
+      G.counts.nodes + ' at once, because that picture says nothing.<br><br>' +
+      'Hold ⌘ or ctrl while clicking to select several.</p>';
   }
 }).catch((err) => {
   const l = $('#loading');

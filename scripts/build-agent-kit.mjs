@@ -200,7 +200,7 @@ ${B}${B}${B}
 | ${B}mode${B} | ${B}discussion${B} (you chose these) or ${B}explore${B} (default, the person is browsing) |
 | ${B}why${B} | one line shown above the graph. URL-encode it. |
 | ${B}depth${B} | ${B}0${B} focus only · ${B}1${B} plus neighbours (default) · ${B}2${B} two hops |
-| ${B}lens${B} | ${G.styles.join(' · ')} |
+| ${B}style${B} | one or more of ${G.styles.join(', ')}, comma-separated — colours and filters by attachment style. ${B}lens${B} is the older single-style spelling and still works. |
 | ${B}rel${B} | comma-separated groups to keep: activation, defense, identity, healing, provenance |
 | ${B}trace${B} | ${B}a%3Eb${B} — draws the shortest path between two nodes |
 
@@ -312,7 +312,7 @@ person sees exactly the nodes you meant, with your sentence above them.</p>
 <tr><td><code>mode</code></td><td><code>discussion</code> (you chose these) or <code>explore</code> (default)</td></tr>
 <tr><td><code>why</code></td><td>one line shown above the graph — always write one</td></tr>
 <tr><td><code>depth</code></td><td><code>0</code> focus only · <code>1</code> plus neighbours · <code>2</code> two hops</td></tr>
-<tr><td><code>lens</code></td><td>${G.styles.join(' · ')}</td></tr>
+<tr><td><code>style</code></td><td>one or more of ${G.styles.join(', ')}, comma-separated (<code>lens</code> is the older single-style spelling and still works)</td></tr>
 <tr><td><code>rel</code></td><td>which relationship groups to keep</td></tr>
 <tr><td><code>trace</code></td><td><code>a%3Eb</code> — the shortest path between two nodes</td></tr>
 </table>
