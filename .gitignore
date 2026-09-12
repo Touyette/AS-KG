@@ -8,3 +8,9 @@ _to_delete/
 typed-graph-preview.html
 _build/
 deck-data.json
+
+# Personal notes. The folder ships with the package and arrives empty: its
+# readme is tracked so git keeps the directory, and nothing else in it ever is.
+# Whatever someone writes here stays on the machine they wrote it on.
+journal/*
+!journal/README.md

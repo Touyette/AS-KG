@@ -560,7 +560,10 @@ function setHot(id) {
     n.classList.toggle('faded', !near.has(n.dataset.id));
     n.classList.toggle('hot', n.dataset.id === id);
   });
-  if (state.focus.length <= 1) showDetail(id, true);
+  // Hover highlights the graph and nothing else. It used to rewrite the side
+  // panel, which meant the panel described whatever the cursor last passed over
+  // rather than what you had selected — so "Read the note" could open the wrong
+  // note. The node's own tooltip carries the title and the opening line.
 }
 
 function paintHint(sel, drawn) {
@@ -663,7 +666,6 @@ function showDetail(id, preview) {
     ${n.gloss ? `<p class="gloss">${esc(n.gloss)}</p>` : ''}
     <div class="acts">
       <button class="btn" data-read="${esc(id)}">Read the note</button>
-      ${preview ? `<button class="btn" data-go="${esc(id)}">Centre here</button>` : ''}
       ${state.focus.length === 1 && state.focus[0] !== id ? `<button class="btn" data-trace="${esc(id)}">Trace from the focus</button>` : ''}
     </div>
     ${lens.length ? `<h2>Through each style</h2><div class="lensrow">${lens.map((s) =>
@@ -728,10 +730,12 @@ async function openReader(id) {
   $('#readerBody').innerHTML = '<p style="color:var(--dim)">Loading the note…</p>';
   $('#reader').hidden = false;
   try {
-    const html = await fetch(SITE + n.url).then((r) => {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.text();
-    });
+    // GitHub Pages resolves /foo to foo.html; not every static host does, so
+    // fall back rather than showing an error for a note that is plainly there.
+    let res = await fetch(SITE + n.url);
+    if (!res.ok) res = await fetch(SITE + n.url + '.html');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const html = await res.text();
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const art = doc.querySelector('article') || doc.querySelector('.popover-hint') || doc.querySelector('main');
     if (!art) throw new Error('no article in the page');
