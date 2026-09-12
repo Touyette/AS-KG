@@ -1,6 +1,6 @@
 {
   "name": "as-kg-heidipriebe",
-  "description": "🌱 publish your digital garden and notes as a website",
+  "description": "A typed knowledge graph of Heidi Priebe's attachment-theory work, published with Quartz.",
   "private": true,
   "version": "5.0.0",
   "type": "module",
@@ -24,7 +24,7 @@
     "ingest": "node scripts/ingest.mjs",
     "typed-graph": "node scripts/build-typed-graph.mjs",
     "site": "node scripts/expand-moc.mjs content && npx quartz build && node scripts/build-typed-graph.mjs && node scripts/build-typed-graph-page.mjs && node scripts/build-toolbox.mjs",
-    "bundle": "node scripts/bundle.mjs",
+    "bundle": "node scripts/bundle.mjs public/agent/context",
     "validate-flows": "node scripts/validate-flows.mjs"
   },
   "engines": {

@@ -1,13 +1,19 @@
 # Raw source material — never published, never committed.
 transcripts/
+
+# Installed or generated. Everything here is rebuilt by the build; none of it
+# belongs in the download, and a committed copy only goes stale.
 node_modules/
 public/
 .quartz-cache/
-.DS_Store
-_to_delete/
-typed-graph-preview.html
 _build/
+dist/
 deck-data.json
+typed-graph-preview.html
+.DS_Store
+
+# Scratch bin. One-off scripts and intermediate JSON from a working session.
+_to_delete/
 
 # Personal notes. The folder ships with the package and arrives empty: its
 # readme is tracked so git keeps the directory, and nothing else in it ever is.
