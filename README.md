@@ -15,7 +15,7 @@ watching it.
 Quartz's built-in graph treats every link the same. Here the edges carry meaning,
 which lets the site show three things an ordinary wiki cannot:
 
-**Typed relationships.** Fifteen predicates with enforced domain and range —
+**Typed relationships.** Sixteen predicates with enforced domain and range —
 what `triggers` what, which strategy `defends_against` which fear, which practice
 a pattern is `healed_by`, and which move in one style `mirrors` a move in another.
 
@@ -34,9 +34,16 @@ repeating one.
 ## Layout
 
     content/         the notes, one per node, plus one per video and the MOCs
-    _meta/           schema.md (the authoring contract) and vocabulary.yaml
-    scripts/         validator, graph builder, transcript ingest, page builder
+    flows/           the toolbox sequences, one JSON per situation
+    _meta/           schema.md — the authoring contract — and the operating rules
+    scripts/         validator, graph builder, transcript ingest, page builders
+    scripts/deck/    the generated overview deck
+    tools/           what an assistant runs locally: the companion window and the journal
+    journal/         personal notes, gitignored — ships empty, stays on your machine
     transcripts/     raw captions — gitignored, never published
+
+Anything not in that list is generated: `public/`, `dist/`, `_build/` and
+`node_modules/` are all rebuilt by the build and none of them are committed.
 
 ## Working on it
 
@@ -69,4 +76,13 @@ they exist, and windows the rest at 120 seconds.
 Pushing to `main` or `AS-KG` runs `.github/workflows/deploy.yml`, which validates the graph
 against the schema, builds the site, generates the typed graph, and publishes to
 GitHub Pages. A schema violation fails the build rather than shipping a broken
-graph.
+graph. `scripts/check-site.mjs` then checks the published HTML rather than the
+data, because every defect this site has shipped was one the validator could not
+see.
+
+## Built on Quartz
+
+The site itself is [Quartz 5](https://quartz.jzhao.xyz) by jackyzha0, MIT
+licensed — hence the upstream author and repository fields still in
+`package.json`. Everything in the list above is ours; everything under
+`quartz/` is theirs.
