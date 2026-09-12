@@ -17,6 +17,16 @@ fetched when you actually need it.
 | `flows/<name>.json` | when the situation matches one — for its screening question and its stops | 700 each |
 | `_meta/schema.md` | only if you need the vocabulary defined precisely | 1.5k |
 
+`INDEX.md` is generated from `content/` rather than written by hand. If it is not
+there, or notes have been added since it was built, build it — it takes a second:
+
+```
+node tools/index.mjs
+```
+
+It is not `content/index.md`. That is the website's landing page and has nothing
+to do with this.
+
 **Do not** load `graph.json`, walk `content/` exhaustively, or go into `public/`.
 A previous session spent most of its budget reading everything before saying a
 word. The notes are markdown and grep is enough:

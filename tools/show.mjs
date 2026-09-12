@@ -10,12 +10,16 @@
 // companion is not running this starts it and waits, so an assistant never has
 // to think about the process.
 import { spawn } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs';
 
 const PORT = Number(process.env.ASKG_PORT ?? 7777);
 const BASE = `http://localhost:${PORT}`;
-const HERE = path.dirname(new URL(import.meta.url).pathname);
+// fileURLToPath, not new URL(...).pathname: on Windows the latter yields
+// /C:/2%20-%20GitHub/... — a leading slash and percent-encoded spaces — which is
+// not a path any filesystem call will accept.
+const HERE = path.dirname(fileURLToPath(import.meta.url));
 
 const args = process.argv.slice(2);
 const flag = (name) => {
@@ -32,10 +36,19 @@ const why = flag('why');
 const depth = flag('depth');
 const ids = args.filter((a) => !a.startsWith('--'));
 
+// The site's published base path (/AS-KG), learned from the companion on the
+// first ping. Every URL handed to a person has to carry it or it 404s, and the
+// companion is the only thing that knows it — it reads quartz.config.yaml.
+let sitePath = '';
+const viewUrl = () => `${BASE}${sitePath}/typed-graph/`;
+
 const ping = async () => {
   try {
     const r = await fetch(BASE + '/companion/ping', { signal: AbortSignal.timeout(1200) });
-    return r.ok;
+    if (!r.ok) return false;
+    const j = await r.json().catch(() => ({}));
+    if (typeof j.base === 'string') sitePath = j.base;
+    return true;
   } catch { return false; }
 };
 
@@ -54,8 +67,7 @@ async function ensureRunning() {
   for (let i = 0; i < 25; i++) {
     await new Promise((r) => setTimeout(r, 200));
     if (await ping()) {
-      const where = await fetch(BASE + '/companion/ping').then((r) => r.json()).catch(() => ({}));
-      console.error(`companion up — tell the person to open ${BASE}${where.base ?? ''}/typed-graph/`);
+      console.error(`companion up — tell the person to open ${viewUrl()}`);
       return true;
     }
   }
@@ -115,4 +127,4 @@ if (!res.ok) {
   process.exit(1);
 }
 console.log(`showing ${res.body.showing} node(s) · ${res.body.viewers} window(s) open · turn ${res.body.turn}`);
-if (!res.body.viewers) console.log(`nobody has the window open yet — ${BASE}/typed-graph/`);
+if (!res.body.viewers) console.log(`nobody has the window open yet — ${viewUrl()}`);

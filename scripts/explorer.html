@@ -45,6 +45,11 @@ header .spacer{flex:1}
 }
 .btn:hover{color:var(--ink); border-color:var(--faint)}
 .btn.on{background:var(--accent); color:#fff; border-color:var(--accent)}
+/* shown only when the page is served by the local companion */
+#live{
+  font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; font-weight:600;
+  color:#fff; background:#49b06d; border-radius:999px; padding:.14rem .5rem;
+}
 
 /* an assistant chose these nodes — say so, rather than making it a mode you set */
 #why{
@@ -122,9 +127,17 @@ select{
 #legend{
   position:absolute; right:.75rem; bottom:.6rem; font-size:11px; color:var(--dim);
   background:color-mix(in srgb, var(--panel) 88%, transparent);
-  border:1px solid var(--line); border-radius:8px; padding:.5rem .6rem; pointer-events:none;
-  display:flex; gap:.9rem; align-items:flex-start; max-width:52%;
+  border:1px solid var(--line); border-radius:8px; padding:.4rem .6rem;
+  display:flex; flex-direction:column; gap:.35rem; align-items:stretch; max-width:52%;
 }
+#legend .cols{display:flex; gap:.9rem; align-items:flex-start}
+#legend.closed .cols{display:none}
+#legend .fold{
+  border:0; background:none; color:var(--faint); cursor:pointer; padding:0;
+  font:600 9.5px/1 "Schibsted Grotesk",sans-serif; text-transform:uppercase;
+  letter-spacing:.07em; display:flex; align-items:center; gap:.3rem; align-self:flex-start;
+}
+#legend .fold:hover{color:var(--accent)}
 #legend .col{display:flex; flex-direction:column; gap:.22rem}
 #legend h3{margin:0 0 .15rem; font:600 9.5px/1 "Schibsted Grotesk",sans-serif;
   text-transform:uppercase; letter-spacing:.07em; color:var(--faint)}
@@ -173,25 +186,52 @@ select{
 #detail ul.multi button{border:0; background:none; color:var(--faint); cursor:pointer; padding:0 .2rem}
 #detail ul.multi button:hover{color:var(--accent)}
 
-/* the note, read without leaving the graph */
-#reader{
-  position:absolute; inset:0 0 0 auto; width:min(560px,86%); background:var(--panel);
-  border-left:1px solid var(--line); box-shadow:-12px 0 40px rgba(0,0,0,.10);
-  display:flex; flex-direction:column; z-index:5;
+/* the note, read in the panel. There is no second overlay, so nothing can sit
+ * on top of the graph showing a node you stopped looking at. */
+#detail .note{font-size:14px; line-height:1.62; margin:.55rem 0 .2rem}
+#detail .note p{margin:0 0 .7rem}
+#detail .note h1{font:600 17px/1.3 "Schibsted Grotesk",sans-serif; margin:.9rem 0 .4rem}
+#detail .note h2,#detail .note h3{font:600 14px/1.3 "Schibsted Grotesk",sans-serif; margin:.95rem 0 .35rem}
+#detail .note a{color:var(--accent)}
+#detail .note ul{padding-left:1.1rem; margin:0 0 .7rem}
+#detail .note blockquote{margin:.7rem 0; padding:.45rem .7rem; border-left:2px solid var(--line); color:var(--dim)}
+#detail .note img{max-width:100%}
+
+/* the selection strip: what is picked, sitting above what is being read */
+#detail .strip{margin:0 0 .9rem; padding:0 0 .75rem; border-bottom:1px solid var(--line)}
+#detail .striphead{display:flex; align-items:center; gap:.4rem; font-size:11px;
+  color:var(--faint); text-transform:uppercase; letter-spacing:.06em; margin:0 0 .45rem}
+#detail .striphead .spacer{flex:1}
+#detail .lnk{border:0; background:none; color:var(--faint); cursor:pointer;
+  font:inherit; text-transform:none; letter-spacing:0; padding:0 .15rem}
+#detail .lnk:hover{color:var(--accent)}
+#detail ul.multi{max-height:11rem; overflow-y:auto}
+#detail ul.multi li.on{background:color-mix(in srgb, var(--accent) 13%, transparent); border-radius:5px}
+#detail ul.multi .pick{display:flex; align-items:center; gap:.45rem; flex:1;
+  text-align:left; color:inherit; font:inherit; min-width:0}
+#detail ul.multi .pick span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+#detail .hint{font-size:11.5px; color:var(--faint); margin:.45rem 0 0}
+
+/* the right-click menu on a node */
+#menu{
+  position:fixed; z-index:20; min-width:196px; padding:.25rem;
+  background:var(--panel); border:1px solid var(--line); border-radius:9px;
+  box-shadow:0 10px 34px rgba(0,0,0,.22); font-size:13px;
 }
-#reader[hidden]{display:none}
-#reader .bar{
-  display:flex; align-items:center; gap:.6rem; padding:.6rem .9rem;
-  border-bottom:1px solid var(--line); flex:none;
+#menu[hidden]{display:none}
+#menu button,#menu a{
+  display:block; width:100%; box-sizing:border-box; text-align:left; border:0;
+  background:none; color:var(--ink); font:inherit; padding:.4rem .55rem;
+  border-radius:6px; cursor:pointer; text-decoration:none;
 }
-#reader .bar strong{font:600 14px/1.3 "Schibsted Grotesk",sans-serif; flex:1}
-#reader .body{padding:1rem 1.15rem 2.5rem; overflow-y:auto; font-size:14.5px; line-height:1.62}
-#reader .body h1{font:600 22px/1.25 "Schibsted Grotesk",sans-serif; margin:0 0 .6rem}
-#reader .body h2,#reader .body h3{font:600 15px/1.3 "Schibsted Grotesk",sans-serif; margin:1.3rem 0 .4rem}
-#reader .body a{color:var(--accent)}
-#reader .body ul{padding-left:1.1rem}
-#reader .body blockquote{margin:.8rem 0; padding:.5rem .8rem; border-left:2px solid var(--line); color:var(--dim)}
-#reader .body img{max-width:100%}
+#menu button:hover,#menu a:hover{background:color-mix(in srgb, var(--accent) 14%, transparent)}
+#menu .sep{height:1px; background:var(--line); margin:.25rem .2rem}
+#menu .who{padding:.3rem .55rem .35rem; color:var(--faint); font-size:11.5px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+
+/* folding the filter rail */
+main.norail #left{display:none}
+#railtoggle.on{color:var(--accent)}
 
 #loading{position:absolute; inset:0; display:grid; place-items:center; color:var(--dim);
   font-size:14px; pointer-events:none}
@@ -210,6 +250,7 @@ select{
 <header>
   <a class="home" href="__BASE__/" data-router-ignore>← Site</a>
   <h1>The typed graph</h1>
+  <button class="btn" id="railtoggle" title="Show or hide the filters">Filters</button>
   <div class="spacer"></div>
   <a class="btn" href="__BASE__/agent/" data-router-ignore>For agents</a>
   <button class="btn" id="copy" title="Copy a link to exactly this view">Copy link</button>
@@ -266,18 +307,12 @@ select{
     <div id="legend"></div>
     <div id="hint"></div>
     <div id="loading">Loading the graph…</div>
-    <div id="reader" hidden>
-      <div class="bar">
-        <strong id="readerTitle"></strong>
-        <a class="btn" id="readerOpen" href="#" data-router-ignore>Full page ↗</a>
-        <button class="btn" id="readerClose" title="Close">✕</button>
-      </div>
-      <div class="body" id="readerBody"></div>
-    </div>
   </div>
 
   <aside id="right"><div id="detail"></div></aside>
 </main>
+
+<div id="menu" hidden></div>
 
 <script>
   // If this page is reached through Quartz's SPA router the script below can be

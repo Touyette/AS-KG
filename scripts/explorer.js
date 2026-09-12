@@ -20,14 +20,14 @@ const SITE = '__BASE__';                 // both rewritten at build time from ba
 
 /* Colour = attachment style. */
 const STYLE_COLOR = {
-  'anxious-preoccupied': '#4a86e8',
-  'dismissive-avoidant': '#e8a33d',
+  'anxious-preoccupied': '#e8a33d',   // C
+  'dismissive-avoidant': '#4a86e8',   // A
   'fearful-avoidant': '#e0524f',
   'secure': '#49b06d',
 };
 const STYLE_LABEL = {
   'anxious-preoccupied': 'Anxious',
-  'dismissive-avoidant': 'Dismissive',
+  'dismissive-avoidant': 'Dismissive-avoidant',
   'fearful-avoidant': 'Fearful-avoidant',
   'secure': 'Secure',
 };
@@ -76,7 +76,7 @@ const out = new Map(), inc = new Map();
 const weight = new Map();
 
 const state = {
-  focus: [], mode: 'explore', depth: 1, why: '',
+  focus: [], reading: null, mode: 'explore', depth: 1, why: '',
   styles: new Set(STYLE_ORDER), groups: new Set(GROUP_ORDER),
   trace: null, expand: false,
 };
@@ -182,6 +182,7 @@ function readHash() {
   const p = new URLSearchParams(location.hash.replace(/^#/, ''));
   state.focus = (p.get('focus') || '').split(',').map((s) => resolve(s.trim())).filter(Boolean);
   state.focus = [...new Set(state.focus)];
+  state.reading = resolve((p.get('read') || '').trim()) || null;
   state.mode = p.get('mode') === 'discussion' ? 'discussion' : 'explore';
   state.depth = ['0', '1', '2'].includes(p.get('depth')) ? Number(p.get('depth')) : 1;
   state.why = (p.get('why') || '').slice(0, 300);
@@ -209,6 +210,7 @@ function readHash() {
 function writeHash(push) {
   const p = new URLSearchParams();
   if (state.focus.length) p.set('focus', state.focus.join(','));
+  if (state.reading && state.reading !== state.focus[0]) p.set('read', state.reading);
   if (state.mode !== 'explore') p.set('mode', state.mode);
   if (state.depth !== 1) p.set('depth', String(state.depth));
   if (state.why) p.set('why', state.why);
@@ -498,8 +500,21 @@ function render() {
     g.addEventListener('click', (ev) => {
       ev.stopPropagation();
       if (dragged) return;
-      if (ev.metaKey || ev.ctrlKey || ev.shiftKey) togglePick(id);
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey) return togglePick(id);
+      // With a set on screen — usually one an assistant pushed — a plain click
+      // reads the node and leaves the set alone. Losing five nodes to a stray
+      // click costs more than the extra step of re-centring deliberately.
+      if (state.focus.length > 1) readNode(id);
       else focusOn(id);
+    });
+    g.addEventListener('dblclick', (ev) => {
+      ev.stopPropagation();
+      if (!dragged) focusOn(id);
+    });
+    g.addEventListener('contextmenu', (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      openMenu(ev.clientX, ev.clientY, id);
     });
     g.addEventListener('mouseenter', () => setHot(id));
     g.addEventListener('mouseleave', () => setHot(null));
@@ -584,7 +599,7 @@ function paintHint(sel, drawn) {
   const un = $('#untrace');
   if (un) un.onclick = () => { state.trace = null; writeHash(true); render(); };
   const cp = $('#clearpick');
-  if (cp) cp.onclick = () => { state.focus = state.focus.slice(0, 1); writeHash(true); render(); showDetail(state.focus[0], false); };
+  if (cp) cp.onclick = () => { state.focus = state.focus.slice(0, 1); state.reading = state.focus[0]; writeHash(true); render(); showPanel(); };
 }
 
 function miniGlyph(type, colour) {
@@ -605,9 +620,22 @@ function paintLegend(sel) {
     .filter((s) => state.styles.has(s))
     .map((s) => `<span class="row"><i class="dot" style="background:${STYLE_COLOR[s]}"></i>${STYLE_LABEL[s]}</span>`)
     .join('') + `<span class="row"><i class="dot" style="background:${ACROSS}"></i>across styles</span>`;
-  $('#legend').innerHTML =
-    `<div class="col"><h3>shape = kind</h3>${shapes}</div>` +
-    `<div class="col"><h3>colour = style</h3>${colours}</div>`;
+  let shut = false;
+  try { shut = localStorage.getItem('askg-legend') === 'off'; } catch { /* private mode */ }
+  const el = $('#legend');
+  el.classList.toggle('closed', shut);
+  el.innerHTML =
+    `<button class="fold" id="legendfold">${shut ? '▸' : '▾'} legend</button>` +
+    `<div class="cols">` +
+      `<div class="col"><h3>shape = kind</h3>${shapes}</div>` +
+      `<div class="col"><h3>colour = style</h3>${colours}</div>` +
+    `</div>`;
+  $('#legendfold').addEventListener('click', () => {
+    const off = !el.classList.contains('closed');
+    el.classList.toggle('closed', off);
+    $('#legendfold').textContent = (off ? '▸' : '▾') + ' legend';
+    try { localStorage.setItem('askg-legend', off ? 'off' : 'on'); } catch { /* ignore */ }
+  });
 }
 
 /* --------------------------------------------------------------------- panels */
@@ -648,13 +676,17 @@ function styleTags(n) {
     .join('');
 }
 
-function showDetail(id, preview) {
-  if (state.focus.length > 1 && !preview) return showSelection();
+/* Two jobs, two pieces of state. `state.focus` is the selection — what is drawn,
+ * what the link carries, what an assistant pushes. `state.reading` is whose
+ * content is in the panel. Changing one never clears the other, which is the
+ * whole point: a pushed set is exactly when you most want to read its nodes. */
+
+function detailHTML(id) {
   const n = byId.get(id);
-  if (!n) return;
+  if (!n) return '';
   const l = lensOf(n);
   const lens = l ? STYLE_ORDER.filter((s) => l[s] && l[s] !== 'absent') : [];
-  $('#detail').innerHTML = `
+  return `
     <h3>${esc(n.title)}</h3>
     <div class="meta">
       <span class="tag">${miniGlyph(n.type, 'currentColor')} ${esc(SHAPE_LABEL[n.type] ?? n.type)}</span>
@@ -663,72 +695,114 @@ function showDetail(id, preview) {
       ${n.marker ? '<span class="tag">sign of change</span>' : ''}
       <span class="tag">${n.citations} video${n.citations === 1 ? '' : 's'}</span>
     </div>
-    ${n.gloss ? `<p class="gloss">${esc(n.gloss)}</p>` : ''}
+    <div id="notebody">${n.gloss ? `<p class="gloss">${esc(n.gloss)}</p>` : ''}</div>
     <div class="acts">
-      <button class="btn" data-read="${esc(id)}">Read the note</button>
+      <button class="btn" data-more="${esc(id)}">Read the rest</button>
+      ${state.focus.includes(id) ? '' : `<button class="btn" data-add="${esc(id)}">Add to selection</button>`}
       ${state.focus.length === 1 && state.focus[0] !== id ? `<button class="btn" data-trace="${esc(id)}">Trace from the focus</button>` : ''}
+      <a class="btn" data-router-ignore href="${esc(SITE + n.url)}">Full page ↗</a>
     </div>
     ${lens.length ? `<h2>Through each style</h2><div class="lensrow">${lens.map((s) =>
       `<i class="dot" style="background:${STYLE_COLOR[s]}"></i><span>${STYLE_LABEL[s]}</span><span class="v">${l[s]}</span>`).join('')}</div>` : ''}
     <h2>Relationships</h2>
     ${relBlocks(id)}
   `;
-  wireDetail();
 }
 
-function showSelection() {
+function stripHTML() {
   const items = state.focus.map((id) => {
     const n = byId.get(id);
     const { fill } = paint(n);
-    return `<li><i class="dot" style="background:${fill === 'none' ? ACROSS : fill}"></i>
-      <span style="flex:1">${esc(n.title)}</span>
-      <button data-drop="${esc(id)}" title="Remove">✕</button></li>`;
+    return `<li class="${id === state.reading ? 'on' : ''}">
+      <button class="pick" data-pick="${esc(id)}" title="Read this one">
+        <i class="dot" style="background:${fill === 'none' ? ACROSS : fill}"></i>
+        <span>${esc(n.title)}</span>
+      </button>
+      <button class="drop" data-drop="${esc(id)}" title="Remove from the selection">✕</button>
+    </li>`;
   }).join('');
-  $('#detail').innerHTML = `
-    <h3>${state.focus.length} nodes selected</h3>
-    <p class="empty-note" style="margin:0 0 .8rem">Their shared neighbourhood is drawn around them.
-    Copy the link to hand this exact view to someone else.</p>
-    <ul class="multi">${items}</ul>
-    <div class="acts">
-      <button class="btn" id="selclear">Clear</button>
-      <button class="btn" id="selcopy">Copy link</button>
+  return `
+    <div class="strip">
+      <div class="striphead">
+        <b>${state.focus.length} selected</b>
+        <span class="spacer"></span>
+        <button class="lnk" id="selcopy">Copy link</button>
+        <button class="lnk" id="selclear">Clear</button>
+      </div>
+      <ul class="multi">${items}</ul>
+      <p class="hint">Click one to read it · ⌘/ctrl-click the graph to add · right-click for more</p>
     </div>`;
-  $('#detail').querySelectorAll('[data-drop]').forEach((b) =>
-    b.addEventListener('click', () => {
-      state.focus = state.focus.filter((x) => x !== b.dataset.drop);
-      writeHash(true); render();
-      if (state.focus.length === 1) showDetail(state.focus[0], false); else showSelection();
-    }));
-  $('#selclear').onclick = () => {
-    state.focus = state.focus.slice(0, 1); writeHash(true); render(); showDetail(state.focus[0], false);
-  };
-  $('#selcopy').onclick = () => copyLink($('#selcopy'));
 }
 
-function wireDetail() {
-  $('#detail').querySelectorAll('[data-go]').forEach((a) =>
+function showPanel() {
+  if (!state.focus.length && !state.reading) return;
+  if (!state.reading || !byId.has(state.reading)) state.reading = state.focus[0] ?? null;
+  if (!state.reading) return;
+  $('#detail').innerHTML =
+    (state.focus.length > 1 ? stripHTML() : '') + detailHTML(state.reading);
+  wirePanel();
+}
+
+/* Read a node without touching the selection. */
+function readNode(id) {
+  if (!byId.has(id)) return;
+  state.reading = id;
+  report('read', id);
+  writeHash(false);
+  render();
+  showPanel();
+}
+
+function wirePanel() {
+  const d = $('#detail');
+  d.querySelectorAll('[data-pick]').forEach((b) =>
+    b.addEventListener('click', () => readNode(b.dataset.pick)));
+  d.querySelectorAll('[data-drop]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const id = b.dataset.drop;
+      if (state.focus.length <= 1) return;
+      state.focus = state.focus.filter((x) => x !== id);
+      if (state.reading === id) state.reading = state.focus[0];
+      report('deselected', id);
+      writeHash(true); render(); showPanel();
+    }));
+  const clr = d.querySelector('#selclear');
+  if (clr) clr.onclick = () => {
+    const keep = state.focus.includes(state.reading) ? state.reading : state.focus[0];
+    state.focus = [keep];
+    state.reading = keep;
+    writeHash(true); render(); showPanel();
+  };
+  const cpy = d.querySelector('#selcopy');
+  if (cpy) cpy.onclick = () => copyLink(cpy);
+
+  d.querySelectorAll('[data-go]').forEach((a) =>
     a.addEventListener('click', () => focusOn(a.dataset.go)));
-  const rd = $('#detail [data-read]');
-  if (rd) rd.addEventListener('click', () => openReader(rd.dataset.read));
-  const tr = $('#detail [data-trace]');
+  const more = d.querySelector('[data-more]');
+  if (more) more.addEventListener('click', () => expandNote(more.dataset.more, more));
+  const add = d.querySelector('[data-add]');
+  if (add) add.addEventListener('click', () => togglePick(add.dataset.add));
+  const tr = d.querySelector('[data-trace]');
   if (tr) tr.addEventListener('click', () => {
     state.trace = [state.focus[0], tr.dataset.trace];
     writeHash(true); render();
   });
 }
 
-/* ---------------------------------------------------------------- the reader */
+/* ------------------------------------------------------------------ the note */
 
-/* The note, read without leaving the graph. Quartz serves it as an ordinary
- * page; take the article out of it and drop the relationship list, which the
- * side panel already shows in a more useful form. */
-async function openReader(id) {
+/* The gloss is built from the first ~165 characters of the note, so the panel is
+ * already showing the beginning of the prose. "Read the rest" fetches the page
+ * and swaps in the whole thing — nothing is fetched until someone asks, and
+ * there is no second panel that can drift out of step with the graph. */
+async function expandNote(id, btn) {
   const n = byId.get(id);
   if (!n) return;
-  $('#readerTitle').textContent = n.title;
-  $('#readerOpen').href = SITE + n.url;
-  $('#readerBody').innerHTML = '<p style="color:var(--dim)">Loading the note…</p>';
-  $('#reader').hidden = false;
+  const host = $('#notebody');
+  if (!host) return;
+  report('read', id);
+  btn.disabled = true;
+  btn.textContent = 'Loading…';
   try {
     // GitHub Pages resolves /foo to foo.html; not every static host does, so
     // fall back rather than showing an error for a note that is plainly there.
@@ -741,15 +815,20 @@ async function openReader(id) {
     if (!art) throw new Error('no article in the page');
     art.querySelectorAll('script,style,noscript').forEach((e) => e.remove());
 
-    // drop the Relationships section — the panel beside the graph does it better
+    // drop the Relationships section — the panel below shows it in a better form
     const h = [...art.querySelectorAll('h1,h2,h3')].find((x) => /^relationships$/i.test(x.textContent.trim()));
     if (h) { let cur = h; while (cur) { const next = cur.nextSibling; cur.remove(); cur = next; } }
+    // and the title, which is already the panel heading
+    const t = art.querySelector('h1');
+    if (t && t.textContent.trim() === n.title) t.remove();
 
-    $('#readerBody').innerHTML = '';
-    $('#readerBody').appendChild(art);
+    art.className = 'note';
+    host.innerHTML = '';
+    host.appendChild(art);
+    btn.remove();
 
     // internal links move the graph instead of leaving the page
-    $('#readerBody').querySelectorAll('a[href]').forEach((a) => {
+    host.querySelectorAll('a[href]').forEach((a) => {
       const href = a.getAttribute('href');
       if (!href || /^(https?:)?\/\//.test(href) || href.startsWith('#')) {
         if (/^https?:/.test(href || '')) { a.target = '_blank'; a.rel = 'noopener'; }
@@ -764,45 +843,96 @@ async function openReader(id) {
       const target = resolve(path);
       if (target) {
         a.href = 'javascript:void 0';
-        a.addEventListener('click', (ev) => { ev.preventDefault(); closeReader(); focusOn(target); });
+        a.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          if (state.focus.length > 1) readNode(target); else focusOn(target);
+        });
       } else {
         a.href = SITE + '/' + path;
         a.setAttribute('data-router-ignore', '');
       }
     });
   } catch (err) {
-    $('#readerBody').innerHTML =
-      `<p style="color:var(--dim)">Could not load the note here (${esc(err.message)}).</p>
-       <p><a class="btn" data-router-ignore href="${esc(SITE + n.url)}">Open the full page ↗</a></p>`;
+    btn.disabled = false;
+    btn.textContent = 'Read the rest';
+    host.insertAdjacentHTML('beforeend',
+      `<p class="empty-note">Could not load the note here (${esc(err.message)}). ` +
+      `<a data-router-ignore href="${esc(SITE + n.url)}">Open the full page ↗</a></p>`);
   }
 }
-const closeReader = () => { $('#reader').hidden = true; };
+
+/* ------------------------------------------------------- the right-click menu */
+
+let menuFor = null;
+
+function openMenu(x, y, id) {
+  const n = byId.get(id);
+  if (!n) return;
+  menuFor = id;
+  const picked = state.focus.includes(id);
+  const m = $('#menu');
+  m.innerHTML = `
+    <div class="who">${esc(n.title)}</div>
+    <button data-m="read">Read the note</button>
+    <button data-m="pick">${picked ? 'Remove from selection' : 'Add to selection'}</button>
+    <button data-m="centre">Centre the graph here</button>
+    <div class="sep"></div>
+    <a data-router-ignore target="_blank" rel="noopener" href="${esc(SITE + n.url)}">Open the full page ↗</a>`;
+  m.hidden = false;
+  // keep it on screen when the click lands near an edge
+  const r = m.getBoundingClientRect();
+  m.style.left = Math.min(x, innerWidth - r.width - 8) + 'px';
+  m.style.top = Math.min(y, innerHeight - r.height - 8) + 'px';
+  m.querySelectorAll('[data-m]').forEach((b) => b.addEventListener('click', () => {
+    const what = b.dataset.m;
+    closeMenu();
+    if (what === 'read') readNode(id);
+    else if (what === 'pick') togglePick(id);
+    else focusOn(id);
+  }));
+  m.querySelector('a').addEventListener('click', closeMenu);
+}
+
+function closeMenu() {
+  menuFor = null;
+  const m = $('#menu');
+  if (m) m.hidden = true;
+}
 
 /* ------------------------------------------------------------------ actions */
 
 function focusOn(id) {
   if (!byId.has(id)) return;
+  report('opened', id);
   state.focus = [id];
   state.trace = null;
   state.expand = false;
   if (state.mode === 'discussion') { state.mode = 'explore'; state.why = ''; }
+  state.reading = id;
   writeHash(true);
   paintChrome();
   render();
-  showDetail(id, false);
+  showPanel();
 }
 
 function togglePick(id) {
   if (!byId.has(id)) return;
   const i = state.focus.indexOf(id);
-  if (i >= 0) { if (state.focus.length === 1) return; state.focus.splice(i, 1); }
-  else state.focus.push(id);
+  report(i >= 0 ? 'deselected' : 'selected', id);
+  if (i >= 0) {
+    if (state.focus.length === 1) return;
+    state.focus.splice(i, 1);
+    if (state.reading === id) state.reading = state.focus[0];
+  } else {
+    state.focus.push(id);
+    state.reading = id;          // you added it to look at it
+  }
   state.trace = null;
   if (state.mode === 'discussion') { state.mode = 'explore'; state.why = ''; }
   writeHash(true);
   paintChrome();
   render();
-  if (state.focus.length > 1) showSelection(); else showDetail(state.focus[0], false);
+  showPanel();
 }
 
 async function copyLink(btn) {
@@ -856,6 +986,7 @@ function buildControls() {
   }).join('') || '<li><span class="n">No loops under the current filters.</span></li>';
   document.querySelectorAll('#cycles button').forEach((b) => b.addEventListener('click', () => {
     const c = G.cycles.find((x) => x.id === b.dataset.cycle);
+    report('loop', c.id, c.nodes.map((id) => byId.get(id)?.title).join(' → '));
     state.focus = c.nodes.slice();
     state.depth = 0;
     state.trace = null;
@@ -872,7 +1003,20 @@ function buildControls() {
   });
 
   $('#copy').addEventListener('click', () => copyLink($('#copy')));
-  $('#readerClose').addEventListener('click', closeReader);
+
+  // Both rails fold, because on a laptop the graph is the part worth the pixels.
+  const rail = $('#railtoggle');
+  const setRail = (off) => {
+    document.querySelector('main').classList.toggle('norail', off);
+    rail.classList.toggle('on', !off);
+    try { localStorage.setItem('askg-rail', off ? 'off' : 'on'); } catch { /* private mode */ }
+    render();
+  };
+  let railOff = false;
+  try { railOff = localStorage.getItem('askg-rail') === 'off'; } catch { /* ignore */ }
+  setRail(railOff);
+  rail.addEventListener('click', () => setRail(!document.querySelector('main').classList.contains('norail')));
+
 
   try {
     const saved = localStorage.getItem('askg-theme');
@@ -917,7 +1061,7 @@ function buildControls() {
   q.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter') return;
     const first = res.querySelector('li[data-id]');
-    if (first) { focusOn(first.dataset.id); q.value = ''; res.innerHTML = ''; }
+    if (first) { report('searched', null, q.value.trim()); focusOn(first.dataset.id); q.value = ''; res.innerHTML = ''; }
   });
 
   const svg = $('#svg');
@@ -953,7 +1097,10 @@ function buildControls() {
     applyView();
   }, { passive: false });
 
-  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeReader(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+  addEventListener('pointerdown', (e) => { if (menuFor && !e.target.closest('#menu')) closeMenu(); }, true);
+  addEventListener('scroll', closeMenu, true);
+  addEventListener('contextmenu', (e) => { if (!e.target.closest('.node')) closeMenu(); });
 
   let t = null;
   addEventListener('resize', () => { clearTimeout(t); t = setTimeout(render, 180); });
@@ -961,12 +1108,69 @@ function buildControls() {
     readHash();
     paintChrome();
     render();
-    if (state.focus.length > 1) showSelection();
-    else if (state.focus.length === 1) showDetail(state.focus[0], false);
+    showPanel();
   };
   addEventListener('hashchange', onHash);
   addEventListener('popstate', onHash);
 }
+
+/* ------------------------------------------------------- the companion window
+ *
+ * When this page is served by tools/companion.mjs, an assistant working through
+ * a situation with someone can push a set of nodes into the window, and the
+ * window reports back what the person opened. The window is for the person — a
+ * way past the assistant's own sentences and into the material — so a push
+ * changes what is drawn but never closes what they are reading.
+ *
+ * On the hosted site the endpoint is absent: the probe fails once and nothing
+ * else here ever runs.
+ */
+let companion = false;
+
+async function connectCompanion() {
+  if (!/^https?:$/.test(location.protocol)) return;
+  try {
+    const r = await fetch('/companion/ping', { signal: AbortSignal.timeout(900) });
+    if (!r.ok) return;
+  } catch { return; }
+
+  companion = true;
+  const pill = document.createElement('span');
+  pill.id = 'live';
+  pill.title = 'An assistant can put nodes in this window';
+  pill.textContent = 'live';
+  document.querySelector('header .spacer').before(pill);
+
+  const es = new EventSource('/companion/events');
+  es.addEventListener('show', (ev) => {
+    let p;
+    try { p = JSON.parse(ev.data); } catch { return; }
+    const ids = [...new Set((p.nodes || []).map(resolve).filter(Boolean))];
+    if (!ids.length) return;
+    state.focus = ids;
+    state.why = String(p.why || '').slice(0, 300);
+    state.mode = state.why ? 'discussion' : 'explore';
+    state.depth = [0, 1, 2].includes(p.depth) ? p.depth : 1;
+    state.trace = null;
+    state.expand = false;
+    writeHash(false);
+    paintChrome();
+    render();
+    // If what they are reading is still in the new set, leave them on it — being
+    // moved mid-paragraph because the assistant spoke is the opposite of the point.
+    if (!state.focus.includes(state.reading)) state.reading = state.focus[0];
+    showPanel();
+  });
+}
+
+const report = (kind, node, text) => {
+  if (!companion) return;
+  fetch('/companion/activity', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ kind, node: node ?? null, text: text ?? null }),
+  }).catch(() => { /* the window still works if the assistant has gone */ });
+};
 
 /* ---------------------------------------------------------------------- boot */
 
@@ -992,8 +1196,8 @@ fetch(DATA).then((r) => r.json()).then((data) => {
   paintChrome();
   render();
   window.__askgReady = true;
-  if (state.focus.length > 1) showSelection();
-  else if (state.focus.length === 1) showDetail(state.focus[0], false);
+  connectCompanion();
+  if (state.focus.length) showPanel();
   else {
     $('#detail').innerHTML =
       '<p class="empty-note">Search for something, or click any node.<br><br>' +
