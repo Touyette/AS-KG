@@ -455,6 +455,7 @@ function render() {
     const cls = ['node'];
     if (lvl === 0) cls.push('focus');
     if (state.focus.length > 1 && lvl === 0) cls.push('picked');
+    if (id === state.reading) cls.push('reading');
     if (picking) cls.push(lvl === 0 ? 'picked' : 'dim');
     const g = svgEl('g', { class: cls.join(' '), transform: `translate(${p.x},${p.y})` });
     g.dataset.id = id;
@@ -501,11 +502,11 @@ function render() {
       ev.stopPropagation();
       if (dragged) return;
       if (ev.metaKey || ev.ctrlKey || ev.shiftKey) return togglePick(id);
-      // With a set on screen — usually one an assistant pushed — a plain click
-      // reads the node and leaves the set alone. Losing five nodes to a stray
-      // click costs more than the extra step of re-centring deliberately.
-      if (state.focus.length > 1) readNode(id);
-      else focusOn(id);
+      // A click reads the node and nothing else. Re-centring re-lays out the
+      // whole graph and refits the view, which loses your place — so it is a
+      // thing you ask for (double-click, the menu, the panel button), never a
+      // thing a single click does to you while you are looking around.
+      readNode(id);
     });
     g.addEventListener('dblclick', (ev) => {
       ev.stopPropagation();
@@ -592,7 +593,8 @@ function paintHint(sel, drawn) {
   if (sel.folded) html += `<button class="btn" id="expand">Show ${sel.folded} more</button>`;
   else if (state.expand) html += '<button class="btn" id="expand">Fold back</button>';
   if (state.trace) html += '<button class="btn" id="untrace">Clear the trace</button>';
-  if (state.focus.length <= 1) html += '<span style="opacity:.75">⌘/ctrl-click to add a node</span>';
+  // What the mouse does, spelled out rather than left to be discovered.
+  html += '<span style="opacity:.75">click to read · double-click to move the graph here · ⌘/ctrl-click to add · right-click for more</span>';
   $('#hint').innerHTML = html;
   const ex = $('#expand');
   if (ex) ex.onclick = () => { state.expand = !state.expand; writeHash(false); render(); };
@@ -698,6 +700,7 @@ function detailHTML(id) {
     <div id="notebody">${n.gloss ? `<p class="gloss">${esc(n.gloss)}</p>` : ''}</div>
     <div class="acts">
       <button class="btn" data-more="${esc(id)}">Read the rest</button>
+      ${state.focus.length === 1 && state.focus[0] === id ? '' : `<button class="btn" data-centre="${esc(id)}">Centre here</button>`}
       ${state.focus.includes(id) ? '' : `<button class="btn" data-add="${esc(id)}">Add to selection</button>`}
       ${state.focus.length === 1 && state.focus[0] !== id ? `<button class="btn" data-trace="${esc(id)}">Trace from the focus</button>` : ''}
       <a class="btn" data-router-ignore href="${esc(SITE + n.url)}">Full page ↗</a>
@@ -749,8 +752,15 @@ function readNode(id) {
   state.reading = id;
   report('read', id);
   writeHash(false);
-  render();
-  showPanel();
+  markReading();          // never render(): it ends in fit(), which would throw
+  showPanel();            // away whatever the person had panned and zoomed to
+}
+
+/* Which node the panel is showing, marked on the graph. A class toggle, not a
+ * redraw — the view belongs to whoever is looking at it. */
+function markReading() {
+  document.querySelectorAll('.node').forEach((n) =>
+    n.classList.toggle('reading', n.dataset.id === state.reading));
 }
 
 function wirePanel() {
@@ -777,7 +787,9 @@ function wirePanel() {
   if (cpy) cpy.onclick = () => copyLink(cpy);
 
   d.querySelectorAll('[data-go]').forEach((a) =>
-    a.addEventListener('click', () => focusOn(a.dataset.go)));
+    a.addEventListener('click', () => readNode(a.dataset.go)));
+  const ctr = d.querySelector('[data-centre]');
+  if (ctr) ctr.addEventListener('click', () => focusOn(ctr.dataset.centre));
   const more = d.querySelector('[data-more]');
   if (more) more.addEventListener('click', () => expandNote(more.dataset.more, more));
   const add = d.querySelector('[data-add]');
@@ -843,10 +855,7 @@ async function expandNote(id, btn) {
       const target = resolve(path);
       if (target) {
         a.href = 'javascript:void 0';
-        a.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          if (state.focus.length > 1) readNode(target); else focusOn(target);
-        });
+        a.addEventListener('click', (ev) => { ev.preventDefault(); readNode(target); });
       } else {
         a.href = SITE + '/' + path;
         a.setAttribute('data-router-ignore', '');
@@ -1004,18 +1013,61 @@ function buildControls() {
 
   $('#copy').addEventListener('click', () => copyLink($('#copy')));
 
-  // Both rails fold, because on a laptop the graph is the part worth the pixels.
-  const rail = $('#railtoggle');
-  const setRail = (off) => {
-    document.querySelector('main').classList.toggle('norail', off);
-    rail.classList.toggle('on', !off);
-    try { localStorage.setItem('askg-rail', off ? 'off' : 'on'); } catch { /* private mode */ }
-    render();
+  /* Both panels fold and both resize, because on a laptop the graph is the part
+   * worth the pixels — and how much of it you want depends on whether you are
+   * reading a note or looking at the shape of things. Kept in localStorage, so
+   * the window stays how it was left. */
+  const main = document.querySelector('main');
+
+  const fold = (btn, cls, key) => {
+    const set = (off) => {
+      main.classList.toggle(cls, off);
+      btn.classList.toggle('on', !off);
+      try { localStorage.setItem(key, off ? 'off' : 'on'); } catch { /* private mode */ }
+      render();
+    };
+    let off = false;
+    try { off = localStorage.getItem(key) === 'off'; } catch { /* ignore */ }
+    set(off);
+    btn.addEventListener('click', () => set(!main.classList.contains(cls)));
   };
-  let railOff = false;
-  try { railOff = localStorage.getItem('askg-rail') === 'off'; } catch { /* ignore */ }
-  setRail(railOff);
-  rail.addEventListener('click', () => setRail(!document.querySelector('main').classList.contains('norail')));
+  fold($('#railtoggle'), 'norail', 'askg-rail');
+  fold($('#paneltoggle'), 'nopanel', 'askg-panel');
+
+  const MINW = 190, MAXW = 560;
+  const grip = (el, aside, side, key) => {
+    try {
+      const w = parseInt(localStorage.getItem(key) ?? '', 10);
+      if (w >= MINW && w <= MAXW) aside.style.width = w + 'px';
+    } catch { /* ignore */ }
+
+    let from = 0, was = 0, live = false;
+    el.addEventListener('pointerdown', (ev) => {
+      // No setPointerCapture: capturing on one element retargets the events that
+      // follow, which is how node clicks were swallowed once before.
+      live = true;
+      from = ev.clientX;
+      was = aside.getBoundingClientRect().width;
+      el.classList.add('dragging');
+      document.body.classList.add('resizing');
+      ev.preventDefault();
+    });
+    addEventListener('pointermove', (ev) => {
+      if (!live) return;
+      const dx = (ev.clientX - from) * (side === 'left' ? 1 : -1);
+      aside.style.width = Math.max(MINW, Math.min(MAXW, was + dx)) + 'px';
+    });
+    addEventListener('pointerup', () => {
+      if (!live) return;
+      live = false;
+      el.classList.remove('dragging');
+      document.body.classList.remove('resizing');
+      try { localStorage.setItem(key, String(Math.round(aside.getBoundingClientRect().width))); } catch { /* ignore */ }
+      render();            // the stage changed size, so the drawing has to refit
+    });
+  };
+  grip($('#gripL'), $('#left'), 'left', 'askg-w-left');
+  grip($('#gripR'), $('#right'), 'right', 'askg-w-right');
 
 
   try {

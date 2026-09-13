@@ -152,6 +152,8 @@ select{
   pointer-events:none;
 }
 .node.focus text{font-weight:600; font-size:13px}
+.node.reading .glyph{stroke:var(--accent); stroke-width:3.2}
+.node.reading text{font-weight:600}
 .node.faded{opacity:.2}
 .node.hot .glyph{stroke:var(--accent); stroke-width:2.4}
 .node.picked .glyph{stroke:var(--accent); stroke-width:2.6}
@@ -229,9 +231,26 @@ select{
 #menu .who{padding:.3rem .55rem .35rem; color:var(--faint); font-size:11.5px;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 
-/* folding the filter rail */
-main.norail #left{display:none}
-#railtoggle.on{color:var(--accent)}
+/* folding the rails, and the grips that resize them */
+main.norail #left,  main.norail  #gripL{display:none}
+main.nopanel #right, main.nopanel #gripR{display:none}
+.btn.icon{display:inline-flex; align-items:center; justify-content:center; padding:.28rem .38rem}
+/* .btn.on fills solid, which is right for a chip and wrong for an icon — it
+ * turns the glyph into a coloured block. Tint it instead. */
+.btn.icon.on{
+  background:color-mix(in srgb, var(--accent) 13%, transparent);
+  color:var(--accent); border-color:color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+.btn.icon svg{display:block}
+
+.grip{flex:none; width:6px; cursor:col-resize; position:relative; z-index:4; background:transparent}
+.grip::after{
+  content:''; position:absolute; top:0; bottom:0; left:2px; right:2px;
+  background:transparent; transition:background .12s;
+}
+.grip:hover::after,.grip.dragging::after{background:var(--accent)}
+body.resizing{user-select:none; cursor:col-resize}
+@media (max-width:840px){ .grip{display:none} }
 
 #loading{position:absolute; inset:0; display:grid; place-items:center; color:var(--dim);
   font-size:14px; pointer-events:none}
@@ -249,12 +268,19 @@ main.norail #left{display:none}
 <body>
 <header>
   <a class="home" href="__BASE__/" data-router-ignore>← Site</a>
+  <button class="btn icon" id="railtoggle" title="Show or hide the filters (left panel)" aria-label="Toggle the left panel">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7"
+         stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.2"/><line x1="9.4" y1="4.5" x2="9.4" y2="19.5"/></svg>
+  </button>
   <h1>The typed graph</h1>
-  <button class="btn" id="railtoggle" title="Show or hide the filters">Filters</button>
   <div class="spacer"></div>
   <a class="btn" href="__BASE__/agent/" data-router-ignore>For agents</a>
   <button class="btn" id="copy" title="Copy a link to exactly this view">Copy link</button>
   <button class="btn" id="theme" title="Light / dark">◐</button>
+  <button class="btn icon" id="paneltoggle" title="Show or hide the node panel (right panel)" aria-label="Toggle the right panel">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7"
+         stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.2"/><line x1="14.6" y1="4.5" x2="14.6" y2="19.5"/></svg>
+  </button>
 </header>
 
 <div id="why" hidden>
@@ -302,6 +328,8 @@ main.norail #left{display:none}
     </section>
   </aside>
 
+  <div class="grip" id="gripL" title="Drag to resize"></div>
+
   <div id="stage">
     <svg id="svg"></svg>
     <div id="legend"></div>
@@ -309,6 +337,7 @@ main.norail #left{display:none}
     <div id="loading">Loading the graph…</div>
   </div>
 
+  <div class="grip" id="gripR" title="Drag to resize"></div>
   <aside id="right"><div id="detail"></div></aside>
 </main>
 
