@@ -425,7 +425,7 @@ function render() {
     const straight = !sameRing && n === 0;
     const p = svgEl('path', {
       d: straight ? `M${a.x},${a.y} L${b.x},${b.y}` : `M${a.x},${a.y} Q${mx},${my} ${b.x},${b.y}`,
-      class: 'edge', fill: 'none', stroke: GROUP_COLOR[e.group],
+      class: 'edge', 'data-g': e.group, fill: 'none', stroke: GROUP_COLOR[e.group],
       'stroke-width': e.group === 'provenance' ? 1 : 1.4,
       'stroke-opacity': e.group === 'provenance' ? 0.26 : 0.46,
       'marker-end': G.predicates[e.predicate].symmetric ? '' : `url(#arw-${e.group})`,
@@ -585,7 +585,7 @@ function setHot(id) {
 function paintHint(sel, drawn) {
   const bits = [];
   if (sel.kind === 'trace') bits.push(`shortest path · ${sel.chain.length} nodes`);
-  else if (sel.kind === 'overview') bits.push(`the ${drawn.size} most-cited nodes · click one to open it`);
+  else if (sel.kind === 'overview') bits.push(`the ${drawn.size} most-cited nodes`);
   else bits.push(`${drawn.size} of ${G.counts.nodes} nodes`);
   if (state.focus.length > 1) bits.push(`<b>${state.focus.length} selected</b>`);
   let html = `<span>${bits.join(' · ')}</span>`;
@@ -594,7 +594,7 @@ function paintHint(sel, drawn) {
   else if (state.expand) html += '<button class="btn" id="expand">Fold back</button>';
   if (state.trace) html += '<button class="btn" id="untrace">Clear the trace</button>';
   // What the mouse does, spelled out rather than left to be discovered.
-  html += '<span style="opacity:.75">click to read · double-click to move the graph here · ⌘/ctrl-click to add · right-click for more</span>';
+  html += '<span style="opacity:.75">click to read · double-click to move here · ⌘-click to add · right-click for more</span>';
   $('#hint').innerHTML = html;
   const ex = $('#expand');
   if (ex) ex.onclick = () => { state.expand = !state.expand; writeHash(false); render(); };
@@ -626,11 +626,21 @@ function paintLegend(sel) {
   try { shut = localStorage.getItem('askg-legend') === 'off'; } catch { /* private mode */ }
   const el = $('#legend');
   el.classList.toggle('closed', shut);
+  // Which link families are actually drawn right now, in the colours the lines
+  // are using. Without this the edge colours are the one legend-less encoding.
+  const drawnGroups = new Set();
+  document.querySelectorAll('.edge').forEach((e) => { if (e.dataset.g) drawnGroups.add(e.dataset.g); });
+  const rels = GROUP_ORDER
+    .filter((g) => state.groups.has(g) && (!drawnGroups.size || drawnGroups.has(g)))
+    .map((g) => `<span class="row" title="${GROUP_LABEL[g]}"><i class="line" style="background:${GROUP_COLOR[g]}"></i>${g}</span>`)
+    .join('');
+
   el.innerHTML =
     `<button class="fold" id="legendfold">${shut ? '▸' : '▾'} legend</button>` +
     `<div class="cols">` +
       `<div class="col"><h3>shape = kind</h3>${shapes}</div>` +
       `<div class="col"><h3>colour = style</h3>${colours}</div>` +
+      (rels ? `<div class="col"><h3>line = relationship</h3>${rels}</div>` : '') +
     `</div>`;
   $('#legendfold').addEventListener('click', () => {
     const off = !el.classList.contains('closed');

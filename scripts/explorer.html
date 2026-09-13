@@ -7,20 +7,37 @@
 <meta name="description" content="An ego-centric explorer over the typed attachment graph: colour is the attachment style, shape is the kind of node, and you walk outward from one idea along what triggers, defends against, mirrors or heals it.">
 <style>
 :root{
+  color-scheme:light;
   --bg:#f6f5f4; --panel:#fffefd; --line:#e2ded9; --ink:#26242b; --dim:#6a6875;
   --faint:#9d99a6; --accent:#7b4bd8; --halo:#fffefd;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
+    color-scheme:dark;
     --bg:#131318; --panel:#1b1b22; --line:#2c2c36; --ink:#e9e7ee; --dim:#9d9aa8;
     --faint:#6b6875; --accent:#b39bff; --halo:#131318;
   }
 }
 :root[data-theme="dark"]{
+  color-scheme:dark;
   --bg:#131318; --panel:#1b1b22; --line:#2c2c36; --ink:#e9e7ee; --dim:#9d9aa8;
   --faint:#6b6875; --accent:#b39bff; --halo:#131318;
 }
 *{box-sizing:border-box}
+
+/* Scrollbars. The browser paints these itself from `color-scheme`, which is why
+ * they stayed bright white over the dark panels until it was declared above.
+ * Thin them and drop the stepper arrows while we are here. */
+*{scrollbar-width:thin; scrollbar-color:color-mix(in srgb, var(--faint) 55%, transparent) transparent}
+::-webkit-scrollbar{width:10px; height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-button{display:none}
+::-webkit-scrollbar-corner{background:transparent}
+::-webkit-scrollbar-thumb{
+  background-color:color-mix(in srgb, var(--faint) 55%, transparent);
+  border:2px solid transparent; background-clip:content-box; border-radius:7px;
+}
+::-webkit-scrollbar-thumb:hover{background-color:var(--faint); background-clip:content-box}
 html,body{height:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
@@ -122,7 +139,7 @@ select{
 #svg.drag{cursor:grabbing}
 #hint{
   position:absolute; left:.75rem; bottom:.6rem; font-size:12px; color:var(--faint);
-  display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; max-width:60%;
+  display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; max-width:46%;
 }
 #legend{
   position:absolute; right:.75rem; bottom:.6rem; font-size:11px; color:var(--dim);
@@ -142,6 +159,7 @@ select{
 #legend h3{margin:0 0 .15rem; font:600 9.5px/1 "Schibsted Grotesk",sans-serif;
   text-transform:uppercase; letter-spacing:.07em; color:var(--faint)}
 #legend .row{display:flex; align-items:center; gap:.35rem; white-space:nowrap}
+#legend .line{width:13px; height:2.5px; border-radius:2px; flex:none}
 #legend svg{flex:none}
 
 .node{cursor:pointer}
