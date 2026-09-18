@@ -4,11 +4,36 @@ A knowledge graph of the ideas in [Heidi Priebe's](https://www.youtube.com/@heid
 work on attachment theory: styles, strategies, triggers, beliefs, developmental
 origins and practices, linked by typed relationships.
 
+**[Browse it →](https://touyette.github.io/AS-KG/)**
+
 This is a derivative index of her work. All credit for the ideas belongs to her.
 Notes here paraphrase her framing in our own words and never reproduce transcript
 text — every claim links back to the moment in the source video where she makes
 it. The intent is to help people navigate and re-find her material, not to replace
 watching it.
+
+## Two ways in
+
+**Browse the graph** at [the site](https://touyette.github.io/AS-KG/typed-graph/).
+It opens on one idea and draws its neighbourhood rather than everything at once.
+
+**Run an assistant on it.** This is what the corpus is for, and it is also where
+the situation flows live now — `flows/` holds the screening gates and stopping
+conditions for twelve common situations, and the assistant works from them
+rather than a web page walking you down a fixed branch. Clone the repo and
+point Claude Code, Codex, or anything else that reads files at it:
+
+    git clone https://github.com/touyette/AS-KG
+    cd AS-KG
+
+`AGENTS.md` is the briefing — what the material is for, what to read, what *not*
+to read, and the rules that bind. `INDEX.md` is the 168 load-bearing nodes with
+their typed links, so the first hop is already made; it is generated, so run
+`node tools/index.mjs` if it is missing. `CLAUDE.md` points Claude Code at both.
+
+Nothing is sent anywhere. `tools/companion.mjs` serves the graph locally so the
+assistant can show you the nodes it is drawing on, and `journal/` is yours —
+gitignored, never written to without asking.
 
 ## What makes this different from a link graph
 
@@ -33,8 +58,11 @@ repeating one.
 
 ## Layout
 
+    AGENTS.md        the briefing an assistant reads first
+    INDEX.md         the load-bearing nodes, generated from content/
+    CLAUDE.md        a pointer to AGENTS.md, for Claude Code
     content/         the notes, one per node, plus one per video and the MOCs
-    flows/           the toolbox sequences, one JSON per situation
+    flows/           situation gates and stopping conditions, one JSON each
     _meta/           schema.md — the authoring contract — and the operating rules
     scripts/         validator, graph builder, transcript ingest, page builders
     scripts/deck/    the generated overview deck
@@ -42,14 +70,21 @@ repeating one.
     journal/         personal notes, gitignored — ships empty, stays on your machine
     transcripts/     raw captions — gitignored, never published
 
+`Attachment-Knowledge-Graph.pptx` at the root is an extended readme in slide
+form, generated from the graph — see `scripts/deck/README.md`.
+
 Anything not in that list is generated: `public/`, `dist/`, `_build/` and
 `node_modules/` are all rebuilt by the build and none of them are committed.
 
 ## Working on it
 
-    npm install --legacy-peer-deps
-    npm run validate      # enforce _meta/schema.md; fails on any bad edge
-    npx quartz build --serve
+    npm install --legacy-peer-deps      # the flag matters: Quartz 5 has a peer conflict
+    npm run validate                    # enforce _meta/schema.md; fails on any bad edge
+    npm run site                        # the full build: notes, graph, flows, agent kit
+    node tools/index.mjs                # regenerate INDEX.md after adding notes
+
+`node tools/index.mjs --check` fails if `INDEX.md` has drifted from `content/`,
+and runs in CI for that reason.
 
 The typed graph page is generated separately and is not part of `--serve`'s live
 reload. To preview it against a finished build:

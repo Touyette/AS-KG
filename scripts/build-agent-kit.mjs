@@ -3,7 +3,7 @@
 // contract is one JSON file, one index, the rules, and a URL format that lets an
 // agent hand a person a picture of what it just said.
 //
-// Run after build-typed-graph.mjs (the data), build-toolbox.mjs (the flows) and
+// Run after build-typed-graph.mjs (the data), build-flows.mjs (the flows) and
 // bundle.mjs (the markdown slices). Generated from the repo, so it cannot drift
 // from the site.
 import fs from 'node:fs';
@@ -103,7 +103,7 @@ Generated ${G.generated.slice(0, 10)} · format ${B}${G.format}${B}.
 | [${B}nodes.tsv${B}](nodes.tsv) | ${B}id · type · title · gloss${B}, one line per node. ${tsvKB} KB. |
 | [${B}schema.json${B}](schema.json) | The closed vocabulary the graph is validated against. |
 | [${B}operating-rules.md${B}](operating-rules.md) | Binding constraints. Not advisory. |
-| [${B}flows.json${B}](flows.json) | The decision flows behind [the toolbox](../toolbox/) — questions with safety gates, not advice. |${contextRow}
+| [${B}flows.json${B}](flows.json) | Situation flows — a screening gate and stopping conditions per situation, not advice. |${contextRow}
 
 There is no query endpoint — the site is static. Which file you want depends on
 what you can do with it:
@@ -241,7 +241,7 @@ const rows = [
   ['nodes.tsv', `id, type, title, gloss — one line per node · ${tsvKB} KB`],
   ['schema.json', 'the closed vocabulary'],
   ['operating-rules.md', 'binding constraints'],
-  ['flows.json', 'the decision flows behind the toolbox'],
+  ['flows.json', 'the situation flows: gates and stopping conditions'],
   ['README.md', 'the full contract, as markdown'],
 ].filter(([f]) => fs.existsSync(path.join(OUT, f)));
 if (hasContext) rows.push(['context/', 'the whole graph as markdown, sliced for a context window']);

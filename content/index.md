@@ -12,7 +12,7 @@ text — every claim links back to the moment in the source video where she make
 it. The intent is to help you navigate and re-find her material, not to replace
 watching it.
 
-## Three ways in
+## Two ways in
 
 **<a href="/typed-graph/" data-router-ignore>The typed graph</a>** is the main view. Unlike an ordinary link
 graph it never draws everything at once: you open on one idea and see what
@@ -21,15 +21,16 @@ it, and which move in another style *mirrors* it. Click any neighbour to move
 there. The four lenses re-weight the same topology, and the loops are drawn as
 loops.
 
-**<a href="/toolbox/" data-router-ignore>The toolbox</a>** is for when something is happening right now. Each
-entry is a short sequence of questions with a safety gate at the front — it will
-stop and say so rather than reframe something that is actually going wrong. It
-asks; it does not score, diagnose or advise.
-
-**<a href="/agent/" data-router-ignore>The agent kit</a>** is the machine-readable surface: the whole graph as
-one JSON file, the schema, the operating rules and the decision flows. It is
-meant to be handed to an assistant so it can work from this material instead of
-from memory — and so it can show you the nodes it is drawing on while it talks.
+**Run an assistant on it.** The most useful way in, and the one the rest of this
+exists for. Download the
+[repository](https://github.com/touyette/AS-KG) and point Claude Code, Codex or
+anything else that reads files at it: `AGENTS.md` tells it what the material is
+for, what to read, and the rules it has to work inside. It listens first, asks a
+couple of questions, and only then offers the part you might not be able to see —
+as a question, with the note it came from. It opens a window showing the nodes it
+is drawing on, so you are never stuck with its summary. Nothing leaves your
+machine. <a href="/agent/" data-router-ignore>The agent kit</a> is the same graph
+as one JSON file, for anything reading it over the web instead.
 
 ## Reading the graph
 

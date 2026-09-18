@@ -375,8 +375,12 @@ function place(sel) {
   return pos;
 }
 
+/* A horizontal label under the glyph only works for a node that is alone in the
+ * middle. When several are selected they are laid out in a ring, and giving them
+ * all a centred label stacks the text on top of itself — which is what a loop
+ * looked like. Those get radial labels, the same as the spokes. */
 const isCentral = (sel, id) =>
-  (sel.level.get(id) === 0 && sel.kind === 'ego') || sel.kind === 'trace';
+  (sel.level.get(id) === 0 && sel.kind === 'ego' && state.focus.length === 1) || sel.kind === 'trace';
 const radius = (n, lvl) =>
   (lvl === 0 ? 5 : 0) + 7 + Math.min(8, Math.sqrt(n.citations || 0) * 2.5) + Math.min(4, n.degree * 0.12);
 
