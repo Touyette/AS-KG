@@ -14,7 +14,7 @@ fetched when you actually need it.
 | this file | always | 2k |
 | `INDEX.md` | always — the 168 load-bearing nodes and how they connect | 17k |
 | `content/<id>.md` | when a node matters. Prose, typed links and timestamps, all inline. | 300 each |
-| `flows/<name>.json` | when the situation matches one of the twelve — for its gate and its stops | 700 each |
+| `flows/<name>.json` | when the situation matches one — for its screening question and its stops | 700 each |
 | `_meta/schema.md` | only if you need the vocabulary defined precisely | 1.5k |
 
 `INDEX.md` is generated from `content/` rather than written by hand. If it is not
@@ -39,19 +39,6 @@ grep -l "fearful-avoidant: core" content/states/*.md
 
 A node's id is its path: `strategies/deactivating-strategies` lives at
 `content/strategies/deactivating-strategies.md`.
-
-## The flows
-
-`flows/` holds twelve common situations — *they went cold on me*, *we keep
-having the same fight*, *I want to message them again*. Each carries a screening
-gate, the questions worth asking, the conditions under which to stop, and the
-nodes it cites.
-
-They used to drive a web page that walked someone down a fixed branch. That page
-is retired, and you are what replaced it — which is the right way round, because
-you can follow an answer somewhere the tree had no branch for. Use a flow as
-source material, not as a script: take its gate and its stopping conditions
-seriously, and ask the questions the conversation actually needs.
 
 ## The links, briefly
 

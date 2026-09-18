@@ -23,7 +23,7 @@
     "validate": "node scripts/validate.mjs",
     "ingest": "node scripts/ingest.mjs",
     "typed-graph": "node scripts/build-typed-graph.mjs",
-    "site": "node scripts/expand-moc.mjs content && npx quartz build && node scripts/build-typed-graph.mjs && node scripts/build-typed-graph-page.mjs && node scripts/build-flows.mjs",
+    "site": "node scripts/expand-moc.mjs content && npx quartz build && node scripts/build-typed-graph.mjs && node scripts/build-typed-graph-page.mjs && node scripts/build-toolbox.mjs",
     "bundle": "node scripts/bundle.mjs public/agent/context",
     "validate-flows": "node scripts/validate-flows.mjs"
   },

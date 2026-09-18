@@ -2,7 +2,6 @@ const pptx = require('pptxgenjs');
 const fs = require('fs');
 // Written by scripts/deck/deck-data.mjs — see the README in this folder.
 const M = JSON.parse(fs.readFileSync('deck-data.json', 'utf8'));
-const C = M.counts.byType;   // so no slide has to hardcode a count that will drift
 
 const p = new pptx();
 p.layout = 'LAYOUT_WIDE';                       // 13.333 x 7.5
@@ -112,7 +111,6 @@ const typeMeta = (n) => {
   return bits.join('   ·   ');
 };
 
-
 /* ============================================================= 1. title */
 {
   const s = slide(true);
@@ -151,19 +149,6 @@ const typeMeta = (n) => {
     x: MX, y: 6.5, w: CW, h: 0.3, fontSize: 11, color: '76727F', fontFace: BODY, isTextBox: true, margin: 0,
   });
   s.addNotes('Opening frame: this is a derivative index of Heidi Priebe’s work. All credit for the ideas is hers. Nothing here reproduces her transcripts.');
-}
-
-/* ============================================================= part one */
-{
-  const s = slide(true);
-  s.addText('Part one', { x: MX, y: 2.62, w: 8, h: 0.5, fontSize: 17, bold: true, color: '9E86E8', fontFace: BODY, charSpacing: 1.4, isTextBox: true, margin: 0 });
-  s.addText('The project,\nand how to use it', { x: MX, y: 3.1, w: 9, h: 1.7, fontSize: 44, bold: true, color: WHITE, fontFace: HEAD, lineSpacing: 50, isTextBox: true, margin: 0 });
-  s.addText('What it is, what is in it, how it was built — and the two ways in: the explorer, and an assistant you run on your own machine.', {
-    x: MX, y: 5.0, w: 7.6, h: 0.9, fontSize: 14, color: '9C98A8', fontFace: BODY, lineSpacing: 21, isTextBox: true, margin: 0,
-  });
-  ['trigger', 'state', 'strategy', 'behavior', 'belief', 'origin', 'practice', 'concept'].forEach((k, i) => {
-    s.addShape(p.ShapeType.ellipse, { x: MX + i * 0.36, y: 6.2, w: 0.22, h: 0.22, fill: { color: T[k] }, line: { width: 0 } });
-  });
 }
 
 /* ============================================================= 2. why */
@@ -225,31 +210,29 @@ const typeMeta = (n) => {
   s.addNotes('This is the framing to lead with: the site is a by-product. The deliverable is a cited, rule-bound corpus an assistant can work from.');
 }
 
-/* ============================================================= counts */
+/* ============================================================= 4. surfaces */
 {
   const s = slide();
-  let y = heading(s, 'the size of it', 'What is in the graph');
-  y = lede(s, 'Fifty-four videos, read once and taken apart into nodes that can be linked. Every number on this slide is read out of the graph when the deck is built, so none of it can quietly go stale.', y, { h: 0.62, w: CW * 0.84 });
-  const row1 = [
-    [M.counts.nodes, 'nodes'], [M.counts.edges, 'typed links'], [M.videos, 'videos read'],
-    [16, 'predicates'], [M.counts.cycles, 'loops found'],
+  let y = heading(s, 'what has been built', 'One graph, three surfaces');
+  const cards = [
+    ['The site', 'typed-graph', '590 note pages plus an explorer that opens on one idea and its neighbourhood, rather than drawing a 590-node hairball nobody can read.', T.concept],
+    ['The toolbox', '12 flows', 'Short question sequences for when something is happening right now. Each opens with a safety gate and stops rather than reframing something that is actually going wrong.', T.practice],
+    ['The agent kit', 'graph.json', 'The machine-readable surface: the whole graph, the schema, the operating rules and the flows, plus a URL format for showing someone the nodes being talked about.', T.strategy],
   ];
-  row1.forEach(([v, l], i) => stat(s, { x: MX + i * 2.5, y: 2.5, w: 2.3, value: v, label: l, size: 38 }));
-  s.addText('By kind', { x: MX, y: 4.05, w: CW, h: 0.3, fontSize: 12.5, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-  const kinds = [
-    ['trigger', 'triggers'], ['state', 'states'], ['strategy', 'strategies'], ['behavior', 'behaviours'],
-    ['belief', 'beliefs'], ['origin', 'origins'], ['practice', 'practices'], ['concept', 'concepts'],
-  ];
-  kinds.forEach(([k, label], i) => {
-    const x = MX + (i % 4) * 3.05, yy = 4.45 + Math.floor(i / 4) * 0.62;
-    s.addShape(p.ShapeType.ellipse, { x, y: yy + 0.08, w: 0.2, h: 0.2, fill: { color: T[k] }, line: { width: 0 } });
-    s.addText(String(C[k]), { x: x + 0.3, y: yy, w: 0.8, h: 0.34, fontSize: 16, bold: true, color: INK, fontFace: HEAD, isTextBox: true, margin: 0 });
-    s.addText(label, { x: x + 1.1, y: yy + 0.05, w: 1.8, h: 0.3, fontSize: 11.5, color: MUTED, fontFace: BODY, isTextBox: true, margin: 0 });
+  cards.forEach(([t, tag, d, c], i) => {
+    const x = MX + i * (CW / 3 + 0.05) * 0.985;
+    const w = CW / 3 - 0.22;
+    card(s, { x, y: 1.62, w, h: 2.45 });
+    s.addShape(p.ShapeType.ellipse, { x: x + 0.28, y: 1.9, w: 0.22, h: 0.22, fill: { color: c }, line: { width: 0 } });
+    s.addText(t, { x: x + 0.62, y: 1.86, w: w - 0.9, h: 0.3, fontSize: 16, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
+    s.addText(tag, { x: x + 0.28, y: 2.28, w: w - 0.56, h: 0.25, fontSize: 10, color: c, fontFace: 'Courier New', bold: true, isTextBox: true, margin: 0 });
+    s.addText(d, { x: x + 0.28, y: 2.6, w: w - 0.56, h: 1.3, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0 });
   });
-  card(s, { x: MX, y: 5.92, w: CW, h: 1.05 });
-  s.addText('The causal core is small. Four triggers, ' + C.state + ' states, ' + C.strategy + ' strategies and ' + C.behavior + ' behaviours carry the mechanism; the other ' + (C.concept + C.practice) + ' nodes are the vocabulary and the ways out. That shape is why the material can be reasoned about at all rather than only looked up.', {
-    x: MX + 0.32, y: 5.92, w: CW - 0.64, h: 1.05, fontSize: 12, color: MUTED, fontFace: BODY, lineSpacing: 17, valign: 'middle', isTextBox: true, margin: 0,
-  });
+  s.addImage({ path: 'scripts/deck/assets/deck-explore.png', x: MX, y: 4.34, w: 4.6, h: 2.69 });
+  s.addText(
+    'The explorer, open on one strategy. Colour is the kind of node; the arrows are the sixteen relationship types, coloured by family. Neighbours are one click away, and the whole state of the view lives in the URL — which is what lets an assistant hand you a picture of what it just said.',
+    { x: 5.65, y: 4.42, w: CW - 4.93, h: 2.1, fontSize: 12.5, color: MUTED, fontFace: BODY, lineSpacing: 19, isTextBox: true, margin: 0 },
+  );
 }
 
 /* ============================================================= 5. material */
@@ -285,7 +268,7 @@ const typeMeta = (n) => {
     holeSize: 55, showLegend: true, legendPos: 'b', legendFontSize: 11, legendColor: INK,
     chartColors: [ACCENT.replace('#', ''), '5B83E8', '2BB0A3'],
     showValue: true, dataLabelColor: 'FFFFFF', dataLabelFontSize: 12, dataLabelFontBold: true,
-    showTitle: true, title: `${M.counts.nodes - C.video - C.source} idea nodes by attribution`, titleFontSize: 13, titleColor: INK,
+    showTitle: true, title: '536 idea nodes by attribution', titleFontSize: 13, titleColor: INK,
   });
 }
 
@@ -327,6 +310,40 @@ const typeMeta = (n) => {
     s.addText(t, { x: 7.2, y: yy, w: 5.4, h: 0.28, fontSize: 13.5, bold: true, color: ACCENT, fontFace: BODY, isTextBox: true, margin: 0 });
     s.addText(d, { x: 7.2, y: yy + 0.3, w: 5.4, h: 0.85, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 });
   });
+}
+
+/* ============================================================= 7. node types */
+{
+  const s = slide();
+  let y = heading(s, 'the vocabulary', 'Eleven kinds of node');
+  y = lede(s, 'A closed list. Nothing gets written into the graph that does not fit it, and the validator refuses anything that does not.', y, { h: 0.4 });
+  const defs = [
+    ['trigger', 'What sets the system off', T.trigger],
+    ['state', 'What is felt underneath', T.state],
+    ['strategy', 'What the system does about it', T.strategy],
+    ['behavior', 'What that looks like from outside', T.behavior],
+    ['belief', 'The conclusion that keeps it running', T.belief],
+    ['origin', 'The developmental condition behind it', T.origin],
+    ['style', 'The four attachment patterns', T.style],
+    ['concept', 'A named idea in her framework', T.concept],
+    ['practice', 'Something you can actually do', T.practice],
+    ['video', 'A source upload', T.video],
+    ['source', 'A book or paper referenced', T.source],
+  ];
+  defs.forEach(([k, d, c], i) => {
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = MX + col * 4.15, yy = 2.5 + row * 1.08;
+    s.addShape(p.ShapeType.ellipse, { x, y: yy + 0.06, w: 0.2, h: 0.2, fill: { color: c }, line: { width: 0 } });
+    s.addText([
+      { text: k, options: { fontSize: 14, bold: true, color: INK, fontFace: BODY } },
+      { text: `   ${M.counts.byType[k] ?? 0}`, options: { fontSize: 12, color: c, fontFace: BODY, bold: true } },
+    ], { x: x + 0.32, y: yy, w: 3.5, h: 0.28, isTextBox: true, margin: 0 });
+    s.addText(d, { x: x + 0.32, y: yy + 0.3, w: 3.5, h: 0.55, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15, isTextBox: true, margin: 0 });
+  });
+  s.addText(
+    'The four styles are not categories anyone is put into. They are lenses the same material is read through.',
+    { x: MX, y: 6.8, w: CW, h: 0.4, fontSize: 12, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 },
+  );
 }
 
 /* ============================================================= 8. predicates */
@@ -372,279 +389,57 @@ const typeMeta = (n) => {
   );
 }
 
-/* ============================================================= pipeline */
+/* ============================================================= 9. why typed */
 {
   const s = slide();
-  let y = heading(s, 'the build', 'From a transcript to three surfaces');
-  const steps = [
-    ['Transcript', 'Pulled per video. Working input only — gitignored, never committed, never published.'],
-    ['Mining', 'Claims read out by hand into notes: a gloss, a lens map, and typed edges with timestamps.'],
-    ['Validate', 'A closed vocabulary, enforced. Domain and range checked on every edge; nothing lands that fails.'],
-    ['Build', 'Quartz renders the notes; scripts emit the graph JSON, the explorer, the flows and the agent kit.'],
-    ['Check', 'A smoke test over the published HTML — not the source — then it deploys.'],
+  let y = heading(s, 'why bother', 'A link graph says "related". This says how.');
+  const cols = [
+    ['An ordinary link graph', LINE, MUTED, [
+      'Affect Suppression — Contempt',
+      'Affect Suppression — Unregistered Hurt',
+      'Affect Suppression — Self-Regulation',
+      'Affect Suppression — Amplifying The Signal',
+    ], 'Four undifferentiated links. You cannot tell what any of them mean, so you cannot answer a question with them.'],
+    ['The same node, typed', ACCENT, INK, [
+      'manifests_as → Looking Down On The Partner',
+      'deactivates → Unregistered Hurt',
+      'mistaken_for → Self-Regulation',
+      'mirrors → Amplifying The Signal',
+    ], 'Now each link answers a different question: what it looks like from outside, what it shuts off, what it gets confused with, and what the anxious equivalent is.'],
   ];
-  const bw = (CW - 4 * 0.38) / 5;
-  steps.forEach(([t, d], i) => {
-    const x = MX + i * (bw + 0.38);
-    card(s, { x, y: 1.9, w: bw, h: 2.55 });
-    s.addText(String(i + 1), {
-      x: x + 0.24, y: 2.1, w: 0.5, h: 0.4, fontSize: 22, bold: true, color: ACCENT, fontFace: HEAD, isTextBox: true, margin: 0,
+  cols.forEach(([t, edge, txt, rows, note], i) => {
+    const x = MX + i * 6.2;
+    card(s, { x, y: 1.72, w: 5.7, h: 3.0, fill: i ? WHITE : TINT });
+    s.addText(t, { x: x + 0.32, y: 1.98, w: 5.2, h: 0.3, fontSize: 14.5, bold: true, color: i ? ACCENT : MUTED, fontFace: BODY, isTextBox: true, margin: 0 });
+    rows.forEach((r, j) => {
+      const parts = r.split(' → ');
+      if (parts.length === 2) {
+        s.addText([
+          { text: parts[0], options: { fontFace: 'Courier New', fontSize: 10, bold: true, color: ACCENT } },
+          { text: '  ' + parts[1], options: { fontFace: BODY, fontSize: 11.5, color: txt } },
+        ], { x: x + 0.32, y: 2.45 + j * 0.44, w: 5.2, h: 0.34, isTextBox: true, margin: 0 });
+      } else {
+        s.addText(r, { x: x + 0.32, y: 2.45 + j * 0.44, w: 5.2, h: 0.34, fontSize: 11.5, color: txt, fontFace: BODY, isTextBox: true, margin: 0 });
+      }
     });
-    s.addText(t, { x: x + 0.24, y: 2.58, w: bw - 0.48, h: 0.3, fontSize: 14, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(d, { x: x + 0.24, y: 2.92, w: bw - 0.48, h: 1.4, fontSize: 10.5, color: MUTED, fontFace: BODY, lineSpacing: 14.5, isTextBox: true, margin: 0 });
-    if (i < 4) {
-      s.addShape(p.ShapeType.line, {
-        x: x + bw + 0.08, y: 3.15, w: 0.22, h: 0,
-        line: { color: FAINT, width: 1.25, endArrowType: 'triangle' },
-      });
-    }
-  });
-  s.addText('Everything downstream is generated', {
-    x: MX, y: 4.85, w: CW, h: 0.32, fontSize: 15, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0,
+    s.addText(note, { x, y: 4.9, w: 5.7, h: 1.1, fontSize: 12, color: MUTED, fontFace: BODY, lineSpacing: 17.5, isTextBox: true, margin: 0 });
   });
   s.addText(
-    'The site, the explorer data, the flows, the agent kit and this deck are all emitted from the notes by script. Nothing is maintained in two places, so nothing can drift — and the same pipeline runs locally and in CI, so what deploys is what was tested.',
-    { x: MX, y: 5.25, w: 7.4, h: 1.2, fontSize: 12.5, color: MUTED, fontFace: BODY, lineSpacing: 18.5, isTextBox: true, margin: 0 },
-  );
-  s.addText('Zero runtime dependencies', {
-    x: 8.6, y: 4.85, w: 4.0, h: 0.32, fontSize: 15, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0,
-  });
-  s.addText(
-    'The note format is parsed by hand-written code — no YAML library, no graph database, no server. The published site is static files, which is also why the whole thing can be handed to an assistant as a folder.',
-    { x: 8.6, y: 5.25, w: 4.0, h: 1.2, fontSize: 12.5, color: MUTED, fontFace: BODY, lineSpacing: 18.5, isTextBox: true, margin: 0 },
+    'This is also what makes the corpus usable by a model: it can walk a mechanism rather than pattern-match a topic.',
+    { x: MX, y: 6.35, w: CW, h: 0.4, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 },
   );
 }
 
-/* ============================================================= validator */
-{
-  const s = slide();
-  let y = heading(s, 'what is enforced', 'The checks that refuse a change');
-  const checks = [
-    ['Closed vocabulary', 'Eleven node types, sixteen predicates. Anything else is rejected outright.'],
-    ['Domain and range', 'A practice cannot trigger anything; only a belief can sustain a strategy. Every edge is checked against the table.'],
-    ['Every link resolves', 'A wikilink to a title that does not exist fails the build rather than publishing a dead end.'],
-    ['No dead ends in a flow', 'A step that is not an exit must lead somewhere, and every step must be reachable from the first.'],
-    ['The safety gate comes first', 'A flow whose reframe step sits before its safety gate is rejected. The rule is structural, not remembered.'],
-    ['The published site', 'A smoke test over the built HTML: no unexpanded templates, no empty sections, no page the home page fails to link to.'],
-  ];
-  checks.forEach(([t, d], i) => {
-    const col = i % 2, row = Math.floor(i / 2);
-    const x = MX + col * 6.2, yy = 1.75 + row * 1.62;
-    card(s, { x, y: yy, w: 5.7, h: 1.42 });
-    s.addText(t, { x: x + 0.3, y: yy + 0.2, w: 5.25, h: 0.3, fontSize: 13.5, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(d, { x: x + 0.3, y: yy + 0.55, w: 5.25, h: 0.75, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0 });
-  });
-  s.addText(
-    'The last one exists because every presentation defect this project has had was found by a person looking, not by a check. The data was always validated; what shipped was not.',
-    { x: MX, y: 6.7, w: CW, h: 0.5, fontSize: 11.5, italic: true, color: FAINT, fontFace: BODY, lineSpacing: 16, isTextBox: true, margin: 0 },
-  );
-}
-
-/* ============================================================= surfaces */
-{
-  const s = slide();
-  let y = heading(s, 'how to use it', 'Two ways in');
-  y = lede(s, 'The same notes, two ways. Nothing is duplicated by hand — both are one static build from one set of markdown files.', y, { h: 0.5, w: CW * 0.84 });
-  const cards = [
-    ['Browse the graph', 'the explorer', 'Opens on one idea and draws its neighbourhood rather than a ' + M.counts.nodes + '-node hairball. Click a neighbour to read it, double-click to move there. The whole view is in the URL, so any state of it can be handed to someone else.', T.concept],
-    ['Talk it through', 'the assistant', 'Download the repo, point Claude Code or Codex at it, and describe what is going on. It reads the material rather than working from memory, and opens a window showing you the nodes it is drawing on.', T.strategy],
-  ];
-  cards.forEach(([t, tag, d, c], i) => {
-    const w = 5.3;
-    const x = MX + i * (w + 0.9);
-    card(s, { x, y: 2.25, w, h: 3.0 });
-    s.addShape(p.ShapeType.ellipse, { x: x + 0.28, y: 2.56, w: 0.22, h: 0.22, fill: { color: c }, line: { width: 0 } });
-    s.addText(tag, { x: x + 0.62, y: 2.52, w: w - 0.9, h: 0.3, fontSize: 15.5, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(t, { x: x + 0.28, y: 2.94, w: w - 0.56, h: 0.3, fontSize: 10, color: c, fontFace: 'Courier New', bold: true, isTextBox: true, margin: 0 });
-    s.addText(d, { x: x + 0.28, y: 3.3, w: w - 0.56, h: 1.8, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0 });
-  });
-  card(s, { x: MX, y: 5.55, w: CW, h: 1.1, fill: TINT });
-  s.addText('The first is a website and needs nothing installed. The second runs on your own machine and is the one the project is actually for — the site exists so that the material is inspectable, not because a wiki was the goal.', {
-    x: MX + 0.32, y: 5.55, w: CW - 0.64, h: 1.1, fontSize: 12.5, color: MUTED, fontFace: BODY, lineSpacing: 18, valign: 'middle', isTextBox: true, margin: 0,
-  });
-}
-
-/* ============================================================= explorer */
-{
-  const s = slide();
-  let y = heading(s, 'the first way in', 'Reading the graph');
-  s.addImage({ path: 'scripts/deck/assets/deck-explore.png', x: MX, y: 1.5, w: 8.1, h: 5.06 });
-  const notes = [
-    ['Colour is the attachment style', 'Blue is avoidant, orange anxious, red fearful-avoidant, green secure — the old A/B/C/D lettering, in colour. Grey means the node belongs to more than one style, so it is not style-specific at all.'],
-    ['Shape is the kind of node', 'A triangle is a strategy, a diamond a state, a square a belief, a pentagon a developmental origin. Sixteen link types, coloured by family, run between them.'],
-    ['Click reads, double-click moves', 'Clicking opens a node in the panel without disturbing the view, so you can read your way around the neighbourhood. Moving the graph is something you ask for.'],
-    ['Every claim carries its timestamp', 'The relationships list gives the second in the video where she says it. Follow the timestamp rather than taking a note’s word for anything.'],
-  ];
-  notes.forEach(([t, d], i) => {
-    const yy = 1.62 + i * 1.28;
-    s.addText(t, { x: 9.1, y: yy, w: CW - 8.38, h: 0.3, fontSize: 12.5, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(d, { x: 9.1, y: yy + 0.32, w: CW - 8.38, h: 0.92, fontSize: 10.5, color: MUTED, fontFace: BODY, lineSpacing: 14.5, isTextBox: true, margin: 0 });
-  });
-  s.addText('touyette.github.io/AS-KG/typed-graph/', { x: MX, y: 6.68, w: 8.1, h: 0.3, fontSize: 11, color: ACCENT, fontFace: 'Courier New', isTextBox: true, margin: 0 });
-}
-
-/* ============================================================= run it */
-{
-  const s = slide();
-  let y = heading(s, 'the third way in', 'Running it yourself');
-  y = lede(s, 'Download the repository and point a file-reading assistant at it. There is no service to sign up for and nothing is sent anywhere — the corpus, the rules and the tools are all in the folder.', y, { h: 0.6, w: CW * 0.84 });
-  const steps = [
-    ['1', 'Clone it', 'git clone the repo and open it with Claude Code, Codex, or anything else that can read files and run a command.'],
-    ['2', 'It reads two files', 'AGENTS.md is the briefing — what the corpus is for, what to read, what not to, and the rules that bind. INDEX.md is ' + 168 + ' load-bearing nodes with their typed links, so the first hop is already made.'],
-    ['3', 'Then only what it needs', 'A node is one markdown file with its prose, its links and its timestamps. It fetches the handful that matter instead of loading ' + M.counts.nodes + ' of them.'],
-    ['4', 'Describe what is going on', 'It listens first, asks two or three questions of its own, and only then offers the part you cannot see — as a question, with the node it came from.'],
-  ];
-  steps.forEach(([n, t, d], i) => {
-    const yy = 2.55 + i * 1.12;
-    s.addShape(p.ShapeType.ellipse, { x: MX, y: yy, w: 0.42, h: 0.42, fill: { color: ACCENT }, line: { width: 0 } });
-    s.addText(n, { x: MX, y: yy, w: 0.42, h: 0.42, fontSize: 13, bold: true, color: WHITE, fontFace: BODY, align: 'center', valign: 'middle', isTextBox: true, margin: 0 });
-    s.addText(t, { x: MX + 0.62, y: yy + 0.02, w: 3.0, h: 0.34, fontSize: 13.5, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(d, { x: MX + 3.7, y: yy - 0.02, w: CW - 3.7, h: 0.92, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16, valign: 'top', isTextBox: true, margin: 0 });
-  });
-  s.addNotes('The read budget is the point of AGENTS.md: an earlier session read most of the corpus before saying a word. The file exists to stop that.');
-}
-
-/* ============================================================= what it reads */
-{
-  const s = slide();
-  let y = heading(s, 'the contract', 'What the assistant is handed');
-  y = lede(s, 'A read budget, written down. The costs are the reason it exists — an earlier session read most of the corpus before saying a word.', y, { h: 0.45, w: CW * 0.8 });
-  const files = [
-    ['AGENTS.md', '~2k', 'The briefing. What the material is for, the four-step sequence, the eight rules, and an explicit list of what not to open.'],
-    ['INDEX.md', '~17k', '168 load-bearing nodes, each with its gloss and its typed links — so reading the index already makes the first hop. Generated from the notes, so it cannot drift.'],
-    ['content/<id>.md', '~300 each', 'One node: the prose, every typed link, and the video timestamp for each. Read when a node matters; never all of them.'],
-    ['flows/<name>.json', '~700 each', 'A situation’s screening gate and its stopping conditions, for when one matches.'],
-    ['journal/', 'theirs', 'Notes the person chose to keep. Never read without asking, never written without asking, never committed.'],
-    ['graph.json', 'do not', 'Named in AGENTS.md as a thing not to load. It is for programs, not for a context window.'],
-  ];
-  files.forEach(([f, tag, d], i) => {
-    const yy = 2.3 + i * 0.73;
-    const dim = f === 'graph.json';
-    s.addText(f, { x: MX, y: yy, w: 2.6, h: 0.28, fontSize: 12, bold: true, color: dim ? FAINT : ACCENT, fontFace: 'Courier New', lineSpacing: 16, isTextBox: true, margin: 0 });
-    s.addText(tag, { x: MX + 2.65, y: yy, w: 1.3, h: 0.26, fontSize: 10.5, color: FAINT, fontFace: BODY, lineSpacing: 16, isTextBox: true, margin: 0 });
-    s.addText(d, { x: MX + 4.05, y: yy, w: CW - 4.05, h: 0.66, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16, isTextBox: true, margin: 0 });
-  });
-  card(s, { x: MX, y: 6.68, w: CW, h: 0.62, fill: TINT });
-  s.addText('The rules travel with the data. They are in the file the assistant reads first, not in a prompt someone has to remember to paste.', {
-    x: MX + 0.32, y: 6.68, w: CW - 0.64, h: 0.62, fontSize: 11.5, color: MUTED, fontFace: BODY, valign: 'middle', isTextBox: true, margin: 0,
-  });
-}
-
-/* ============================================================= companion */
-{
-  const s = slide();
-  let y = heading(s, 'while you talk', 'The window it opens');
-  s.addImage({ path: 'scripts/deck/assets/deck-discussion.png', x: MX, y: 1.5, w: 8.1, h: 5.06 });
-  y = 1.62;
-  s.addText('So you can get past its sentences', { x: 9.1, y, w: CW - 8.38, h: 0.34, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-  s.addText('The assistant starts a small local server and pushes the nodes it is drawing on into a browser window, with a line saying how they relate to what it just said. You are not stuck with its summary — the material is right there, and you can wander off into it.', {
-    x: 9.1, y: y + 0.38, w: CW - 8.38, h: 1.6, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0,
-  });
-  s.addText('It reads back what you opened', { x: 9.1, y: 3.7, w: CW - 8.38, h: 0.34, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-  s.addText('The window reports which nodes you actually looked at. If you lingered on one, that is the one worth talking about — which is a better signal than anything the assistant could infer from your typing.', {
-    x: 9.1, y: 4.08, w: CW - 8.38, h: 1.5, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0,
-  });
-  s.addText('node tools/show.mjs <nodes> --why "…"', { x: 9.1, y: 5.62, w: CW - 8.38, h: 0.5, fontSize: 10, color: ACCENT, fontFace: 'Courier New', lineSpacing: 14, isTextBox: true, margin: 0 });
-  s.addText('Local only. Nothing leaves the machine.', { x: 9.1, y: 6.16, w: CW - 8.38, h: 0.3, fontSize: 10.5, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 });
-  s.addText('The banner is what the assistant said about this set; the panel is the node you chose to read.', { x: MX, y: 6.68, w: 8.1, h: 0.3, fontSize: 10.5, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 });
-}
-
-/* ============================================================= safety */
+/* ============================================================= 10. divider */
 {
   const s = slide(true);
-  heading(s, 'the constraints', 'Eight rules, and one of them is code', { dark: true, size: 34 });
-  s.addText(
-    'Anything built on this graph inherits these. They are in AGENTS.md, which is the first thing an assistant reads, and the first one is enforced by the flow validator rather than trusted to memory.',
-    { x: MX, y: 1.85, w: 8.6, h: 0.85, fontSize: 13.5, color: 'A9A5B4', fontFace: BODY, lineSpacing: 20, isTextBox: true, margin: 0 },
-  );
-  const rules = [
-    ['Screen before you reframe', 'Patterns amplify real signals; they do not manufacture them. Establish nothing is actually happening first.'],
-    ['Never tell anyone their style', 'Not as a guess, not as "this sounds like". Recognition, not classification.'],
-    ['If they say no, it was no', 'They know their own life better than the graph does. Drop it; do not ask the same question twice.'],
-    ['Never type an absent partner', 'The person in the room is the only one whose interior is available.'],
-    ['Cite it or do not say it', 'Untraceable claims get flagged as inference or left out.'],
-    ['No diagnosis, no quiz, no scoring', 'No instrument that outputs a category.'],
-    ['Hand off in a crisis', 'Distress above the working range needs a person, not a decision tree.'],
-    ['Not therapy, and no expertise claimed', 'Priebe states her own position plainly. Anything built on the corpus inherits that ceiling.'],
-  ];
-  rules.forEach(([t, d], i) => {
-    const col = i % 2, row = Math.floor(i / 2);
-    const x = MX + col * 6.2, yy = 2.9 + row * 1.03;
-    s.addText(String(i + 1), {
-      x, y: yy, w: 0.32, h: 0.28, fontSize: 12, bold: true, color: '9E86E8', fontFace: HEAD, isTextBox: true, margin: 0,
-    });
-    s.addText(t, { x: x + 0.34, y: yy, w: 5.5, h: 0.28, fontSize: 12.5, bold: true, color: WHITE, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(d, { x: x + 0.34, y: yy + 0.29, w: 5.5, h: 0.6, fontSize: 10.5, color: '918D9D', fontFace: BODY, lineSpacing: 14, isTextBox: true, margin: 0 });
-  });
-}
-
-/* ============================================================= limits */
-{
-  const s = slide();
-  let y = heading(s, 'honesty', 'What this is not');
-  const lim = [
-    ['One person’s corpus', 'Everything here is Heidi Priebe’s framing. It is not a survey of attachment research, and where she diverges from the literature the graph records her, faithfully, without adjudicating.'],
-    ['A ceiling inherited from the source', 'She states her own position plainly — largely self-taught, doing a master’s, not an expert. Anything built on the corpus inherits that and should not present itself as clinical guidance.'],
-    [`${M.attribution.literature} nodes marked "literature" are unverified`, 'They are labelled as standard attachment theory because she presents them that way. Checking them against the primary literature is parked, deliberately, and the label says where an idea came from — not how well established it is.'],
-    ['Not a diagnosis, not a test', 'Nothing outputs a category. If it ever does, that is a bug in something built on it, not a feature of the graph.'],
-    ['Derivative, and dependent', 'This is an index into her work built to help someone re-find it, not to replace watching it. All credit for the ideas is hers.'],
-  ];
-  lim.forEach(([t, d], i) => {
-    const yy = 1.62 + i * 1.06;
-    s.addText(t, { x: MX, y: yy, w: 4.3, h: 0.62, fontSize: 13, bold: true, color: INK, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 });
-    s.addText(d, { x: 5.35, y: yy, w: CW - 4.63, h: 0.95, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 });
-  });
-  s.addText(
-    'Attachment styles are a framework for self-understanding, not a diagnosis, a personality type, or a fixed trait. Nothing here is therapy or a substitute for it.',
-    { x: MX, y: 6.8, w: CW, h: 0.4, fontSize: 11.5, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 },
-  );
-}
-
-/* ============================================================= part two */
-{
-  const s = slide(true);
-  s.addText('Part two', { x: MX, y: 2.62, w: 8, h: 0.5, fontSize: 17, bold: true, color: '9E86E8', fontFace: BODY, charSpacing: 1.4, isTextBox: true, margin: 0 });
-  s.addText('Inside the graph', { x: MX, y: 3.1, w: 9, h: 1.0, fontSize: 44, bold: true, color: WHITE, fontFace: HEAD, isTextBox: true, margin: 0 });
-  s.addText('The loops the material actually forms, and the nodes that carry the most of it. Every gloss from here on is the note’s own first sentence, and every number is read out of the graph.', {
-    x: MX, y: 4.35, w: 7.6, h: 0.9, fontSize: 14, color: '9C98A8', fontFace: BODY, lineSpacing: 21, isTextBox: true, margin: 0,
+  s.addText('What is in it', { x: MX, y: 2.9, w: 8, h: 0.9, fontSize: 44, bold: true, color: WHITE, fontFace: HEAD, isTextBox: true, margin: 0 });
+  s.addText('A few nodes from each part of the graph — out of 590. Every gloss below is the note’s own first sentence.', {
+    x: MX, y: 3.95, w: 7.4, h: 0.7, fontSize: 14, color: '9C98A8', fontFace: BODY, lineSpacing: 21, isTextBox: true, margin: 0,
   });
   ['trigger', 'state', 'strategy', 'behavior', 'belief', 'origin', 'practice', 'concept'].forEach((k, i) => {
-    s.addShape(p.ShapeType.ellipse, { x: MX + i * 0.36, y: 5.6, w: 0.22, h: 0.22, fill: { color: T[k] }, line: { width: 0 } });
+    s.addShape(p.ShapeType.ellipse, { x: MX + i * 0.36, y: 5.1, w: 0.22, h: 0.22, fill: { color: T[k] }, line: { width: 0 } });
   });
-}
-
-/* ============================================================= 7. node types */
-{
-  const s = slide();
-  let y = heading(s, 'the vocabulary', 'Eleven kinds of node');
-  y = lede(s, 'A closed list. Nothing gets written into the graph that does not fit it, and the validator refuses anything that does not.', y, { h: 0.4 });
-  const defs = [
-    ['trigger', 'What sets the system off', T.trigger],
-    ['state', 'What is felt underneath', T.state],
-    ['strategy', 'What the system does about it', T.strategy],
-    ['behavior', 'What that looks like from outside', T.behavior],
-    ['belief', 'The conclusion that keeps it running', T.belief],
-    ['origin', 'The developmental condition behind it', T.origin],
-    ['style', 'The four attachment patterns', T.style],
-    ['concept', 'A named idea in her framework', T.concept],
-    ['practice', 'Something you can actually do', T.practice],
-    ['video', 'A source upload', T.video],
-    ['source', 'A book or paper referenced', T.source],
-  ];
-  defs.forEach(([k, d, c], i) => {
-    const col = i % 3, row = Math.floor(i / 3);
-    const x = MX + col * 4.15, yy = 2.5 + row * 1.08;
-    s.addShape(p.ShapeType.ellipse, { x, y: yy + 0.06, w: 0.2, h: 0.2, fill: { color: c }, line: { width: 0 } });
-    s.addText([
-      { text: k, options: { fontSize: 14, bold: true, color: INK, fontFace: BODY } },
-      { text: `   ${M.counts.byType[k] ?? 0}`, options: { fontSize: 12, color: c, fontFace: BODY, bold: true } },
-    ], { x: x + 0.32, y: yy, w: 3.5, h: 0.28, isTextBox: true, margin: 0 });
-    s.addText(d, { x: x + 0.32, y: yy + 0.3, w: 3.5, h: 0.55, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15, isTextBox: true, margin: 0 });
-  });
-  s.addText(
-    'The four styles are not categories anyone is put into. They are lenses the same material is read through.',
-    { x: MX, y: 6.8, w: CW, h: 0.4, fontSize: 12, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 },
-  );
 }
 
 /* --------------------------------------------------- theme slides, generated */
@@ -674,7 +469,7 @@ function themeSlide(kicker, title, blurb, groups, note) {
 themeSlide('the mechanism', 'Triggers and states', 'What sets the system off, and what is running underneath when it does. Small in number and heavily connected — these are the load-bearing nodes.', [
   ['trigger', M.trigger.slice(0, 2)],
   ['state', M.state.slice(0, 2)],
-], `Only ${C.trigger} triggers and ${C.state} states in the whole graph, against ${C.concept} concepts. The causal core is small; almost everything else hangs off it.`);
+], 'Only 4 triggers and 26 states in the whole graph, against 245 concepts. The causal core is small; almost everything else hangs off it.');
 
 themeSlide('the mechanism', 'Strategies and behaviours', 'What the system does about the state, and what that looks like from the outside. The distinction matters: a strategy is not visible, a behaviour is.', [
   ['strategy', M.strategy.slice(0, 2)],
@@ -684,15 +479,43 @@ themeSlide('the mechanism', 'Strategies and behaviours', 'What the system does a
 themeSlide('the structure', 'Beliefs and origins', 'The conclusion that keeps a strategy running, and the developmental condition that made the conclusion reasonable at the time.', [
   ['belief', M.belief.slice(0, 2)],
   ['origin', M.origin.slice(0, 2)],
-], `Only ${C.origin} origins. They are the most connected nodes in the graph — a single developmental condition sits underneath dozens of adult moves.`);
+], 'Only 13 origins. They are the most connected nodes in the graph — a single developmental condition sits underneath dozens of adult moves.');
 
-themeSlide('the healing side', 'Practices', `${C.practice} of them — the largest type after concepts. Not advice: things she describes someone actually doing, each linked to what it is supposed to unwind.`, [
+themeSlide('the healing side', 'Practices', '93 of them — the largest type after concepts. Not advice: things she describes someone actually doing, each linked to what it is supposed to unwind.', [
   ['practice', M.practice.slice(0, 4)],
 ], 'Every practice is joined to what it is meant to unwind by a healed_by or regulates edge, and some require another practice first — so the graph can say what has to come before what.');
 
-themeSlide('the ideas', 'Concepts', `${C.concept} nodes, the bulk of the graph: her named ideas and framings, the ones the rest of the material hangs off.`, [
+themeSlide('the ideas', 'Concepts', '245 nodes, the bulk of the graph: her named ideas and framings, the ones the rest of the material hangs off.', [
   ['concept', M.concept.slice(0, 4)],
 ], 'Concepts are where her own vocabulary lives, and where a reader most often needs a definition rather than a diagram.');
+
+/* ============================================================= mirrors */
+{
+  const s = slide();
+  let y = heading(s, 'the useful one', 'Mirrors');
+  y = lede(s,
+    'The predicate that pairs a move in one style with its counterpart in another. It is the most useful relationship in the graph when helping someone, because it describes a pattern without claiming anything about who is running it.',
+    y, { h: 0.75, w: CW * 0.8 });
+  const pairs = [
+    ['Affect Suppression', 'strategy', 'Amplifying The Signal', 'strategy', 'The avoidant move and the anxious move are the same move — turning the volume of a feeling down, or up, so that it does what is needed.'],
+    ['Deactivating Strategies', 'strategy', 'Hyperactivating Strategies', 'strategy', 'Both are responses to growing dependency. One scans for cost, the other for signs the bond is at risk.'],
+    ['Attachment-Seeking Met With Hostility', 'origin', 'Inconsistent Responsiveness', 'origin', 'Two developmental conditions that produce opposite adaptations from the same unmet need.'],
+  ];
+  pairs.forEach(([a, ta, b, tb, note], i) => {
+    const yy = 2.9 + i * 1.3;
+    card(s, { x: MX, y: yy, w: CW, h: 1.15 });
+    s.addShape(p.ShapeType.ellipse, { x: MX + 0.3, y: yy + 0.28, w: 0.18, h: 0.18, fill: { color: T[ta] }, line: { width: 0 } });
+    s.addText(a, { x: MX + 0.58, y: yy + 0.2, w: 3.6, h: 0.32, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
+    s.addText('⟷', { x: MX + 4.25, y: yy + 0.2, w: 0.4, h: 0.32, fontSize: 15, color: ACCENT, fontFace: BODY, align: 'center', isTextBox: true, margin: 0 });
+    s.addShape(p.ShapeType.ellipse, { x: MX + 4.78, y: yy + 0.28, w: 0.18, h: 0.18, fill: { color: T[tb] }, line: { width: 0 } });
+    s.addText(b, { x: MX + 5.06, y: yy + 0.2, w: 3.7, h: 0.32, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
+    s.addText(note, { x: MX + 0.58, y: yy + 0.58, w: CW - 1.0, h: 0.5, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0 });
+  });
+  s.addText(
+    `${M.counts.byPredicate.mirrors} mirror edges. None of them says who is which.`,
+    { x: MX, y: 6.82, w: CW, h: 0.35, fontSize: 12, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 },
+  );
+}
 
 /* ============================================================= loops */
 {
@@ -740,61 +563,6 @@ themeSlide('the ideas', 'Concepts', `${C.concept} nodes, the bulk of the graph: 
   });
 }
 
-/* ============================================================= loop, drawn */
-{
-  const s = slide();
-  let y = heading(s, 'a loop, up close', 'Why it keeps running');
-  // The one in the screenshot, chosen by its contents rather than its position,
-  // so the caption cannot end up describing a different loop than the picture.
-  const cyc = M.cycles.find((c) => c.nodes.includes('Preemptive Sabotage'))
-    || M.cycles.find((c) => c.len === 6) || M.cycles[0];
-  s.addImage({ path: 'scripts/deck/assets/deck-loop.png', x: MX, y: 1.62, w: 7.3, h: 3.44 });
-  s.addText(cyc.nodes.join('  →  ') + '  →  and round again', {
-    x: MX, y: 5.05, w: 7.3, h: 0.8, fontSize: 11, italic: true, color: FAINT, fontFace: BODY, lineSpacing: 15, isTextBox: true, margin: 0,
-  });
-  s.addText(`${cyc.len} steps, alternating between the two people in it. The explorer draws a loop as a loop rather than as a list.`, {
-    x: MX, y: 5.95, w: 7.3, h: 0.6, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16, isTextBox: true, margin: 0,
-  });
-  const pts = [
-    ['Nobody wrote this loop down', 'It was found by searching the causal edges for a closed chain. The notes were written one at a time, from different videos; the cycle is a property of what they say, not something asserted on a slide.'],
-    ['Each step is somebody’s move', 'The loop above alternates between the two people in it. That is what makes it survive good intentions: each person is responding reasonably to the step before.'],
-    ['This is the thing to interrupt', 'A pattern that closes on itself does not need new fuel. Asking where a loop can be broken is a better question than asking whose fault it is, and the healed_by edges answer it.'],
-  ];
-  pts.forEach(([t, d], i) => {
-    const yy = 1.62 + i * 1.72;
-    s.addText(t, { x: 8.3, y: yy, w: CW - 7.58, h: 0.34, fontSize: 12.5, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(d, { x: 8.3, y: yy + 0.36, w: CW - 7.58, h: 1.3, fontSize: 10.5, color: MUTED, fontFace: BODY, lineSpacing: 15, isTextBox: true, margin: 0 });
-  });
-}
-
-/* ============================================================= mirrors */
-{
-  const s = slide();
-  let y = heading(s, 'the useful one', 'Mirrors');
-  y = lede(s,
-    'The predicate that pairs a move in one style with its counterpart in another. It is the most useful relationship in the graph when helping someone, because it describes a pattern without claiming anything about who is running it.',
-    y, { h: 0.75, w: CW * 0.8 });
-  const pairs = [
-    ['Affect Suppression', 'strategy', 'Amplifying The Signal', 'strategy', 'The avoidant move and the anxious move are the same move — turning the volume of a feeling down, or up, so that it does what is needed.'],
-    ['Deactivating Strategies', 'strategy', 'Hyperactivating Strategies', 'strategy', 'Both are responses to growing dependency. One scans for cost, the other for signs the bond is at risk.'],
-    ['Attachment-Seeking Met With Hostility', 'origin', 'Inconsistent Responsiveness', 'origin', 'Two developmental conditions that produce opposite adaptations from the same unmet need.'],
-  ];
-  pairs.forEach(([a, ta, b, tb, note], i) => {
-    const yy = 2.9 + i * 1.3;
-    card(s, { x: MX, y: yy, w: CW, h: 1.15 });
-    s.addShape(p.ShapeType.ellipse, { x: MX + 0.3, y: yy + 0.28, w: 0.18, h: 0.18, fill: { color: T[ta] }, line: { width: 0 } });
-    s.addText(a, { x: MX + 0.58, y: yy + 0.2, w: 3.6, h: 0.32, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText('⟷', { x: MX + 4.25, y: yy + 0.2, w: 0.4, h: 0.32, fontSize: 15, color: ACCENT, fontFace: BODY, align: 'center', isTextBox: true, margin: 0 });
-    s.addShape(p.ShapeType.ellipse, { x: MX + 4.78, y: yy + 0.28, w: 0.18, h: 0.18, fill: { color: T[tb] }, line: { width: 0 } });
-    s.addText(b, { x: MX + 5.06, y: yy + 0.2, w: 3.7, h: 0.32, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
-    s.addText(note, { x: MX + 0.58, y: yy + 0.58, w: CW - 1.0, h: 0.5, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0 });
-  });
-  s.addText(
-    `${M.counts.byPredicate.mirrors} mirror edges. None of them says who is which.`,
-    { x: MX, y: 6.82, w: CW, h: 0.35, fontSize: 12, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 },
-  );
-}
-
 /* ============================================================= lenses */
 {
   const s = slide();
@@ -833,47 +601,6 @@ themeSlide('the ideas', 'Concepts', `${C.concept} nodes, the bulk of the graph: 
   });
 }
 
-/* ============================================================= 9. why typed */
-{
-  const s = slide();
-  let y = heading(s, 'why bother', 'A link graph says "related". This says how.');
-  const cols = [
-    ['An ordinary link graph', LINE, MUTED, [
-      'Affect Suppression — Contempt',
-      'Affect Suppression — Unregistered Hurt',
-      'Affect Suppression — Self-Regulation',
-      'Affect Suppression — Amplifying The Signal',
-    ], 'Four undifferentiated links. You cannot tell what any of them mean, so you cannot answer a question with them.'],
-    ['The same node, typed', ACCENT, INK, [
-      'manifests_as → Looking Down On The Partner',
-      'deactivates → Unregistered Hurt',
-      'mistaken_for → Self-Regulation',
-      'mirrors → Amplifying The Signal',
-    ], 'Now each link answers a different question: what it looks like from outside, what it shuts off, what it gets confused with, and what the anxious equivalent is.'],
-  ];
-  cols.forEach(([t, edge, txt, rows, note], i) => {
-    const x = MX + i * 6.2;
-    card(s, { x, y: 1.72, w: 5.7, h: 3.0, fill: i ? WHITE : TINT });
-    s.addText(t, { x: x + 0.32, y: 1.98, w: 5.2, h: 0.3, fontSize: 14.5, bold: true, color: i ? ACCENT : MUTED, fontFace: BODY, isTextBox: true, margin: 0 });
-    rows.forEach((r, j) => {
-      const parts = r.split(' → ');
-      if (parts.length === 2) {
-        s.addText([
-          { text: parts[0], options: { fontFace: 'Courier New', fontSize: 10, bold: true, color: ACCENT } },
-          { text: '  ' + parts[1], options: { fontFace: BODY, fontSize: 11.5, color: txt } },
-        ], { x: x + 0.32, y: 2.45 + j * 0.44, w: 5.2, h: 0.34, isTextBox: true, margin: 0 });
-      } else {
-        s.addText(r, { x: x + 0.32, y: 2.45 + j * 0.44, w: 5.2, h: 0.34, fontSize: 11.5, color: txt, fontFace: BODY, isTextBox: true, margin: 0 });
-      }
-    });
-    s.addText(note, { x, y: 4.9, w: 5.7, h: 1.1, fontSize: 12, color: MUTED, fontFace: BODY, lineSpacing: 17.5, isTextBox: true, margin: 0 });
-  });
-  s.addText(
-    'This is also what makes the corpus usable by a model: it can walk a mechanism rather than pattern-match a topic.',
-    { x: MX, y: 6.35, w: CW, h: 0.4, fontSize: 13, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 },
-  );
-}
-
 /* ============================================================= markers */
 {
   const s = slide();
@@ -896,13 +623,225 @@ themeSlide('the ideas', 'Concepts', `${C.concept} nodes, the bulk of the graph: 
   });
 }
 
+/* ============================================================= divider 2 */
+{
+  const s = slide(true);
+  s.addText('How it works', { x: MX, y: 2.9, w: 8, h: 0.9, fontSize: 44, bold: true, color: WHITE, fontFace: HEAD, isTextBox: true, margin: 0 });
+  s.addText('The pipeline, what is checked, and what an assistant is actually handed.', {
+    x: MX, y: 3.95, w: 7.4, h: 0.5, fontSize: 14, color: '9C98A8', fontFace: BODY, isTextBox: true, margin: 0,
+  });
+}
+
+/* ============================================================= pipeline */
+{
+  const s = slide();
+  let y = heading(s, 'the build', 'From a transcript to three surfaces');
+  const steps = [
+    ['Transcript', 'Pulled per video. Working input only — gitignored, never committed, never published.'],
+    ['Mining', 'Claims read out by hand into notes: a gloss, a lens map, and typed edges with timestamps.'],
+    ['Validate', 'A closed vocabulary, enforced. Domain and range checked on every edge; nothing lands that fails.'],
+    ['Build', 'Quartz renders the notes; scripts emit the graph JSON, the explorer, the toolbox and the agent kit.'],
+    ['Check', 'A smoke test over the published HTML — not the source — then it deploys.'],
+  ];
+  const bw = (CW - 4 * 0.38) / 5;
+  steps.forEach(([t, d], i) => {
+    const x = MX + i * (bw + 0.38);
+    card(s, { x, y: 1.9, w: bw, h: 2.55 });
+    s.addText(String(i + 1), {
+      x: x + 0.24, y: 2.1, w: 0.5, h: 0.4, fontSize: 22, bold: true, color: ACCENT, fontFace: HEAD, isTextBox: true, margin: 0,
+    });
+    s.addText(t, { x: x + 0.24, y: 2.58, w: bw - 0.48, h: 0.3, fontSize: 14, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
+    s.addText(d, { x: x + 0.24, y: 2.92, w: bw - 0.48, h: 1.4, fontSize: 10.5, color: MUTED, fontFace: BODY, lineSpacing: 14.5, isTextBox: true, margin: 0 });
+    if (i < 4) {
+      s.addShape(p.ShapeType.line, {
+        x: x + bw + 0.08, y: 3.15, w: 0.22, h: 0,
+        line: { color: FAINT, width: 1.25, endArrowType: 'triangle' },
+      });
+    }
+  });
+  s.addText('Everything downstream is generated', {
+    x: MX, y: 4.85, w: CW, h: 0.32, fontSize: 15, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0,
+  });
+  s.addText(
+    'The site, the explorer data, the toolbox, the agent kit and this deck are all emitted from the notes by script. Nothing is maintained in two places, so nothing can drift — and the same pipeline runs locally and in CI, so what deploys is what was tested.',
+    { x: MX, y: 5.25, w: 7.4, h: 1.2, fontSize: 12.5, color: MUTED, fontFace: BODY, lineSpacing: 18.5, isTextBox: true, margin: 0 },
+  );
+  s.addText('Zero runtime dependencies', {
+    x: 8.6, y: 4.85, w: 4.0, h: 0.32, fontSize: 15, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0,
+  });
+  s.addText(
+    'The note format is parsed by hand-written code — no YAML library, no graph database, no server. The published site is static files, which is also why the whole thing can be handed to an assistant as a folder.',
+    { x: 8.6, y: 5.25, w: 4.0, h: 1.2, fontSize: 12.5, color: MUTED, fontFace: BODY, lineSpacing: 18.5, isTextBox: true, margin: 0 },
+  );
+}
+
+/* ============================================================= validator */
+{
+  const s = slide();
+  let y = heading(s, 'what is enforced', 'The checks that refuse a change');
+  const checks = [
+    ['Closed vocabulary', 'Eleven node types, sixteen predicates. Anything else is rejected outright.'],
+    ['Domain and range', 'A practice cannot trigger anything; only a belief can sustain a strategy. Every edge is checked against the table.'],
+    ['Every link resolves', 'A wikilink to a title that does not exist fails the build rather than publishing a dead end.'],
+    ['No dead ends in a flow', 'A step that is not an exit must lead somewhere, and every step must be reachable from the first.'],
+    ['The safety gate comes first', 'A flow whose reframe step sits before its safety gate is rejected. The rule is structural, not remembered.'],
+    ['The published site', 'A smoke test over the built HTML: no unexpanded templates, no empty sections, no page the home page fails to link to.'],
+  ];
+  checks.forEach(([t, d], i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const x = MX + col * 6.2, yy = 1.75 + row * 1.62;
+    card(s, { x, y: yy, w: 5.7, h: 1.42 });
+    s.addText(t, { x: x + 0.3, y: yy + 0.2, w: 5.25, h: 0.3, fontSize: 13.5, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0 });
+    s.addText(d, { x: x + 0.3, y: yy + 0.55, w: 5.25, h: 0.75, fontSize: 11, color: MUTED, fontFace: BODY, lineSpacing: 15.5, isTextBox: true, margin: 0 });
+  });
+  s.addText(
+    'The last one exists because every presentation defect this project has had was found by a person looking, not by a check. The data was always validated; what shipped was not.',
+    { x: MX, y: 6.7, w: CW, h: 0.5, fontSize: 11.5, italic: true, color: FAINT, fontFace: BODY, lineSpacing: 16, isTextBox: true, margin: 0 },
+  );
+}
+
+/* ============================================================= safety */
+{
+  const s = slide(true);
+  heading(s, 'the constraints', 'Seven rules, and one of them is code', { dark: true, size: 34 });
+  s.addText(
+    'Anything built on this graph inherits these. They are in the repo, they are shipped inside the agent kit, and the first one is enforced by the flow validator rather than trusted to memory.',
+    { x: MX, y: 1.85, w: 8.6, h: 0.85, fontSize: 13.5, color: 'A9A5B4', fontFace: BODY, lineSpacing: 20, isTextBox: true, margin: 0 },
+  );
+  const rules = [
+    ['Screen before you reframe', 'Patterns amplify real signals; they do not manufacture them. Establish nothing is actually happening first.'],
+    ['Never tell anyone their style', 'Not as a guess, not as "this sounds like". Recognition, not classification.'],
+    ['Never type an absent partner', 'The person in the room is the only one whose interior is available.'],
+    ['Cite it or do not say it', 'Untraceable claims get flagged as inference or left out.'],
+    ['No diagnosis, no quiz, no scoring', 'No instrument that outputs a category.'],
+    ['Hand off in a crisis', 'Distress above the working range needs a person, not a decision tree.'],
+    ['Not therapy, and no expertise claimed', 'Priebe states her own position plainly. Anything built on the corpus inherits that ceiling.'],
+  ];
+  rules.forEach(([t, d], i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const x = MX + col * 6.2, yy = 3.0 + row * 1.03;
+    s.addText(String(i + 1), {
+      x, y: yy, w: 0.32, h: 0.28, fontSize: 12, bold: true, color: '9E86E8', fontFace: HEAD, isTextBox: true, margin: 0,
+    });
+    s.addText(t, { x: x + 0.34, y: yy, w: 5.5, h: 0.28, fontSize: 12.5, bold: true, color: WHITE, fontFace: BODY, isTextBox: true, margin: 0 });
+    s.addText(d, { x: x + 0.34, y: yy + 0.29, w: 5.5, h: 0.6, fontSize: 10.5, color: '918D9D', fontFace: BODY, lineSpacing: 14, isTextBox: true, margin: 0 });
+  });
+}
+
+/* ============================================================= toolbox */
+{
+  const s = slide();
+  let y = heading(s, 'the toolbox', 'Twelve flows, for when it is happening now');
+  y = lede(s,
+    'Each flow is data, not prose: a sequence of questions with branches, validated like everything else. It asks; it does not score, diagnose or advise. 141 steps across the twelve, citing 117 nodes.',
+    y, { h: 0.65, w: CW * 0.84 });
+  const flows = [
+    'I think they’re pulling away',
+    'I want to message them again',
+    'We keep having the same fight',
+    'I’ve gone cold on someone and I don’t know why',
+    'They asked for space and I’m spiralling',
+    'I feel nothing and I think I should',
+    'I’m angry and I can’t tell if it’s proportionate',
+    'They say I hurt them and I don’t see it',
+    'I want to end it and I don’t know if that’s real',
+    'I’m thinking about getting back together with them',
+    'There’s something I want to say and it feels too small',
+    'I messed up and I don’t know what to do now',
+  ];
+  flows.forEach((f, i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const x = MX + col * 6.2, yy = 2.62 + row * 0.42;
+    s.addShape(p.ShapeType.ellipse, { x, y: yy + 0.09, w: 0.13, h: 0.13, fill: { color: T.practice }, line: { width: 0 } });
+    s.addText('“' + f + '”', {
+      x: x + 0.26, y: yy, w: 5.9, h: 0.32, fontSize: 12, color: INK, fontFace: BODY, isTextBox: true, margin: 0,
+    });
+  });
+  card(s, { x: MX, y: 5.3, w: CW, h: 1.55 });
+  s.addText('Every one of them opens with a gate', {
+    x: MX + 0.32, y: 5.52, w: CW - 0.64, h: 0.3, fontSize: 14, bold: true, color: INK, fontFace: BODY, isTextBox: true, margin: 0,
+  });
+  s.addText(
+    'Before any attachment reading is offered, the flow asks whether something real may be happening — and stops if it might be. It cuts both ways: an anxious-leaning flow stops when the alarm is correct, and an avoidant-leaning one stops when there is a genuine reason to leave. In "They say I hurt them and I don’t see it", answering that you almost always end up at fault routes to a stop that says more self-scrutiny will deepen the imbalance.',
+    { x: MX + 0.32, y: 5.88, w: CW - 0.64, h: 0.9, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 },
+  );
+}
+
+/* ============================================================= agent kit */
+{
+  const s = slide();
+  let y = heading(s, 'the agent kit', 'What an assistant is handed');
+  y = lede(s,
+    'A static folder at /agent/. No query endpoint and no server — at this size there does not need to be one.',
+    y, { h: 0.45, w: CW * 0.8 });
+  const files = [
+    ['graph.json', '820 KB', 'The whole graph. Fetch it and traverse it — fine for a program, far too much for a context window.'],
+    ['context/', '~110k tokens', 'The same graph as markdown, sliced so it can be loaded one piece at a time.'],
+    ['nodes.tsv', '115 KB', 'id, type, title, gloss — one line per node, for deciding what to look at.'],
+    ['operating-rules.md', 'binding', 'The seven rules. Shipped with the data so they travel with it.'],
+    ['schema.json', 'reference', 'The closed vocabulary, so a consumer can check rather than guess.'],
+    ['flows.json', '12 flows', 'The decision flows behind the toolbox, with their gates intact.'],
+  ];
+  files.forEach(([f, tag, d], i) => {
+    const yy = 2.36 + i * 0.66;
+    s.addText(f, { x: MX, y: yy, w: 2.5, h: 0.28, fontSize: 12, bold: true, color: ACCENT, fontFace: 'Courier New', lineSpacing: 16, isTextBox: true, margin: 0 });
+    s.addText(tag, { x: MX + 2.55, y: yy, w: 1.3, h: 0.26, fontSize: 10.5, color: FAINT, fontFace: BODY, lineSpacing: 16, isTextBox: true, margin: 0 });
+    s.addText(d, { x: MX + 3.95, y: yy, w: 8.65 - MX - 0.4, h: 0.6, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16, isTextBox: true, margin: 0 });
+  });
+  card(s, { x: MX, y: 6.32, w: CW, h: 0.66, fill: TINT });
+  s.addText(
+    'The README is the contract: node and edge shape, all sixteen predicates with domain and range, what the lenses mean, and what not to do with any of it.',
+    { x: MX + 0.32, y: 6.32, w: CW - 0.64, h: 0.66, fontSize: 11.5, color: MUTED, fontFace: BODY, valign: 'middle', isTextBox: true, margin: 0 },
+  );
+}
+
+/* ============================================================= two modes */
+{
+  const s = slide();
+  let y = heading(s, 'the two modes', 'Talking about it, and wandering through it');
+  s.addImage({ path: 'scripts/deck/assets/deck-discussion.png', x: MX, y: 1.55, w: 5.9, h: 3.46 });
+  s.addText('Discussion', { x: MX, y: 5.28, w: 5.9, h: 0.3, fontSize: 15, bold: true, color: ACCENT, fontFace: BODY, isTextBox: true, margin: 0 });
+  s.addText(
+    'The assistant picks the nodes and writes a link. The page opens on exactly those, highlighted, with its sentence above them. No server and no socket — the URL is the transport, so it works on a static host and with any assistant that can type.',
+    { x: MX, y: 5.62, w: 5.9, h: 1.35, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 },
+  );
+  s.addImage({ path: 'scripts/deck/assets/deck-explore.png', x: 6.72, y: 1.55, w: 5.9, h: 3.46 });
+  s.addText('Exploration', { x: 6.72, y: 5.28, w: 5.9, h: 0.3, fontSize: 15, bold: true, color: ACCENT, fontFace: BODY, isTextBox: true, margin: 0 });
+  s.addText(
+    'You take over. Click any neighbour to re-centre on it, filter by relationship family or by lens, trace the shortest path between two ideas, or step through a loop. The back button walks your path.',
+    { x: 6.72, y: 5.62, w: 5.9, h: 1.35, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 },
+  );
+}
+
+/* ============================================================= limits */
+{
+  const s = slide();
+  let y = heading(s, 'honesty', 'What this is not');
+  const lim = [
+    ['One person’s corpus', 'Everything here is Heidi Priebe’s framing. It is not a survey of attachment research, and where she diverges from the literature the graph records her, faithfully, without adjudicating.'],
+    ['A ceiling inherited from the source', 'She states her own position plainly — largely self-taught, doing a master’s, not an expert. Anything built on the corpus inherits that and should not present itself as clinical guidance.'],
+    ['101 nodes marked "literature" are unverified', 'They are labelled as standard attachment theory because she presents them that way. Checking them against the primary literature is parked, deliberately, and the label says where an idea came from — not how well established it is.'],
+    ['Not a diagnosis, not a test', 'Nothing outputs a category. If it ever does, that is a bug in something built on it, not a feature of the graph.'],
+    ['Derivative, and dependent', 'This is an index into her work built to help someone re-find it, not to replace watching it. All credit for the ideas is hers.'],
+  ];
+  lim.forEach(([t, d], i) => {
+    const yy = 1.62 + i * 1.06;
+    s.addText(t, { x: MX, y: yy, w: 4.3, h: 0.62, fontSize: 13, bold: true, color: INK, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 });
+    s.addText(d, { x: 5.35, y: yy, w: CW - 4.63, h: 0.95, fontSize: 11.5, color: MUTED, fontFace: BODY, lineSpacing: 16.5, isTextBox: true, margin: 0 });
+  });
+  s.addText(
+    'Attachment styles are a framework for self-understanding, not a diagnosis, a personality type, or a fixed trait. Nothing here is therapy or a substitute for it.',
+    { x: MX, y: 6.8, w: CW, h: 0.4, fontSize: 11.5, italic: true, color: FAINT, fontFace: BODY, isTextBox: true, margin: 0 },
+  );
+}
+
 /* ============================================================= close */
 {
   const s = slide(true);
   s.addText('Where it goes next', { x: MX, y: 1.5, w: 8, h: 0.8, fontSize: 38, bold: true, color: WHITE, fontFace: HEAD, isTextBox: true, margin: 0 });
   const next = [
     ['Extend beyond one voice', 'The schema already carries an attribution field and a source type. Adding a second corpus is a matter of mining, not redesign.'],
-    ['Verify the literature nodes', `Check the ${M.attribution.literature} nodes marked "literature" against the primary sources, and record the result separately from where the idea came from.`],
+    ['Verify the literature nodes', 'Check the 101 nodes marked "literature" against the primary sources, and record the result separately from where the idea came from.'],
     ['Sharpen the assistant side', 'The kit gives a model the data and the rules. What it does not yet give is worked examples of using them well.'],
   ];
   next.forEach(([t, d], i) => {
@@ -916,7 +855,7 @@ themeSlide('the ideas', 'Concepts', `${C.concept} nodes, the bulk of the graph: 
   s.addText('youtube.com/@heidipriebe1', {
     x: MX, y: 5.88, w: 8.5, h: 0.32, fontSize: 12.5, color: '9E86E8', fontFace: BODY, isTextBox: true, margin: 0,
   });
-  s.addText('The site and the material the assistant reads are one static build from one set of notes.', {
+  s.addText('The site, the toolbox and the agent kit are one static build from one set of notes.', {
     x: MX, y: 6.45, w: 9.5, h: 0.35, fontSize: 11.5, color: '76727F', fontFace: BODY, isTextBox: true, margin: 0,
   });
   ['trigger', 'state', 'strategy', 'behavior', 'belief', 'origin', 'practice', 'concept'].forEach((k, i) => {

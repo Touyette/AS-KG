@@ -1,7 +1,7 @@
 // Smoke test over the *published* output, not the source.
 //
 // Every presentation defect this project has had — entry pages that rendered
-// "Nothing here yet", a page nothing linked to, a CI job missing a build
+// "Nothing here yet", a toolbox nothing linked to, a CI job missing a build
 // step — was found by a person looking at the site. The validator checks the
 // data; this checks what actually shipped. Run it last, and let it fail the
 // build.
@@ -27,6 +27,8 @@ const need = (p, minBytes = 0) => {
 need('index.html', 2000);
 need('typed-graph/index.html', 3000);
 need('typed-graph/explorer.js', 8000);
+need('toolbox/index.html', 500);
+need('toolbox/toolbox.js', 500);
 need('agent/index.html', 2000);
 need('agent/README.md', 3000);
 need('agent/nodes.tsv', 10000);
@@ -55,7 +57,7 @@ for (const [p, check] of [
 
 /* nothing published should still be reachable only by typing the URL */
 const home = read('index.html') ?? '';
-for (const target of ['typed-graph', 'agent']) {
+for (const target of ['typed-graph', 'toolbox', 'agent']) {
   if (!new RegExp(`href="[^"]*${target}/?"`).test(home)) {
     fail(`the home page does not link to /${target}/ — it is unreachable`);
   }
@@ -65,7 +67,7 @@ for (const target of ['typed-graph', 'agent']) {
    one into view it re-inserts its <script src> resolved against the URL you
    came from, so a relative src 404s and the page hangs on its own spinner.
    This shipped once; it does not get to ship twice. */
-for (const page of ['typed-graph/index.html']) {
+for (const page of ['typed-graph/index.html', 'toolbox/index.html']) {
   const body = read(page);
   if (body === null) continue;
   for (const m of body.matchAll(/<script[^>]*\ssrc="([^"]+)"/g)) {
@@ -76,7 +78,7 @@ for (const page of ['typed-graph/index.html']) {
 }
 
 /* and the links to them must opt out of routing entirely */
-for (const target of ['typed-graph', 'agent']) {
+for (const target of ['typed-graph', 'toolbox', 'agent']) {
   const re = new RegExp(`<a[^>]*href="[^"]*${target}/?"[^>]*>`);
   const tag = (read('index.html') ?? '').match(re);
   if (tag && !/data-router-ignore/.test(tag[0])) {
